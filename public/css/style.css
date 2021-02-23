@@ -1,0 +1,68 @@
+.homeNav{background:#ff5d00;}
+
+.header-above i {width: 30px;height: 30px;background: #ffffff;border-radius: 50%;
+    color: #111111;text-align: center;padding-top: 5px;margin: 5px;}
+.trh-social>li {display: inline;}
+
+.header-above li:after {content: '';position: absolute;top: 0;bottom: 0; width: 1px;height: 15px;margin: auto 0;background: #ffffff;}
+.header-above li:last-child:after {content: unset;}
+.w-75{width: 75%;}
+.logo a, .mobile-logo a {margin: auto 0;}
+.logo img {max-width: 140px;}
+.logo img {width: auto;float: none;margin: 0;}
+
+.carousel-open:checked + .carousel-item {position: static;opacity: 100;}
+.carousel-item {-webkit-transition: opacity 0.6s ease-out;transition: opacity 0.6s ease-out;}
+#carousel-1:checked ~ .control-1,
+#carousel-2:checked ~ .control-2,
+#carousel-3:checked ~ .control-3 {display: block;}
+.carousel-indicators {list-style: none;margin: 0;padding: 0;position: absolute;bottom: 2%;left: 0;right: 0;text-align: center;z-index: 10;}
+#carousel-1:checked ~ .control-1 ~ .carousel-indicators li:nth-child(1) .carousel-bullet,
+#carousel-2:checked ~ .control-2 ~ .carousel-indicators li:nth-child(2) .carousel-bullet,
+#carousel-3:checked ~ .control-3 ~ .carousel-indicators li:nth-child(3) .carousel-bullet {
+	color: #ff5d00;  /*Set to match the Tailwind colour you want the active one to be */ }
+/*.cursor-pointer:hover {background: red !important;}*/
+
+.infoButton{ margin: 3px 20px; 
+    -webkit-transition: 0.6s ease-out;
+    -moz-transition:  0.6s ease-out;
+    transition:  0.6s ease-out;}
+.infoButton:hover{    -webkit-transition: .3s;
+    -webkit-transform: rotateZ(720deg);
+  -moz-transform: rotateZ(720deg);
+  transform: rotateZ(720deg);
+}
+.servicesLine{width: 60px;
+    height: 3px;
+    float: right;
+    margin-top: 25px;
+    margin-left: 30px; background: #ff5d00}
+.w-32{width: 32%}
+
+.box1:hover{
+	background: linear-gradient(
+      rgb(66 58 53 / 79%), 
+      rgb(84 70 70 / 45%)
+    ),
+     url('../images/box1.png');
+
+
+
+}
+
+.box2:hover{
+	background-image: linear-gradient(
+      rgb(66 58 53 / 79%), 
+      rgb(84 70 70 / 45%)
+    ),url('../images/box1.png');
+
+}
+.box3:hover{
+	background:linear-gradient(
+      rgb(66 58 53 / 79%), 
+      rgb(84 70 70 / 45%)
+    ), url('../images/box1.png');
+}
+.mainDiv:hover .textColor {color:white}
+.carousel-open{display: none;}
+.featurBorder{border-right: 1px solid #d1d5db;border-bottom: 1px solid #d1d5db;}
