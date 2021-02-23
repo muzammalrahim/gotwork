@@ -35,14 +35,6 @@
         @include('layouts.ourfeatures')
         @include('layouts.footer')
         {{-- @include('test.test') --}}
-
-
-        
-
-
-
-
-
     </body>
 
 </html>
