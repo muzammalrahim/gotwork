@@ -5,10 +5,25 @@ module.exports = {
 
     theme: {
         extend: {
+            backgroundImage: theme => ({
+                'footer': "url('/images/footer/bg.jpg')",
+            }),
+
+            backgroundColor: theme => ({
+               ...theme('colors'),
+               'custom': '#f55d00',
+               'primary': '#3490dc',
+               'secondary': '#ffed4a',
+               'danger': '#e3342f',
+              }),
+
+            width: {
+                '123' : '30rem',
+            },
             fontFamily: {
                 sans: ['Nunito', ...defaultTheme.fontFamily.sans],
             },
-        },
+        }
     },
 
     variants: {
