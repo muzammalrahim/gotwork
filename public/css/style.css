@@ -6,7 +6,6 @@
 
 .header-above li:after {content: '';position: absolute;top: 0;bottom: 0; width: 1px;height: 15px;margin: auto 0;background: #ffffff;}
 .header-above li:last-child:after {content: unset;}
-.w-75{width: 75%;}
 .logo a, .mobile-logo a {margin: auto 0;}
 .logo img {max-width: 140px;}
 .logo img {width: auto;float: none;margin: 0;}
@@ -23,7 +22,7 @@
 	color: #ff5d00;  /*Set to match the Tailwind colour you want the active one to be */ }
 /*.cursor-pointer:hover {background: red !important;}*/
 
-.infoButton{ margin: 3px 20px; 
+.infoButton{ margin: 3px 20px;
     -webkit-transition: 0.6s ease-out;
     -moz-transition:  0.6s ease-out;
     transition:  0.6s ease-out;}
@@ -34,32 +33,28 @@
 }
 .servicesLine{width: 60px;
     height: 3px;
-    float: right;
+    /*float: right;*/
     margin-top: 25px;
     margin-left: 30px; background: #ff5d00}
 .w-32{width: 32%}
 
 .box1:hover{
 	background: linear-gradient(
-      rgb(66 58 53 / 79%), 
+      rgb(66 58 53 / 79%),
       rgb(84 70 70 / 45%)
     ),
      url('../images/box1.png');
-
-
-
 }
 
 .box2:hover{
 	background-image: linear-gradient(
-      rgb(66 58 53 / 79%), 
+      rgb(66 58 53 / 79%),
       rgb(84 70 70 / 45%)
     ),url('../images/box1.png');
-
 }
 .box3:hover{
 	background:linear-gradient(
-      rgb(66 58 53 / 79%), 
+      rgb(66 58 53 / 79%),
       rgb(84 70 70 / 45%)
     ), url('../images/box1.png');
 }
