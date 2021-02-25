@@ -4527,7 +4527,7 @@ select {
 }
 
 .bg-footer {
-  background-image: url('/images/footer/bg.jpg');
+  background-image: url('/gotwork/public/images/footer/bg.jpg');
 }
 
 .from-transparent {
@@ -35321,7 +35321,7 @@ select {
   }
 
   .sm\:bg-footer {
-    background-image: url('/images/footer/bg.jpg');
+    background-image: url('/gotwork/public/images/footer/bg.jpg');
   }
 
   .sm\:from-transparent {
@@ -66037,7 +66037,7 @@ select {
   }
 
   .md\:bg-footer {
-    background-image: url('/images/footer/bg.jpg');
+    background-image: url('/gotwork/public/images/footer/bg.jpg');
   }
 
   .md\:from-transparent {
@@ -96753,7 +96753,7 @@ select {
   }
 
   .lg\:bg-footer {
-    background-image: url('/images/footer/bg.jpg');
+    background-image: url('/gotwork/public/images/footer/bg.jpg');
   }
 
   .lg\:from-transparent {
@@ -127469,7 +127469,7 @@ select {
   }
 
   .xl\:bg-footer {
-    background-image: url('/images/footer/bg.jpg');
+    background-image: url('/gotwork/public/images/footer/bg.jpg');
   }
 
   .xl\:from-transparent {
@@ -158185,7 +158185,7 @@ select {
   }
 
   .\32xl\:bg-footer {
-    background-image: url('/images/footer/bg.jpg');
+    background-image: url('/gotwork/public/images/footer/bg.jpg');
   }
 
   .\32xl\:from-transparent {
