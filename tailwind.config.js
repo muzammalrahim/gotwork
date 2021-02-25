@@ -6,7 +6,7 @@ module.exports = {
     theme: {
         extend: {
             backgroundImage: theme => ({
-                'footer': "url('/images/footer/bg.jpg')",
+                'footer': "url('/gotwork/public/images/footer/bg.jpg')",
             }),
 
             backgroundColor: theme => ({

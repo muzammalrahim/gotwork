@@ -1,3 +1,4 @@
+@php $path = asset('/') @endphp
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
@@ -154,7 +155,7 @@
 @yield('content')
 <!-- Footer Start -->
 <section id="footer" class="relative">
-    <footer class="flex justify-center px-4 text-gray-100 bg-footer">
+    <footer class="flex justify-center px-4 text-gray-100" style="background-image: url('{{$path}}images/footer/bg.jpg');">
         <div class="container py-6 px-24">
             <div class="texts float-left">
                 <h3 class="text-lg font-bold lg:text-4xl">Become a Part of our Experts group</h3>
