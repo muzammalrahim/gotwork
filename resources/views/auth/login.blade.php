@@ -40,6 +40,8 @@
                 </label>
             </div>
 
+            
+
             <div class="flex items-center justify-end mt-4">
                 @if (Route::has('password.request'))
                     <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('password.request') }}">
@@ -56,6 +58,15 @@
                 <a href="{{ url('auth/google') }}">
                     <img src="https://developers.google.com/identity/images/btn_google_signin_dark_normal_web.png" style="margin-left: 3em;">
                 </a>
+            </div>
+
+            <!-- Register Page Link -->
+            <div class="block mt-4">
+                @if (Route::has('register'))
+                    <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('register') }}">
+                        ( {{ __('Click Me To Jump To Register Page') }} )
+                    </a>
+                @endif
             </div>
         </form>
     </x-auth-card>
