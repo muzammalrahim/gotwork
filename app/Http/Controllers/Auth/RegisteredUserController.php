@@ -9,6 +9,7 @@ use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Mail;
 
 class RegisteredUserController extends Controller
 {
@@ -46,7 +47,25 @@ class RegisteredUserController extends Controller
         ]));
 
         
-        event(new Registered($user));
+        $my_evet = event(new Registered($user));
+
+        if ( $user ) {
+
+            $to_name = $user->name;
+            $to_email = $user->email;
+            
+            $data = array( 
+                "name" => $to_name, 
+                "body" => " Welcome " .$to_name. ", Your Account has been Registered Successfully. 
+            ");
+
+            $mail = Mail::send('emails.welcome', $data, function($message) use ($to_name, $to_email) {
+            $message->to($to_email, $to_name)
+            ->subject('Account Registered Successfully');
+            $message->from('syedzeeshanniaz@gmail.com','Account Registration On Got Work.');
+            });
+        }
+
         
         return redirect(RouteServiceProvider::HOME);
     }

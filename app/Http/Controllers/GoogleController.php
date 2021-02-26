@@ -7,6 +7,8 @@ use Laravel\Socialite\Facades\Socialite;
 use Exception;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Response;
+use Mail;
 
 class GoogleController extends Controller
 {
@@ -49,6 +51,24 @@ class GoogleController extends Controller
                     'password' => encrypt('123456dummy'),
                     'profile_photo_url' => $user->avatar_original,
                 ]);
+
+                if ($newUser) {
+
+                    $to_name = $newUser->name;
+                    $to_email = $newUser->email;
+                    
+                    $data = array( 
+                        "name" => $to_name, 
+                        "body" => " Welcome " .$to_name. ", Your Account has been Registered Successfully. 
+                    ");
+
+                    $mail = Mail::send('emails.welcome', $data, function($message) use ($to_name, $to_email) {
+                    $message->to($to_email, $to_name)
+                    ->subject('Account Registered Successfully');
+                    $message->from('syedzeeshanniaz@gmail.com','Account Registration On Got Work.');
+                    });
+                    
+                }
       
                 Auth::login($newUser);
       
@@ -56,7 +76,16 @@ class GoogleController extends Controller
            }
       
         } catch (Exception $e) {
-            dd($e->getMessage());
+            // dd($e->getMessage());
+            $error_code = $e->getCode();
+            if($error_code == 400) {
+                dd($e->getCode().', Bad Request.');
+            } elseif($error_code == 502) {
+                dd($e->getCode().', Bad gateway.');
+            } elseif ($error_code == 401) {
+                dd($e->getCode().', Failed to authenticate.');
+            }  
+            
         }
     }
 }
