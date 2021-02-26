@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\GoogleController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -28,5 +29,7 @@ Route::get('/auth/google/callback', [GoogleController::class, 'handleGoogleCallb
 require __DIR__.'/auth.php';
 
 Route::get('/dashboard', [DashboardController::class, 'goToDashboard'])->middleware(['auth'])->name('dashboard');
+
+Route::get('/profile', [ProfileController::class, 'goToProfile'])->middleware(['auth'])->name('profile');
 
 
