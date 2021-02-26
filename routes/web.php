@@ -2,6 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\GoogleController;
+use App\Http\Controllers\DashboardController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,9 +20,13 @@ Route::get('/', function () {
     return view('home');
 });
 
-
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+// Login With Google
+Route::get('auth/google', [GoogleController::class, 'redirectToGoogle']);
+Route::get('/auth/google/callback', [GoogleController::class, 'handleGoogleCallback']);
+// End Login With Google
 
 require __DIR__.'/auth.php';
+
+Route::get('/dashboard', [DashboardController::class, 'goToDashboard'])->middleware(['auth'])->name('dashboard');
+
+
