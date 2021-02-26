@@ -60,7 +60,14 @@
                 </a>
             </div>
 
-            
+            <!-- Register Page Link -->
+            <div class="block mt-4">
+                @if (Route::has('register'))
+                    <a class="underline text-sm text-gray-600 hover:text-gray-900" href="{{ route('register') }}">
+                        ( {{ __('Click Me To Jump To Register Page') }} )
+                    </a>
+                @endif
+            </div>
         </form>
     </x-auth-card>
 </x-guest-layout>
