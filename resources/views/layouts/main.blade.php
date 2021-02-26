@@ -134,7 +134,7 @@
                 <div class="h-12 text-sm text-grey-dark flex float-right">
                     <p>About us</p>
                     @if (Route::has('login'))
-                        <div class="hidden absolute top-0 right-0 px-6 py-4 sm:block">
+                        <div class="hidden top-0 right-0 px-6 sm:block">
                             @auth
                                 <a href="{{ url('/dashboard') }}" class="text-sm text-gray-700">Dashboard</a>
                             @else
