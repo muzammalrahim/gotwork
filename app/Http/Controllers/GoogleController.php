@@ -25,41 +25,32 @@ class GoogleController extends Controller
         try {
         	// Getting Current DateTime
         	$currentDateTime = \Carbon\Carbon::now()->toDateTimeString();
-        	
+
         	// Getting User Details From Google
             $user = Socialite::driver('google')->stateless()->user();
-       		
        		// Finding User In Our DB
             $finduser = User::where('google_id', $user->id)->first();
 
-            // dd("DB User Id ". User::find($user->id));
-       		
-
           	if($finduser){ // If User Already Exists Jump To Dashboard
-       
                 Auth::login($finduser);
-      
                 return redirect()->intended('dashboard');
-       
             } else { // If User Not Already Exists Then Save Data From Google
-			
                 $newUser = User::create([
                     'name' => $user->name,
                     'email' => $user->email,
                     'email_verified_at' => $currentDateTime,
                     'google_id'=> $user->id,
-                    'password' => encrypt('123456dummy'),
+//                    'password' => encrypt('123456dummy'),
                     'profile_photo_url' => $user->avatar_original,
                 ]);
-
                 if ($newUser) {
 
                     $to_name = $newUser->name;
                     $to_email = $newUser->email;
-                    
-                    $data = array( 
-                        "name" => $to_name, 
-                        "body" => " Welcome " .$to_name. ", Your Account has been Registered Successfully. 
+
+                    $data = array(
+                        "name" => $to_name,
+                        "body" => " Welcome " .$to_name. ", Your Account has been Registered Successfully.
                     ");
 
                     $mail = Mail::send('emails.welcome', $data, function($message) use ($to_name, $to_email) {
@@ -67,14 +58,14 @@ class GoogleController extends Controller
                     ->subject('Account Registered Successfully');
                     $message->from('syedzeeshanniaz@gmail.com','Account Registration On Got Work.');
                     });
-                    
+
                 }
-      
+
                 Auth::login($newUser);
-      
+
                 return redirect()->intended('dashboard');
            }
-      
+
         } catch (Exception $e) {
             // dd($e->getMessage());
             $error_code = $e->getCode();
@@ -84,8 +75,8 @@ class GoogleController extends Controller
                 dd($e->getCode().', Bad gateway.');
             } elseif ($error_code == 401) {
                 dd($e->getCode().', Failed to authenticate.');
-            }  
-            
+            }
+
         }
     }
 }
