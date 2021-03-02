@@ -19,7 +19,7 @@ use App\Http\Controllers\ProfileController;
 
 Route::get('/', function () {
     return view('home');
-});
+})->name('home');
 
 // Login With Google
 Route::get('auth/google', [GoogleController::class, 'redirectToGoogle']);
