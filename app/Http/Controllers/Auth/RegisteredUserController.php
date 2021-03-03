@@ -33,7 +33,6 @@ class RegisteredUserController extends Controller
      */
     public function store(Request $request)
     {
-
         $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
@@ -46,27 +45,27 @@ class RegisteredUserController extends Controller
             'password' => Hash::make($request->password),
         ]));
 
-        
+
         $my_evet = event(new Registered($user));
 
         if ( $user ) {
 
             $to_name = $user->name;
             $to_email = $user->email;
-            
-            $data = array( 
-                "name" => $to_name, 
-                "body" => " Welcome " .$to_name. ", Your Account has been Registered Successfully. 
+
+            $data = array(
+                "name" => $to_name,
+                "body" => " Welcome " .$to_name. ", Your Account has been Registered Successfully.
             ");
 
             $mail = Mail::send('emails.welcome', $data, function($message) use ($to_name, $to_email) {
             $message->to($to_email, $to_name)
             ->subject('Account Registered Successfully');
-            $message->from('syedzeeshanniaz@gmail.com','Account Registration On Got Work.');
+            $message->from(env('MAIL_FROM_ADDRESS'),'Account Registration On Got Work.');
             });
         }
 
-        
+
         return redirect(RouteServiceProvider::HOME);
     }
 }
