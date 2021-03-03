@@ -56,14 +56,14 @@ class GoogleController extends Controller
                     $mail = Mail::send('emails.welcome', $data, function($message) use ($to_name, $to_email) {
                     $message->to($to_email, $to_name)
                     ->subject('Account Registered Successfully');
-                    $message->from('syedzeeshanniaz@gmail.com','Account Registration On Got Work.');
+                    $message->from(env('mail_from_address'),'Account Registration On Got Work.');
                     });
 
                 }
 
                 Auth::login($newUser);
 
-                return redirect()->intended('dashboard');
+                return redirect()->intended('profile');
            }
 
         } catch (Exception $e) {
