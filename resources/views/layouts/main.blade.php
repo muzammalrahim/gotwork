@@ -26,13 +26,13 @@
 </head>
 <body class="font-sans antialiased">
 <!-- Header Start -->
-<header class="bg-white shadow">
+<header class="bg-white shadow" x-data="{show: false}">
     <nav class="homeNav">
         <div class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
             <div class="relative flex items-center justify-between h-14">
                 <div class="absolute inset-y-0 left-0 flex items-center sm:hidden">
                     <!-- Mobile menu button-->
-                    <button class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white" aria-expanded="false">
+                    <button @click="show =! show" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white" aria-expanded="false">
                         <span class="sr-only">Open main menu</span>
                         <!-- Icon when menu is closed. -->
                         <!--
@@ -40,8 +40,9 @@
 
                           Menu open: "hidden", Menu closed: "block"
                         -->
-                        <svg class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        <svg x-show="!show" class="block h-6 w-6 bg-gray-500" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                            <path x-show="!show" fill-rule="evenodd" d="M4 5h16a1 1 0 0 1 0 2H4a1 1 0 1 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2z"/>
+                            <path x-show="show" fill-rule="evenodd" d="M18.278 16.864a1 1 0 0 1-1.414 1.414l-4.829-4.828-4.828 4.828a1 1 0 0 1-1.414-1.414l4.828-4.829-4.828-4.828a1 1 0 0 1 1.414-1.414l4.829 4.828 4.828-4.828a1 1 0 1 1 1.414 1.414l-4.828 4.829 4.828 4.828z"/>
                         </svg>
                         <!-- Icon when menu is open. -->
                         <!--
@@ -49,8 +50,8 @@
 
                           Menu open: "block", Menu closed: "hidden"
                         -->
-                        <svg class="hidden h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        <!-- <svg x-show="show" class="hidden h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"> -->
+                            
                         </svg>
                     </button>
                 </div>
@@ -122,7 +123,40 @@
             </div>
         </div>
     </nav>
-    <div class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-20 mt-8">
+    <!-- Desktop Menu -->
+    <div class="hidden sm:block max-w-7xl mx-auto px-2 sm:px-6 lg:px-20 mt-8">
+        <div class="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
+            <div class="w-full md:w-1/2 lg:w-1/4 px-2 mb-4">
+                <div class="logo">
+                    <a href="#"></a>
+                    <a href="{{ route('home') }}" class="custom-logo-link" rel="home" aria-current="page">
+                        <img width="1948" height="583" src="{{ asset('/images/cropped-gotWorkLogoGreyOrange-1.png') }}" class="custom-logo" alt="Got Work" sizes="(max-width: 1948px) 100vw, 1948px">
+                    </a>
+                    <p class="site-description">Experts around the middle east</p>
+                </div>
+            </div>
+            <div class="flex-1 flex sm:items-stretch justify-end">
+                <div class="h-12 text-sm text-grey-dark flex float-right">
+                    <p>About us</p>
+                    @if (Route::has('login'))
+                        <div class="hidden top-0 right-0 px-6 sm:block">
+                            @auth
+                                <a href="{{ url('/dashboard') }}" class="text-sm text-gray-700">Dashboard</a>
+                            @else
+                                <a href="{{ route('login') }}" class="text-gray-700">Login</a>
+
+                                @if (Route::has('register'))
+                                    <a href="{{ route('register') }}" class="ml-4 text-sm text-gray-700">Register</a>
+                                @endif
+                            @endauth
+                        </div>
+                    @endif
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Mobile Menu -->
+    <div :class="show ? 'block' : 'hidden'" class="sm:hidden max-w-7xl mx-auto px-2 sm:px-6 lg:px-20 mt-8">
         <div class="flex-1 flex items-center justify-center sm:items-stretch sm:justify-start">
             <div class="w-full md:w-1/2 lg:w-1/4 px-2 mb-4">
                 <div class="logo">

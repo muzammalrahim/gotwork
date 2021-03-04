@@ -11,9 +11,7 @@
 
 
 {{--    </x-auth-card>--}}
-    <section class="absolute w-full h-full">
-        <div class="absolute top-0 w-full h-full bg-gray-900" style="background-image: url('{{ asset("/images/Auth/register_bg_2.png") }}'); background-size: 100%; background-repeat: no-repeat;">
-        </div>
+    <section class="min-h-screen flex flex-col sm:justify-center items-center pt-6 bg-gray-900" style="background-image: url('{{ asset('/images/Auth/register_bg_2.png') }}'); background-size: 100%; background-repeat: no-repeat;">
         <div class="container mx-auto px-4 h-full">
             <div class="flex content-center items-center justify-center h-full">
                 <div class="w-full lg:w-4/12 px-4">
@@ -55,14 +53,14 @@
                                 </div>
 
                                 <!-- Email Address -->
-                                <div class="mt-4">
+                                <div class="mt-1">
                                     <x-label for="email" :value="__('Email')" />
 
                                     <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required />
                                 </div>
 
                                 <!-- Password -->
-                                <div class="mt-4">
+                                <div class="mt-1">
                                     <x-label for="password" :value="__('Password')" />
 
                                     <x-input id="password" class="block mt-1 w-full"
@@ -72,7 +70,7 @@
                                 </div>
 
                                 <!-- Confirm Password -->
-                                <div class="mt-4">
+                                <div class="mt-1">
                                     <x-label for="password_confirmation" :value="__('Confirm Password')" />
 
                                     <x-input id="password_confirmation" class="block mt-1 w-full"
