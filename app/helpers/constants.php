@@ -1,5 +1,6 @@
 <?php
 
+
 /*
 $server_protocol = stripos($_SERVER['SERVER_PROTOCOL'],'https') === 0 ? 'https://' : 'http://';
 
@@ -7,6 +8,7 @@ $base_path = $server_protocol . $_SERVER['SERVER_NAME'];
 */
 
 $base_path = 'http://gotwork.test';
+
 
 define('BASE_PATH', $base_path.'/');
 
