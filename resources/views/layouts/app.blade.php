@@ -10,6 +10,12 @@
         <!-- Fonts -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
 
+        <!-- Fontawesome -->
+        <link
+          rel="stylesheet"
+          href="{{ASSETS_BACKEND}}vendor/@fortawesome/fontawesome-free/css/all.min.css"
+        />
+
         <!-- Styles -->
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 
