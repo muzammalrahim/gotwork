@@ -53,48 +53,44 @@
                           <div
                             class="w-full lg:w-3/12 px-4 lg:order-2 flex justify-center"
                           >
+
+                          <?php 
+                            $image_class = "ml-2 shadow-xl h-auto align-middle border-none relative mt-12 md:ml-2 lg:ml-20";
+                          ?>
                             
                             @if(Auth::user()->profile_photo_url && Auth::user()->profile_photo)
                               <img
                                 alt="..."
                                 src="{{UPLOADS}}{{Auth::user()->profile_photo}}"
-                                class="shadow-xl h-auto align-middle border-none relative mt-12 ml-20"
+                                class="{{$image_class}}"
                                 style="max-width: 150px;"
                               />
                             @elseif(Auth::user()->profile_photo_url)
                               <img
                                 alt="..."
                                 src="{{Auth::user()->profile_photo_url}}"
-                                class="shadow-xl h-auto align-middle border-none relative mt-12 ml-20"
+                                class="{{$image_class}}"
                                 style="max-width: 150px;"
                               />
                             @elseif(Auth::user()->profile_photo)
                               <img
                                 alt="..."
                                 src="{{UPLOADS}}{{Auth::user()->profile_photo}}"
-                                class="shadow-xl h-auto align-middle border-none relative mt-12 ml-20"
+                                class="{{$image_class}}"
                                 style="max-width: 150px;"
                               />
                             @else
                               <img
                                 alt="..."
                                 src="{{ASSETS_BACKEND}}images/default-profile.png"
-                                class="shadow-xl h-auto align-middle border-none relative mt-12 ml-20"
+                                class="{{$image_class}}"
                                 style="max-width: 150px;"
                               />
                             @endif
 
                             
                           </div>
-                          <div class="w-full lg:w-4/12 px-4 lg:order-3 lg:text-right lg:self-center"
-                          >
-                            <div class="py-6 px-3 mt-32 sm:mt-0">
-
-
-                              
-
-                            </div>
-                          </div>
+                          
                           
                         </div>
                         
@@ -103,7 +99,7 @@
                           <div class="bg-green-500 h-3 w-3 text-white text-center font-extrabold flex items-center justify-center rounded-full"></div>
 
                           <div class="text-green-500 text-center flex items-center justify-center rounded-full -mt-2 ml-2">
-                              <p class="mb-4 text-md leading-relaxed text-green-500">
+                              <p class="mb-4 mt-1 text-xs md:text-md lg:text-xl lg:mt-0 leading-relaxed text-green-500">
                                 I'm Online.
                               </p>
                           </div>
@@ -111,12 +107,12 @@
                         </div>
 
 
-                        <div class="flex justify-start">
+                        <div class="flex justify-start md:-ml-1">
 
                           <div class="text-gray-500 text-center flex items-center justify-center rounded-full">
                             <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor" class="transform transition-transform duration-500 ease-in-out"><path fill-rule="evenodd" d="M5 3a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2V5a2 2 0 00-2-2H5zm0 2h10v7h-2l-1 2H8l-1-2H5V5z" clip-rule="evenodd"></path></svg>
                             
-                            <p class="text-md leading-relaxed">
+                            <p class="text-xs md:text-md lg:text-xl leading-relaxed md:mt-0 lg:mt-0">
                               Joined {{ Auth::user()->created_at->format('F j, Y') }}
                             </p>
                           </div>
@@ -128,18 +124,18 @@
 
                       <!-- Start: Grid Col 2 -->
                       <div class="col-span-2">
-                        <div class="mt-12 md:mt-44 lg:mt-12">
+                        <div class="mt-12 ml-20 sm:ml-20 md:ml-20 lg:mt-12">
                           <h3
-                            class="text-4xl font-semibold leading-normal mb-2 text-gray-800 mb-2"
+                            class="text-base md:text-4xl font-semibold leading-normal mb-2 text-gray-800 mb-2"
                           >
                             {{ Auth::user()->name }}
                           </h3>
 
 
                           <p 
-                            class="text-md leading-relaxed text-gray-500"
+                            class="text-xs md:text-md lg:text-xl leading-relaxed text-gray-500"
                           >
-                            I'm Online.
+                            I'm Online. adshsdajshdakjhsa dsahjsdahjskdah dashjsadhjsda adshkkjhsajdsa ashdjsahdjkdash asdhjsadhjdsah shadjsdhajsdahjsda sadhjsadhjsdahdsa sadhjdashjdsa ashjsdahjsda.
                           </p>
                         </div>
                       </div>
@@ -148,20 +144,7 @@
 
                     </div> 
                       
-                      <div class="grid grid-cols-2 gap-4">
-
-                          <div class="grid gap-4 w-40">
-                              <div class="mt-10 py-10">
-                                  <div class="flex flex-wrap justify-center space-x-6">
-                                      
-                                  </div>
-                                      
-                                      <div class="w-full lg:w-9/12 px-4">
-                                          
-                                      </div>
-                              </div>
-                          </div>
-                      </div>
+                      
 
                   </div>
               </div>
@@ -173,7 +156,7 @@
             <!-- Start: Card Verifications -->
 
             <div>
-              <div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-xl rounded-lg -mt-64">
+              <div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-xl rounded-lg md:-mt-64">
                   <div class="px-6 mb-20">
 
                     <div class="">
@@ -182,26 +165,7 @@
                       <div>
 
                         
-                        <div class="flex flex-wrap justify-start">
-                          <div
-                            class="w-full lg:w-3/12 px-4 lg:order-2 flex justify-center"
-                          >
-                              
-                           
-
-                            
-                          </div>
-                          <div class="w-full lg:w-4/12 px-4 lg:order-3 lg:text-right lg:self-center"
-                          >
-                            <div class="py-6 px-3 mt-32 sm:mt-0">
-
-
-                              
-
-                            </div>
-                          </div>
-                          
-                        </div>
+                        
                         
 
                         
@@ -211,7 +175,7 @@
 
 
                       <!-- Start: Grid Col 2 -->
-                      <div class="">
+                      <div class="mt-12">
                         <h3
                           class="border-b border-gray-300 text-2xl font-semibold leading-normal mb-2 text-gray-800 mb-2"
                         >
@@ -222,10 +186,17 @@
                         <div class="flex justify-start">
 
                           <div class="text-gray-500 text-center flex items-center justify-center rounded-full">
-                            <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="transform transition-transform duration-500 ease-in-out"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                            <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="transform transition-transform duration-500 ease-in-out {{(Auth::user()->email_verified_at)?'text-green-500':''}}"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
                             
                             <p class="text-md leading-relaxed">
-                              Email Verified:
+                              Email Verified: 
+                              @if(Auth::user()->email_verified_at)
+                                <i class="fas fa-check text-green-500"></i>
+                              @else
+                                <form method="POST" action="{{ route('verification.send') }}">
+                                  <button type="submit" class="text-blue-500">Verify</button>
+                                </form>
+                              @endif
                             </p>
                           </div>
                         </div>
