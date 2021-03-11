@@ -3,6 +3,7 @@
 /public/storage
 /storage/*.key
 /vendor
+/storage
 /.idea
 /.php-intel
 .env
@@ -18,3 +19,12 @@ composer.lock
 /public/css/app.css
 /public/js/app.js
 /public/mix-manifest.json
+.editorconfig
+.gitattributes
+.styleci.yml
+3.git/
+README.md
+package-lock.json
+package.json
+phpunit.xml
+        
