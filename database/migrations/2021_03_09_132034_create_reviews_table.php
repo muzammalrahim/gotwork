@@ -15,7 +15,9 @@ class CreateReviewsTable extends Migration
     {
         Schema::create('reviews', function (Blueprint $table) {
             $table->id();
-            $table->longText('description')->nullable();
+            $table->unsignedInteger('user_id')->nullable();
+            $table->unsignedInteger('project_id')->nullable();
+            $table->longText('comment')->nullable();
             $table->double('rating', 3, 1);
             $table->timestamps();
         });
@@ -31,3 +33,7 @@ class CreateReviewsTable extends Migration
         Schema::dropIfExists('reviews');
     }
 }
+
+
+/* End Of File */
+

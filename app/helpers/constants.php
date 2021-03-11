@@ -1,9 +1,9 @@
 <?php
 
 
+
 /*
 $server_protocol = stripos($_SERVER['SERVER_PROTOCOL'],'https') === 0 ? 'https://' : 'http://';
-
 $base_path = $server_protocol . $_SERVER['SERVER_NAME'];
 */
 
