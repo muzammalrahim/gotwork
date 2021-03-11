@@ -13,16 +13,19 @@
         Top Skills
       </h3>
 
+      @isset($user_skills)
+        @foreach($user_skills as $skill)
+          <div class="flex justify-start">
 
-      <div class="flex justify-start">
-
-        <div class="text-black-700 text-center flex items-center justify-center rounded-full">
-          
-          <p class="text-md leading-relaxed">
-            Laravel 
-          </p>
-        </div>
-      </div>
+            <div class="text-black-700 text-center flex items-center justify-center rounded-full">
+              
+              <p class="text-md leading-relaxed">
+                {{ $skill->name }}  
+              </p>
+            </div>
+          </div>
+        @endforeach
+      @endisset
     </div>
     <!-- End: Grid Col 2 -->
   </div>
