@@ -12,7 +12,7 @@
           <h3
             class=" text-2xl font-semibold leading-normal mb-2 text-gray-800 mb-2"
           >
-            Education
+            Qualifications
           </h3>
 
          
@@ -22,8 +22,8 @@
       <br />
 
       <!-- Start: Reviews List -->
-      @include('layouts.profile_education_list')
-      @include('layouts.profile_education_list')
+      @include('layouts.profile_qualifications_list')
+      @include('layouts.profile_qualifications_list')
       <!-- End: Reviews List -->
     </div>
     <!-- End: Grid Col 2 -->

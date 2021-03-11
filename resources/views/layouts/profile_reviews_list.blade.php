@@ -10,12 +10,23 @@
         <p 
           class="text-xs md:text-md lg:text-md leading-relaxed text-yellow-500 bg-gray-300 pl-1 pr-1"
         >
-          4.9
+          {{ number_format($review->rating, 1) }}
         </p>
 
+        @php ($stars = ($review->rating) -1) 
+        @php ($i=0)
+        @for($i; $i<= $stars ; $i++)
         <svg class="mx-1 w-4 h-4 fill-current text-yellow-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
-          
+        @endfor
+        
+        @php ($empty_stars = (5.0 - $stars) -1)
+        @php ($j=0)
+        
+        @for($j; $j< $empty_stars ; $j++)
         <svg class="mx-1 w-4 h-4 fill-current text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+        @endfor
+         
+        
 
       </div>
       <!-- End: Review Rating -->
@@ -27,20 +38,31 @@
     <p 
       class="text-md leading-relaxed mt-2"
     >
-      $647.2 CAD
+      <!-- Start: Currency Symbol -->
+      <span>
+        $
+      </span>
+      <!-- End: Currency Symbol -->
+      
+      <!-- Start: Project Amount -->
+      <span>
+        {{ $review->project->milestones->sum('amount') }}
+      </span>
+      <!-- End: Project Amount --> 
+      
     </p>
     
   </div>
 
   <!-- Start: Review Title -->
   <p class="text-md leading-relaxed">
-    Django project on apache server not running 
+    {{ $review->project->title }} 
   </p>
   <!-- End: Review Title -->
 
   <!-- Start: Review Description -->
   <p class="text-md leading-relaxed text-gray-800">
-    Django project on apache server not running, Django project on apache server not running.Django project on apache server not running. 
+    {{ $review->comment }} 
   </p>
   <!-- End: Review Description -->
   

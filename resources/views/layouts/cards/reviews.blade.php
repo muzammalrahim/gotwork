@@ -43,8 +43,9 @@
       <br />
 
       <!-- Start: Reviews List -->
-      @include('layouts.profile_reviews_list')
-      @include('layouts.profile_reviews_list')
+      @foreach($user_reviews->reviews as $review)
+        @include('layouts.profile_reviews_list')
+      @endforeach
       <!-- End: Reviews List -->
     </div>
     <!-- End: Grid Col 2 -->

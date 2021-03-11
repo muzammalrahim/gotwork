@@ -45,4 +45,21 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+
+
+
+
+    /* Start: Foreign Key Relationships */
+    public function skills()
+    {
+        return $this->belongsToMany(Skill::class);
+    }
+
+
+    public function reviews()
+    {
+        return $this->hasMany(Review::class,'user_id')->orderBy('id', 'ASC');
+    }
+    /* End: Foreign Key Relationships */
 }

@@ -96,7 +96,7 @@
 
 
   <!-- Start: Section Experience -->
-  <section class="relative -mt-10 md:py-36 md:mt-12 lg:py-36 lg:mt-8">
+  <section class="relative -mt-10 md:py-36 md:mt-12 lg:py-36 lg:-mt-4">
       <div class="container mx-auto px-4">
 
 
@@ -135,8 +135,8 @@
   <!-- End: Section Education -->
 
 
-  <!-- Start: Section Qualification -->
-  <section class="relative -mt-10 md:py-36 md:mt-12 lg:py-36 lg:-mt-20">
+  <!-- Start: Section Education -->
+  <section class="relative -mt-10 md:py-36 md:mt-12 lg:py-36 lg:-mt-4">
       <div class="container mx-auto px-4">
 
 
@@ -145,14 +145,14 @@
           <!-- Start: Col User Details -->
           <div class="col-span-2">
             <!-- Start: Card User Details -->
-            @include('layouts.cards.qualification')
+            @include('layouts.cards.qualifications')
             <!-- End: Card User Details -->
           </div>
           <!-- End: Col User Details -->
         </div>
       </div>
   </section>
-  <!-- End: Section Qualification -->
+  <!-- End: Section Education -->
 
 </x-app-layout>
 

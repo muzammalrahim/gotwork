@@ -8,4 +8,19 @@ use Illuminate\Database\Eloquent\Model;
 class Skill extends Model
 {
     use HasFactory;
+
+
+
+
+
+
+
+
+    /* Start: Foreign Key Relationships */
+    public function users()
+    {
+        return $this->belongsToMany(User::class);
+    }
+	/* End: Foreign Key Relationships */
+    
 }
