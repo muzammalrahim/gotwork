@@ -15,6 +15,9 @@ class CreateUniversitiesTable extends Migration
     {
         Schema::create('universities', function (Blueprint $table) {
             $table->id();
+            $table->unsignedInteger('country_id')->nullable();
+            $table->string('name')->nullable();
+            $table->string('url')->nullable();
             $table->timestamps();
         });
     }

@@ -24,7 +24,6 @@
       <!-- Start: Reviews List -->
       @isset($data['user_details'])
         @foreach ($data['user_details'] as $user_details)
-        @dd($user_details->educations)
           @foreach ($user_details->educations as $education)
             @include('layouts.profile_education_list')
           @endforeach

@@ -14,7 +14,7 @@
     class="text-sm font-semibold leading-normal mb-2 text-gray-800 mb-2"
   >
     <span>
-      {{ $education->universit->name }}
+      Riphah International University
     </span>
     ,
     <span>
