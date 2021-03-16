@@ -10,6 +10,7 @@ $base_path = $server_protocol . $_SERVER['SERVER_NAME'];
 $base_path = 'http://gotwork.test';
 
 
+
 define('BASE_PATH', $base_path.'/');
 
 define('ASSETS_BACKEND', BASE_PATH.'assets/backend/');
