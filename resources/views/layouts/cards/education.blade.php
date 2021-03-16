@@ -22,8 +22,13 @@
       <br />
 
       <!-- Start: Reviews List -->
-      @include('layouts.profile_education_list')
-      @include('layouts.profile_education_list')
+      @isset($data['user_details'])
+        @foreach ($data['user_details'] as $user_details)
+          @foreach ($user_details->educations as $education)
+            @include('layouts.profile_education_list')
+          @endforeach
+        @endforeach
+      @endisset
       <!-- End: Reviews List -->
     </div>
     <!-- End: Grid Col 2 -->
