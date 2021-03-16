@@ -22,9 +22,11 @@
 
       <br />
       <!-- Start: Reviews List -->
-      @isset($data['experiences'])
-        @foreach ($data['experiences'] as $experience)
-          @include('layouts.profile_experience_list')
+      @isset($data['user_details'])
+        @foreach ($data['user_details'] as $user_details)
+          @foreach ($user_details->experiences as $experience)
+            @include('layouts.profile_experience_list')
+          @endforeach
         @endforeach
       @endisset
       <!-- End: Reviews List -->

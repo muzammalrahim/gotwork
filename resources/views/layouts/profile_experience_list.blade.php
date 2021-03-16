@@ -5,7 +5,7 @@
   <h4
     class="text-xl font-semibold leading-normal mb-2 text-gray-800 mb-2"
   >
-    {{ $experience['title'] }}
+    {{ $experience->title }}
   </h4>
   <!-- End: Position Title -->
 
@@ -13,7 +13,7 @@
   <h4
     class="text-xxl font-semibold leading-normal mb-2 text-gray-800 mb-2"
   >
-    Creative Tech Solutions
+    {{ $experience->company_name }}
   </h4>
   <!-- End: Company Name -->
   
@@ -22,12 +22,26 @@
     class="text-sm font-semibold leading-normal mb-2 text-gray-800 mb-2"
   >
     <span>
-      Dec 2020
+      {{ $experience->start_month }}
+    </span>
+
+    <span>
+      {{ $experience->start_year }}
     </span>
     -
-    <span>
-      Present
-    </span>
+    @if($experience->is_current == "Yes")
+      <span>
+        Present
+      </span>
+    @else
+      <span>
+        {{ $experience->end_month }}
+      </span>
+
+      <span>
+        {{ $experience->end_year }}
+      </span>
+    @endif
   </p>
   <!-- End: Start Year -->
 

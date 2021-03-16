@@ -62,10 +62,14 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(Review::class,'user_id')->orderBy('id','DESC');
     }
 
-
     public function experiences()
     {
         return $this->hasMany(Experience::class,'user_id')->orderBy('id','DESC');
+    }
+
+    public function educations()
+    {
+        return $this->hasMany(Education::class,'user_id')->orderBy('id','DESC');
     }
     /* End: Foreign Key Relationships */
 }

@@ -281,10 +281,10 @@ INSERT INTO `countries` (`id`, `iso2`, `iso3`, `name`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `linkedin_universities`
+-- Table structure for table `universities`
 --
 
-CREATE TABLE IF NOT EXISTS `linkedin_universities` (
+CREATE TABLE IF NOT EXISTS `universities` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `country_id` int(5) NOT NULL,
   `name` varchar(150) NOT NULL,
@@ -293,10 +293,10 @@ CREATE TABLE IF NOT EXISTS `linkedin_universities` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9230 ;
 
 --
--- Dumping data for table `linkedin_universities`
+-- Dumping data for table `universities`
 --
 
-INSERT INTO `linkedin_universities` (`id`, `country_id`, `name`) VALUES
+INSERT INTO `universities` (`id`, `country_id`, `name`) VALUES
 (1, 8, 'Akademia e Arteve Tiranë'),
 (2, 8, 'Aleksandër Xhuvani University of Elbasan'),
 (3, 8, 'Eqrem Çabej University of Gjirokstra'),

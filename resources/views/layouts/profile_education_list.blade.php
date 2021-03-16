@@ -5,7 +5,7 @@
   <h4
     class="text-xl font-semibold leading-normal mb-2 text-gray-800 mb-2"
   >
-    Bachelors in Software Engineering 
+    {{ $education->degree }}
   </h4>
   <!-- End: Degree Title -->
 
@@ -14,7 +14,7 @@
     class="text-sm font-semibold leading-normal mb-2 text-gray-800 mb-2"
   >
     <span>
-      Riphah International University
+      {{ $education->universit->name }}
     </span>
     ,
     <span>

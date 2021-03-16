@@ -33,7 +33,8 @@ class ProfileController extends Controller
             $user_reviews = $user->with('reviews')->paginate(1);
 
             // Fetching Current User Experiences 
-            $data['experiences'] = self::getRelationshipData($user,'experiences');
+            // $data['experiences'] = self::getRelationshipData($user,'experiences');
+            $data['user_details'] = $user->with('experiences','educations')->get();
 
             if ($user_reviews) {
                 foreach ($user_reviews as $reviews) {
