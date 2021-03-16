@@ -21,10 +21,12 @@
       </div>         
 
       <br />
-
       <!-- Start: Reviews List -->
-      @include('layouts.profile_experience_list')
-      @include('layouts.profile_experience_list')
+      @isset($data['experiences'])
+        @foreach ($data['experiences'] as $experience)
+          @include('layouts.profile_experience_list')
+        @endforeach
+      @endisset
       <!-- End: Reviews List -->
     </div>
     <!-- End: Grid Col 2 -->

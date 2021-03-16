@@ -15,6 +15,7 @@ class CreateExperiencesTable extends Migration
     {
         Schema::create('experiences', function (Blueprint $table) {
             $table->id();
+            $table->unsignedInteger('user_id')->nullable();
             $table->string('title')->nullable();
             $table->string('company_name')->nullable();
             $table->string('start_month')->nullable();
