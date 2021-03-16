@@ -420,6 +420,7 @@
 
     </div>
 
+
     <div class="bg-gray-700 h-16"></div>
 
 </x-app-layout>
@@ -427,5 +428,3 @@
 
 {{-- modal --}}
 
-
-  

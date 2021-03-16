@@ -21,6 +21,10 @@ class CreateUsersTable extends Migration
             $table->string('password')->nullable();
             $table->string('profile_photo_url')->nullable();
             $table->string('profile_photo')->nullable();
+            $table->string('city')->nullable();
+            $table->string('country')->nullable();
+            $table->longText('description')->nullable();
+            $table->enum('status',['Active','Deleted'])->default('Active');
             $table->rememberToken();
             $table->timestamps();
         });
