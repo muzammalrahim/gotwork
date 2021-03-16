@@ -68,17 +68,15 @@
   
   <!-- Start: Review Tag -->
   <div>
-    <div
-      class="text-xs inline-flex items-center font-bold leading-sm uppercase px-3 py-1 bg-gray-300 text-black-700"
-    >
-      Tag
-    </div>
-
-    <div
-      class="text-xs inline-flex items-center font-bold leading-sm uppercase px-3 py-1 bg-gray-300 text-black-700"
-    >
-      Tag 2
-    </div>
+    @isset($data['project_tags'])
+      @foreach($data['project_tags'] as $tag)
+        <div
+          class="text-xs inline-flex items-center font-bold leading-sm uppercase px-3 py-1 bg-gray-300 text-black-700"
+        >
+          {{ $tag->name }}
+        </div>
+      @endforeach
+    @endisset
   </div>
   <!-- End: Review Tag -->
 
@@ -92,25 +90,25 @@
       <?php 
         $image_class = "h-12";
       ?>
-        
-        @if(Auth::user()->profile_photo_url && Auth::user()->profile_photo)
+
+        @if($review->user->profile_photo_url && $review->user->profile_photo)
           <img
             alt="..."
-            src="{{UPLOADS}}{{Auth::user()->profile_photo}}"
+            src="{{UPLOADS}}{{$review->user->profile_photo}}"
             class="{{$image_class}}"
             style="max-width: 150px;"
           />
-        @elseif(Auth::user()->profile_photo_url)
+        @elseif($review->user->profile_photo_url)
           <img
             alt="..."
-            src="{{Auth::user()->profile_photo_url}}"
+            src="{{$review->user->profile_photo_url}}"
             class="{{$image_class}}"
             style="max-width: 150px;"
           />
-        @elseif(Auth::user()->profile_photo)
+        @elseif($review->user->profile_photo)
           <img
             alt="..."
-            src="{{UPLOADS}}{{Auth::user()->profile_photo}}"
+            src="{{UPLOADS}}{{$review->user->profile_photo}}"
             class="{{$image_class}}"
             style="max-width: 150px;"
           />
@@ -132,7 +130,7 @@
         class="mt-4 ml-2"
       >
         <p class="text-md leading-relaxed">
-          {{Auth::user()->name}}
+          {{$review->user->name}}
         </p>
       </div>
   
@@ -154,7 +152,7 @@
         class="mt-4 ml-2"
       >
         <p class="text-md leading-relaxed">
-          28 days ago
+          {{ $review->user->created_at->diffForHumans() }}
         </p>
       </div>
   

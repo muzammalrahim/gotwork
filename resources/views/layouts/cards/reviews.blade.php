@@ -36,6 +36,7 @@
           
           <p class="text-md leading-relaxed">
             Showing 1 - 5 out of 50+ reviews 
+
           </p>
         </div>
       </div>
@@ -43,9 +44,19 @@
       <br />
 
       <!-- Start: Reviews List -->
-      @foreach($user_reviews->reviews as $review)
-        @include('layouts.profile_reviews_list')
-      @endforeach
+      @isset($user_reviews)
+
+        <div class="container">
+          @foreach($user_reviews as $reviews)
+            @foreach($reviews->reviews as $review)
+              @include('layouts.profile_reviews_list')
+            @endforeach
+          @endforeach
+        </div>
+
+        <!-- Start: Pagination -->
+        {!! $user_reviews->links() !!}
+      @endisset
       <!-- End: Reviews List -->
     </div>
     <!-- End: Grid Col 2 -->
