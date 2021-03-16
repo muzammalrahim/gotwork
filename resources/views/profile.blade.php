@@ -46,7 +46,7 @@
           <!-- Start: Col User Details -->
           <div class="col-span-2">
             <!-- Start: Card User Details -->
-            @include('layouts.cards.user_details')
+            @include('layouts.cards.user_details')  {{-- layouts/cards/user_details --}}
             <!-- End: Card User Details -->
           </div>
           <!-- End: Col User Details -->
