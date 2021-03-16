@@ -31,3 +31,4 @@ require __DIR__.'/auth.php';
 Route::get('/dashboard', [DashboardController::class, 'goToDashboard'])->middleware(['auth'])->name('dashboard');
 
 Route::get('/profile', [ProfileController::class, 'goToProfile'])->middleware(['auth'])->name('profile');
+Route::get('/setting', [ProfileController::class, 'goToSetting'])->middleware(['auth'])->name('setting');

@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\UserSkill;
 use App\Models\Skill;
+use App\Models\Experience;
 
 use Auth;
 
@@ -65,6 +66,22 @@ class ProfileController extends Controller
             ->get();
     }
 
+
+    public function goToSetting(Request $Request)
+    {   
+
+        $user = Auth::user();
+        // dd($user);
+        $data['user'] = $user;
+        $data['experience'] = Experience::where('user_id' , $user->id)->get();
+        return view('setting',$data);
+
+        /*return DB::table('skills')
+            ->join('user_skills', 'user_skills.skill_id','=','skills.id')
+            ->where('user_skills.user_id','=',$id)
+            ->get();*/
+    }   
+
     public function getProjectTags($reviews)
     {
         return DB::table('tags')
@@ -90,4 +107,5 @@ class ProfileController extends Controller
         return $returned_data;
         // return $table->with($relationship_name)->get();
     } 
+
 }

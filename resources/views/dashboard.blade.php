@@ -27,18 +27,11 @@
     <div class="modal h-screen w-full fixed left-0 top-0 flex justify-center items-start bg-black bg-opacity-50 hidden z-10 block lg:hidden">
         <!-- modal -->
         <div class="bg-white rounded shadow-lg sm:w-full md:w-4/5 w-full">
-          <!-- modal header -->
           <div class="border-b px-4 py-2 flex justify-between items-center">
             <h3 class="font-semibold text-lg font-bold">Filter</h3>
             <button class="text-black close-modal">&cross;</button>
           </div>
-          <!-- modal body -->
-
-
-
           <div class="p-3">
-        
-
             <div class="flex-shrink overflow-hidden shadow-sm sm:rounded-lg bg-white mr-4 lg:col-span-1">
             <div class="block px-4 py-2 text-sm">
               <span class="font-bold">Project Type</span>
