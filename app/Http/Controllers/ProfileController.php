@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\UserSkill;
 use App\Models\Skill;
 use App\Models\Experience;
+use App\Models\Review;
 
 use Auth;
 
@@ -25,22 +26,27 @@ class ProfileController extends Controller
             $user_universities = [];
         // End Intialization
 
+
     	if ( isset(Auth::User()->id) &&  isset(Auth::User()->email_verified_at) ) {
 
             $id = Auth::user()->id;
+
+            // Get User Rating
+            $data['user_rating'] = self::getUserRatingCount($id); 
+
+            // Get User Reviews Count
+            $data['user_reviews_count'] = self::getUserReviewsCount($id);
 
             // Fetching Current User Skills 
             $user_skill = self::getUserSkills($id);
 
             // Fetching Current User Reviews
-            $user_reviews = $user->with('reviews')->where(['id'=>$id])->paginate(1);
+            $user_reviews = $user->find($id)->reviews()->paginate(1);
 
             // Fetching Review Tags
             if ($user_reviews) {
                 foreach ($user_reviews as $reviews) {
-                    foreach ($reviews->reviews as $review) {
-                        $data['project_tags'] = self::getProjectTags($review);
-                    }
+                    $data['project_tags'] = self::getProjectTags($reviews);
                 } 
             }
 
@@ -147,9 +153,34 @@ class ProfileController extends Controller
     }
 
     // Function Fetch User Universities Details
-    public function getUserUniversitiesDetail($user_universities)
-    {
-        # code...
+    public function getUserRatingCount($user_id) {
+        $reviews = Review::where('user_id', $user_id)->get();
+        
+        if ($reviews) {
+            $sum_rating = $reviews->sum('rating');
+            $count_rating = $reviews->count('rating');
+            
+            return $sum_rating/$count_rating;
+        } 
+        else {
+            return 0;
+        }
+        
+    }
+
+    // Function Fetch User Universities Details
+    public function getUserReviewsCount($user_id) {
+        $reviews = Review::where('user_id', $user_id)->get();
+        
+        if ($reviews) {
+            $count_rating = $reviews->count('rating');
+
+            return $count_rating;
+        } 
+        else {
+            return 0;
+        }
+        
     }
 
 }
