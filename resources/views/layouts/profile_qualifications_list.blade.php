@@ -5,7 +5,7 @@
   <h4
     class="text-xl font-semibold leading-normal mb-2 text-gray-800 mb-2"
   >
-    Mathmetics
+    {{ $qualification->professional_certificate }}
   </h4>
   <!-- End: Professional Certificate -->
 
@@ -13,7 +13,7 @@
   <h4
     class="text-xxl font-semibold leading-normal mb-2 text-gray-800 mb-2"
   >
-    Riphah International University
+    {{ $qualification->conferring_organization }}
   </h4>
   <!-- End: Conferring Orgainzation -->
   
@@ -21,7 +21,7 @@
   <p
     class="text-sm font-semibold leading-normal mb-2 text-gray-800 mb-2"
   >
-    I am a summary of the qualification.
+    {{ $qualification->summary }}
   </p>
   <!-- End: Start Year -->
 

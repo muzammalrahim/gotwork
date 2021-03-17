@@ -19,8 +19,10 @@ class ProfileController extends Controller
     {
         // Intialization
             $user = new User;
-            $project_tags = [];
             $data = []; 
+            $project_tags = [];
+            $user_countries = [];
+            $user_universities = [];
         // End Intialization
 
     	if ( isset(Auth::User()->id) &&  isset(Auth::User()->email_verified_at) ) {
@@ -31,12 +33,9 @@ class ProfileController extends Controller
             $user_skill = self::getUserSkills($id);
 
             // Fetching Current User Reviews
-            $user_reviews = $user->with('reviews')->paginate(1);
+            $user_reviews = $user->with('reviews')->where(['id'=>$id])->paginate(1);
 
-            // Fetching Current User Experiences 
-            // $data['experiences'] = self::getRelationshipData($user,'experiences');
-            $data['user_details'] = $user->with('experiences','educations')->get();
-
+            // Fetching Review Tags
             if ($user_reviews) {
                 foreach ($user_reviews as $reviews) {
                     foreach ($reviews->reviews as $review) {
@@ -44,7 +43,18 @@ class ProfileController extends Controller
                     }
                 } 
             }
+
+            // Fetching Current User Experiences 
+            $data['user_details'] = $user->with('experiences','educations','qualifications')->where(['id'=>$id])->orderBy('id','DESC')->get();
+
+        
+            // Fetch User Countries Details
+            $data['user_countries'] = $user_countries;
+
+            // Fetch User Universities Details
+            $data['user_universities'] = $user_universities;
             
+
             //dd($user_reviews);
 
     		return view('profile',[
@@ -108,5 +118,19 @@ class ProfileController extends Controller
         return $returned_data;
         // return $table->with($relationship_name)->get();
     } 
+
+    // Function Fetch User Countries Details
+    public function getUserCountriesDetail($user_countries)
+    {
+
+        dd(DB::table('countries')->where(['id'=>$user_countries])->get('name')); 
+
+    }
+
+    // Function Fetch User Universities Details
+    public function getUserUniversitiesDetail($user_universities)
+    {
+        # code...
+    }
 
 }

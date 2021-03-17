@@ -51,12 +51,6 @@ class User extends Authenticatable implements MustVerifyEmail
 
 
     /* Start: Foreign Key Relationships */
-    public function skills()
-    {
-        return $this->belongsToMany(Skill::class);
-    }
-
-
     public function reviews()
     {
         return $this->hasMany(Review::class,'user_id')->orderBy('id','DESC');
@@ -73,9 +67,14 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(Education::class,'user_id')->orderBy('id','DESC');
     }
 
-    public function Qualification()
+    public function qualifications()
     {
         return $this->hasMany(Qualification::class,'user_id')->orderBy('id', 'ASC');
+    }
+
+    public function skills()
+    {
+        return $this->belongsToMany(Skill::class);
     }
 
     /* End: Foreign Key Relationships */
