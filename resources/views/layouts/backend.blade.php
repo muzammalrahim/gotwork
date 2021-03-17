@@ -22,6 +22,8 @@
           rel="stylesheet"
           href="https://cdn.jsdelivr.net/gh/creativetimofficial/tailwind-starter-kit/compiled-tailwind.min.css"
         />
+
+        
         <title>Profile | Tailwind Starter Kit by Creative Tim</title>
     </head>
     <body class="font-sans antialiased">

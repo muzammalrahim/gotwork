@@ -45,17 +45,15 @@
 
       <!-- Start: Reviews List -->
       @isset($user_reviews)
-
         <div class="container">
-          @foreach($user_reviews as $reviews)
-            @foreach($reviews->reviews as $review)
-              @include('layouts.profile_reviews_list')
-            @endforeach
-          @endforeach
-        </div>
+      
+      @foreach($user_reviews as $review)
+        @include('layouts.profile_reviews_list')
+      @endforeach
+    </div>
 
-        <!-- Start: Pagination -->
-        {!! $user_reviews->links() !!}
+    <!-- Start: Pagination -->
+    {!! $user_reviews->links() !!}
       @endisset
       <!-- End: Reviews List -->
     </div>
@@ -64,3 +62,31 @@
 </div>
 
 <!-- End File -->
+
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<script type="text/javascript">
+
+
+  $(document).ready(function(){
+
+
+    $(document).on('click', '.pagination a', function(event){
+    event.preventDefault(); 
+    var page = $(this).attr('href').split('page=')[1];
+    console.log(page);
+    fetch_data(page);
+    });
+
+    function fetch_data(page)
+    {
+    $.ajax({
+     url:"/pagination/fetch_data?page="+page,
+     success:function(data)
+     {
+      $('#table_data').html(data);
+     }
+    });
+    }
+  });
+</script> -->

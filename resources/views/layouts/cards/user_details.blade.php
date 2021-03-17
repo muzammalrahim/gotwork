@@ -90,22 +90,31 @@
                <a href="{{ route('setting') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 text-xs float-right">Edit Profile</a>
 
           <div class="flex justify-start">
-            <div class="flex mt-2 mb-4 w-full w-40 md:w-40 lg:w-100">
+            <div class="flex mt-2 mb-4 w-full w-64 md:w-64 lg:w-100">
 
               <p 
                 class="text-xs md:text-md lg:text-md leading-relaxed text-yellow-500 bg-gray-300 pl-1 pr-1"
               >
-                4.9
+                {{ number_format($data['user_rating'], 1) }}
               </p>
 
-              <svg class="mx-1 w-4 h-4 fill-current text-yellow-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+              @php ($stars = ( round($data['user_rating'],0) ) -1 ) 
+              @php ($i=0)
+              @for($i; $i<= $stars ; $i++)
+                <svg class="mx-1 w-4 h-4 fill-current text-yellow-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+              @endfor
               
-              <svg class="mx-1 w-4 h-4 fill-current text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
-
+              @php ($empty_stars = (5.0 - $stars) -1)
+              @php ($j=0)
+              
+              @for($j; $j< $empty_stars ; $j++)
+                <svg class="mx-1 w-4 h-4 fill-current text-gray-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><path d="M10 15l-5.878 3.09 1.123-6.545L.489 6.91l6.572-.955L10 0l2.939 5.955 6.572.955-4.756 4.635 1.123 6.545z"/></svg>
+              @endfor
+             
               <p 
                 class="text-xs md:text-md lg:text-md leading-relaxed text-black-500 pl-1 pr-1"
               >
-                ( 0 reviews )
+                ( {{ $data['user_reviews_count'] }} reviews )
               </p>
 
             </div>
