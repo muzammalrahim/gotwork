@@ -11,7 +11,7 @@
 
 
 
-  	<section class="relative py-16">
+  	<section class="relative py-16 lg:px-16 md:px-8 sm:px-2">
 
         {{-- <div class="grid grid-cols-4 gap-4 px-16"> --}}
 
@@ -42,14 +42,14 @@
                 </div> --}}
 
 
-                {{-- <h1 class="text-xl font-bold px-16 py-10 border-b border-gray-300 text-base"> Experience 
+                {{-- <h1 class="text-xl font-bold lg:px-16 md:px-8 sm:px-2 px-2 py-10 border-b border-gray-300 text-base"> Experience 
                		<button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 text-xs float-right">Add Experience</button>
         		</h1>
 
         		@include('layouts.setting.experience') --}}
                 
 
-               {{--  <h1 class="text-xl font-bold px-16 py-10 border-b border-gray-300 text-base"> Qualifications 
+               {{--  <h1 class="text-xl font-bold lg:px-16 md:px-8 sm:px-2 px-2 py-10 border-b border-gray-300 text-base"> Qualifications 
                		<button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 text-xs float-right">Add Qualifications</button>
         		</h1>
 
@@ -62,39 +62,40 @@
         {{-- </div> --}}
 
 
-<div id="tabs" class="md:px-16 lg:px-16 lg:text-xl">
+<div id="tabs" class="lg:text-xl">
 
 	<div class="grid grid-cols-4 gap-4">
 
-			<div class="col-span-1 bg-white h-content">
+			<div class="lg:col-span-1 md:col-span-1 sm:col-span-4 col-span-4 bg-white h-content shadow-xl rounded-xl">
 				<div class="abc">	
 					<ul class="w_ful">
-						<li><a href="#tabs-1">Personal Information</a></li>
-						<li><a href="#tabs-2">Experience</a></li>
-						<li><a href="#tabs-3">Qualification</a></li>
-						<li><a href="#tabs-4">Education</a></li>
+						<li><a href="#tabs-1" class="w_full">Personal Information</a></li>
+						<li><a href="#tabs-2" class="w_full">Experience</a></li>
+						<li><a href="#tabs-3" class="w_full">Qualification</a></li>
+						<li><a href="#tabs-4" class="w_full">Education</a></li>
+						<li><a href="#tabs-5" class="w_full">Skills</a></li>
 					</ul>
 				</div>
 			</div>
 
-			<div class="col-span-3 bg-white">
+			<div class="lg:col-span-3 md:col-span-3 sm:col-span-4 col-span-4 bg-white shadow-xl rounded-xl">
 				<div class="tab-contentss">
 					
 					{{-- ============================ tab-1 of personal information ============================ --}}
 					
 					<div id="tabs-1">
-						<div class="heading px-16 py-10 border-b border-gray-300">
-	        				<h1 class="text-3xl font-bold"> Personal Information </h1>    			
+						<div class="heading lg:px-16 md:px-8 sm:px-2 px-2 lg:py-10 md:py-5 sm:py-2 py-2 border-b border-gray-300">
+	        				<h1 class="lg:text-3xl md:text-xl sm:text-xl font-bold"> Personal Information </h1>    			
 		        		</div>
 
-		        		<div class="px-16 py-10 border-b border-gray-300 text-base">
-		        			<h1 class="text-xl font-bold"> Username </h1>    			
-		                    <input type="text" autofocus id="username" value="{{$user->name}}" class="rounded-sm mt-3 focus:outline-none text-sm bg-gray-100 w-full" placeholder="Username" />
+		        		<div class="lg:px-16 md:px-8 sm:px-2 px-2  lg:py-10 md:py-5 sm:p-2 py-2 border-b border-gray-300 text-base">
+		        			<h1 class="lg:text-xl md:text-base sm:text-sm text-sm font-bold"> Username </h1>    			
+		                    <input type="text" autofocus id="username" value="{{$user->name}}" class="rounded-sm mt-3 focus:outline-none lg:text-sm md:text-sm text-xs bg-gray-100 w-full" placeholder="Username" />
 		                </div>
 
-		                <div class="px-16 py-10 border-b border-gray-300 text-base">
-		        			<h1 class="text-xl font-bold"> Email </h1>    			
-		                    <input type="text" autofocus id="username" value="{{$user->email}}" class="rounded-sm mt-3 focus:outline-none text-sm bg-gray-100 w-full" placeholder="Username" />
+		                <div class="lg:px-16 md:px-8 sm:px-2 px-2  lg:py-10 md:py-5 sm:p-2 py-2 border-b border-gray-300 text-base">
+		        			<h1 class="lg:text-xl md:text-base sm:text-sm text-sm font-bold"> Email </h1>    			
+		                    <input type="text" autofocus id="username" value="{{$user->email}}" class="rounded-sm mt-3 focus:outline-none lg:text-sm md:text-sm text-xs bg-gray-100 w-full" placeholder="Username" />
 		                </div>
 
 					</div>
@@ -103,8 +104,8 @@
 
 
 					<div id="tabs-2">
-						<h1 class="text-xl font-bold px-16 py-10 border-b border-gray-300 text-base"> Experience 
-		               		<button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 text-xs float-right">Add Experience</button>
+						<h1 class="text-xl font-bold lg:px-16 md:px-8 sm:px-2 px-2 py-10 border-b border-gray-300 text-base"> Experience 
+		               		<button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 text-xs fontSize float-right">Add Experience</button>
 		        		</h1>
 
 		        		@include('layouts.setting.experience')
@@ -114,8 +115,8 @@
 
 					<div id="tabs-3">
 
-					 <h1 class="text-xl font-bold px-16 py-10 border-b border-gray-300 text-base"> Qualifications 
-	               		<button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 text-xs float-right">Add Qualifications</button>
+					 <h1 class="text-xl font-bold lg:px-16 md:px-8 sm:px-2 px-2 py-10 border-b border-gray-300 text-base"> Qualifications 
+	               		<button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 text-xs fontSize float-right">Add Qualifications</button>
 	        		</h1>
 
 	        		@include('layouts.setting.qualification')
@@ -127,15 +128,27 @@
 
 					<div id="tabs-4">
 
-					 <h1 class="text-xl font-bold px-16 py-10 border-b border-gray-300 text-base"> Education 
-	               		<button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 text-xs float-right">Add Education</button>
+					 <h1 class="text-xl font-bold lg:px-16 md:px-8 sm:px-2 px-2 py-10 border-b border-gray-300 text-base"> Education 
+	               		<button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 text-xs fontSize float-right">Add Education</button>
 	        		</h1>
 
 	        		@include('layouts.setting.education')
 
 					</div>
 
-					{{-- ============================ tab-4 of education============================ --}}
+					{{-- ============================ tab-4 of User Skill ============================ --}}
+
+					<div id="tabs-5">
+
+					 <h1 class="text-xl font-bold lg:px-16 md:px-8 sm:px-2 px-2 py-10 border-b border-gray-300 text-base"> Skills 
+	               		<button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 text-xs fontSize float-right">Add Skill</button>
+	        		</h1>
+
+	        		@include('layouts.setting.userSkills')
+
+					</div>
+
+					{{-- ============================ tab-4 of end============================ --}}
 
 
 				</div>
@@ -143,8 +156,6 @@
 		</div>
 
 </div>
-
-
 
 
 
@@ -156,26 +167,38 @@
 
 {{-- @section('custom_css') --}}
 
-<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-
-<style>
-	.ui-tabs-vertical .ui-tabs-nav { padding: .2em .1em .2em .2em; float: left; width: 12em; }
-	.ui-tabs-vertical .ui-tabs-nav li { clear: left; width: 100%; border-bottom-width: 1px !important; border-right-width: 0 !important; margin: 0 -1px .2em 0; }
-	.ui-tabs-vertical .ui-tabs-nav li a { display:block; }
-	.ui-tabs-vertical .ui-tabs-nav li.ui-tabs-active { padding-bottom: 0; padding-right: .1em; border-right-width: 1px; }
-	.ui-tabs-vertical .ui-tabs-panel { padding: 0px !important;}
-	#tabs{padding-right: 4rem !important; padding-left: 4rem !important;background: #f3f4f6 !important ; border: none;}
-	.ui-tabs-tab{background: white !important}
-	.w_ful{width: 100% !important;}
-	.ui-tabs-vertical .ui-tabs-nav li.ui-tabs-active{background:#3b82f6 !important }
-	.ui-tabs-tab , .ui-widget-header {border:none !important;}
-</style>
-
 <script>
 $( function() {
 	$( "#tabs" ).tabs().addClass( "ui-tabs-vertical ui-helper-clearfix" );
 	$( "#tabs li" ).removeClass( "ui-corner-top" ).addClass( "ui-corner-left" );
 } );
+
+
+
+$(document).ready(function(){
+    $('.country_select').on('change' , function(){
+    	var formData = $('.country_form').serializeArray();
+    	console.log(formData);
+	   	$.ajaxSetup({headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}});
+
+	    $.ajax({
+	          type: 'GET',
+	          url: '/ajax/universities',
+	          data: formData,
+	            success: function(data){
+	              // $('.interviewLoader').prop('disabled',false);
+	              $('.universityDiv').html(data);
+	              $('.universityInput').addClass('hidden');
+	            }
+	      });
+
+	    })
+
+
+
+
+
+});
+
+
 </script>

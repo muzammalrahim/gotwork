@@ -85,13 +85,32 @@ class ProfileController extends Controller
         // dd($user);
         $data['user'] = $user;
         $data['experience'] = Experience::where('user_id' , $user->id)->get();
+        $data['countries'] = DB::table('countries')->get();
         return view('setting',$data);
-
-        /*return DB::table('skills')
-            ->join('user_skills', 'user_skills.skill_id','=','skills.id')
-            ->where('user_skills.user_id','=',$id)
-            ->get();*/
     }   
+
+
+    // Ajax for getting universities 
+
+    public function universities(Request $request)
+    {   
+
+        $university = DB::table('linkedin_universities')->where('country_id' , $request->country_id)->get();
+        $data['university'] = $university;
+        if ($university->count() > 0) {
+            return view('layouts.setting.universities',$data);
+        }
+        else{
+
+            $university = DB::table('webometric_universities')->where('country_id' , $request->country_id)->get();
+            $data['university'] = $university;
+            return view('layouts.setting.universities',$data);
+        }
+
+        
+    }
+
+
 
     public function getProjectTags($reviews)
     {

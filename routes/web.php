@@ -32,3 +32,4 @@ Route::get('/dashboard', [DashboardController::class, 'goToDashboard'])->middlew
 
 Route::get('/profile', [ProfileController::class, 'goToProfile'])->middleware(['auth'])->name('profile');
 Route::get('/setting', [ProfileController::class, 'goToSetting'])->middleware(['auth'])->name('setting');
+Route::get('/ajax/universities', [ProfileController::class, 'universities'])->middleware(['auth'])->name('setting');

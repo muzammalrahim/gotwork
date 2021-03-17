@@ -161,8 +161,7 @@ closeModal.forEach(close => {
 
 // ========================================================== Modal on dashobard page end here ==========================================================
 
+// country
 
-$( function() {
-        $( "#tabs" ).tabs().addClass( "ui-tabs-vertical ui-helper-clearfix" );
-        $( "#tabs li" ).removeClass( "ui-corner-top" ).addClass( "ui-corner-left" );
-    } );
+
+

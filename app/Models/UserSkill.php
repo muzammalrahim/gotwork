@@ -8,4 +8,10 @@ use Illuminate\Database\Eloquent\Model;
 class UserSkill extends Model
 {
     use HasFactory;
+
+
+    public function skillName()
+    {
+        return $this->belongsTo(Skill::class,'skill_id')->orderBy('id', 'ASC');
+    }
 }

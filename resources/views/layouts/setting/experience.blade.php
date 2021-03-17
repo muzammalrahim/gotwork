@@ -1,4 +1,4 @@
-<div class="px-16 border-b border-gray-300 text-base">
+<div class="lg:px-16 md:px-8 sm:px-4 px-4 border-b border-gray-300 text-base">
 
 		@foreach ($experience as $exp)
 
@@ -6,23 +6,24 @@
 				<h1 class="col-span-11 text-base mt-10 font-bold"> Experience {{$loop->index+1}} </h1>
 				<i class="col-span-1 fa fa-edit text-base mt-10 font-bold"></i>
 			</div>
+
 	  			<div class="grid grid-cols-4 gap-4 border-b border-gray-300 text-base">
 
-				<div class="col-span-2 bg-red">
+				<div class="lg:col-span-2 md:col-span-2 sm:col-span-4 col-span-4 bg-red">
 					<div class="my-2 text-sm">
                         <label for="title" class="block text-black font-semibold">Title</label>
                         <input type="text" autofocus id="title" value="{{$exp->title}}" class="rounded-sm focus:outline-none text-sm bg-gray-100 w-full" placeholder="Username" />
                     </div>
 				</div>
 
-				<div class="col-span-2 bg-red">
+				<div class="lg:col-span-2 md:col-span-2 sm:col-span-4 col-span-4 bg-red">
 					<div class="my-2 text-sm">
                         <label for="company" class="block text-black font-semibold">Company</label>
                         <input type="text" autofocus id="company" value="{{$exp->company_name}}" class="rounded-sm focus:outline-none text-sm bg-gray-100 w-full" placeholder="Username" />
                     </div>
 				</div>
 
-				<div class="col-span-1 bg-red">
+				<div class="lg:col-span-1 md:col-span-1 sm:col-span-2 col-span-2 bg-red">
 					<div class="my-2 text-sm">
                         <label for="title" class="block text-black font-semibold">Start Month</label>
                         <select name="start_month" class = "text-sm">
@@ -43,10 +44,10 @@
                     </div>
 				</div>
 
-				<div class="col-span-1 bg-red">
+				<div class="lg:col-span-1 md:col-span-1 sm:col-span-2 col-span-2 bg-red">
 					<div class="my-2 text-sm">
                         <label for="title" class="block text-black font-semibold">Start Year</label>
-                        <select name="start_year" class = "text-sm">
+                        <select name="start_year" class = "text-sm w-full">
                         	@for ($x=date("Y"); $x>1900; $x--)
                         			<option {{$exp->start_year == $x ? 'selected' : '' }} value="{{$x}}"> {{$x}} </option>
                     		@endfor	
@@ -56,7 +57,7 @@
 
 				
 
-				<div class="col-span-1 bg-red">
+				<div class="lg:col-span-1 md:col-span-1 sm:col-span-2 col-span-2 bg-red">
 					<div class="my-2 text-sm">
                         <label for="title" class="block text-black font-semibold">End Month</label>
 
@@ -78,10 +79,10 @@
                     </div>
 				</div>
 
-				<div class="col-span-1 bg-red">
+				<div class="lg:col-span-1 md:col-span-1 sm:col-span-2 col-span-2 bg-red">
 					<div class="my-2 text-sm">
                         <label for="title" class="block text-black font-semibold">Start Year</label>
-                        <select name="end_year" class = "text-sm">
+                        <select name="end_year" class = "text-sm w-full">
                         	@for ($x=date("Y"); $x>1900; $x--)
                         			<option {{$exp->end_year == $x ? 'selected' : '' }} value="{{$x}}"> {{$x}} </option>
                     		@endfor	

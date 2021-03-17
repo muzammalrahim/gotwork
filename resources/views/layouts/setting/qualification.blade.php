@@ -1,5 +1,5 @@
-<div class="px-16 border-b border-gray-300 text-base">
-    	@foreach ($user->Qualification as $qualif)
+<div class="lg:px-16 md:px-8 sm:px-4 px-4 border-b border-gray-300 text-base">
+    	@foreach ($user->qualifications as $qualif)
     		<div class="grid grid-cols-12 gap-4">
 					<h1 class="col-span-11 text-base mt-10 font-bold"> Qualification {{$loop->index+1}} </h1>
 					<i class="col-span-1 fa fa-edit text-base mt-10 font-bold"></i>
