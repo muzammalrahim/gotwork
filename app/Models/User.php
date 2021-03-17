@@ -77,5 +77,11 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->belongsToMany(Skill::class);
     }
 
+    public function userSkills()
+    {
+        return $this->hasMany(UserSkill::class,'user_id')->orderBy('id', 'ASC');
+    }
+
+
     /* End: Foreign Key Relationships */
 }
