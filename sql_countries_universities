@@ -293,7 +293,7 @@ CREATE TABLE IF NOT EXISTS `linkedin_universities` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=9230 ;
 
 --
--- Dumping data for table `universities`
+-- Dumping data for table `linkedin_universities`
 --
 
 INSERT INTO `linkedin_universities` (`id`, `country_id`, `name`) VALUES
@@ -9539,10 +9539,10 @@ INSERT INTO `linkedin_universities` (`id`, `country_id`, `name`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `universities`
+-- Table structure for table `webometric_universities`
 --
 
-CREATE TABLE IF NOT EXISTS `universities` (
+CREATE TABLE IF NOT EXISTS `webometric_universities` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `country_id` int(5) NOT NULL,
   `name` varchar(150) NOT NULL,
@@ -9552,10 +9552,10 @@ CREATE TABLE IF NOT EXISTS `universities` (
 ) ENGINE=MyISAM  DEFAULT CHARSET=utf8 AUTO_INCREMENT=16774 ;
 
 --
--- Dumping data for table `universities`
+-- Dumping data for table `webometric_universities`
 --
 
-INSERT INTO `universities` (`id`, `country_id`, `name`, `url`) VALUES
+INSERT INTO `webometric_universities` (`id`, `country_id`, `name`, `url`) VALUES
 (1, 4, 'American University of Afghanistan', 'http://www.auaf.edu.af/'),
 (2, 4, 'Bakhtar University', 'http://www.bakhtar.edu.af/'),
 (3, 4, 'Herat University', 'http://www.heratuniversity.org/'),
