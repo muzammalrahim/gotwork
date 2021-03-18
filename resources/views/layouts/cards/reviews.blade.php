@@ -1,4 +1,4 @@
-<div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-xl rounded-lg md:-mt-64">
+<div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-xl rounded-lg md:-mt-64" id="reviews">
   <div class="px-6 mb-20">
     <!-- Start: Grid 1 -->
     <div>
@@ -45,15 +45,15 @@
 
       <!-- Start: Reviews List -->
       @isset($user_reviews)
-        <div class="container">
-      
-      @foreach($user_reviews as $review)
-        @include('layouts.profile_reviews_list')
-      @endforeach
-    </div>
+        <div class="container mb-2">
+          @foreach($user_reviews as $review)
+            @include('layouts.profile_reviews_list')
+          @endforeach
+        </div>
 
-    <!-- Start: Pagination -->
-    {!! $user_reviews->links() !!}
+        <!-- Start: Pagination -->
+        {!! $user_reviews->fragment('reviews')->links() !!}
+        <!-- End: Pagination -->
       @endisset
       <!-- End: Reviews List -->
     </div>
@@ -63,30 +63,6 @@
 
 <!-- End File -->
 
-<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
 <script type="text/javascript">
-
-
-  $(document).ready(function(){
-
-
-    $(document).on('click', '.pagination a', function(event){
-    event.preventDefault(); 
-    var page = $(this).attr('href').split('page=')[1];
-    console.log(page);
-    fetch_data(page);
-    });
-
-    function fetch_data(page)
-    {
-    $.ajax({
-     url:"/pagination/fetch_data?page="+page,
-     success:function(data)
-     {
-      $('#table_data').html(data);
-     }
-    });
-    }
-  });
-</script> -->
+  document.getElementById("results").innerHTML = "reviews";
+</script>
