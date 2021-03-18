@@ -37,6 +37,8 @@ Route::get('/setting', [ProfileController::class, 'goToSetting'])->middleware(['
 
 Route::post('/personal-info-update', [ProfileController::class, 'updatePersonalInfo'])->name('personal-info.update');
 
+Route::post('/personal-skills-update', [ProfileController::class, 'updatePersonalSkills'])->name('personal-skills.update');
+
 /* End: Settings Page Routes */
 
 Route::get('/ajax/universities', [ProfileController::class, 'universities'])->middleware(['auth'])->name('universities');

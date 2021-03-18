@@ -87,7 +87,7 @@
             {{ Auth::user()->name }}
           </h3>
 
-               <a href="{{ route('setting') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 text-xs float-right">Edit Profile</a>
+            <a href="{{ route('setting') }}" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 text-xs float-right">Edit Profile</a>
 
           <div class="flex justify-start">
             <div class="flex mt-2 mb-4 w-full w-64 md:w-64 lg:w-100">

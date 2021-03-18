@@ -88,30 +88,16 @@
 	        				<h1 class="lg:text-3xl md:text-xl sm:text-xl font-bold"> Personal Information </h1>    			
 		        		</div>
 
-		        		@if ($errors->any())
-					      	<div class="mt-2 ml-16 mr-16 bg-red-100 border border-red-400 text-red-700 lg:px-16 md:px-8 sm:px-2 px-2  lg:py-10 md:py-5 sm:p-2 py-2 rounded relative" role="alert">
-							  	<strong class="font-bold">Whoops!</strong>
-							  	<span class="block sm:inline">Something went wrong.</span>
-							  	<ul>
-						            @foreach ($errors->all() as $error)
-						              <li >{{ $error }}</li>
-						            @endforeach
-						       	</ul>
-							  	<span class="absolute top-0 bottom-0 right-0 px-4 py-3">
-							    	<svg class="fill-current h-6 w-6 text-red-500" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><title>Close</title><path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z"/></svg>
-							  	</span>
-							</div>
-					    @endif
-
-
+		        		<!-- Start: Alert Messages -->
+		        		@include('layouts.alerts')
+		        		<!-- End: Alert Messages -->
 
 		        		<form action="{{route('personal-info.update')}}" method="POST" enctype="multipart/form-data">
                         @csrf
-                        	<input type="hidden" name="user_id" value="Auth::user()->id" />
 
 			        		<div class="lg:px-16 md:px-8 sm:px-2 px-2  lg:py-10 md:py-5 sm:p-2 py-2 border-b border-gray-300 text-base">
 			        			<h1 class="lg:text-xl md:text-base sm:text-sm text-sm font-bold"> Profile Image </h1>    			
-			                    <input type="file" autofocus id="profile-img" class="rounded-sm mt-3 focus:outline-none lg:text-sm md:text-sm text-xs bg-gray-100 w-full" placeholder="Profile Image" accept="image/x-png,image/gif,image/jpeg"/>
+			                    <input type="file" autofocus id="profile-img" name="profile_photo" class="rounded-sm mt-3 focus:outline-none lg:text-sm md:text-sm text-xs bg-gray-100 w-full" placeholder="Profile Image" accept="image/x-png,image/gif,image/jpeg"/>
 
 			                    <img src="" id="profile-img-tag" width="150px" class="mt-2" />
 			                </div>
@@ -180,10 +166,12 @@
 					<div id="tabs-5">
 
 					 <h1 class="text-xl font-bold lg:px-16 md:px-8 sm:px-2 px-2 py-10 border-b border-gray-300 text-base"> Skills 
-	               		<button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 text-xs fontSize float-right">Add Skill</button>
+	               		{{--
+	               			<button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 text-xs fontSize float-right">Add Skill</button>
+	               		--}}
 	        		</h1>
 
-	        		@include('layouts.setting.userSkills')
+	        		@include('layouts.setting.user_skills')
 
 					</div>
 
