@@ -29,18 +29,6 @@
 
       
 
-
-      <div class="flex justify-start">
-
-        <div class="text-gray-500 text-center flex items-center justify-center rounded-full">
-          
-          <p class="text-md leading-relaxed">
-            Showing 1 - 5 out of 50+ reviews 
-
-          </p>
-        </div>
-      </div>
-
       <br />
 
       <!-- Start: Reviews List -->

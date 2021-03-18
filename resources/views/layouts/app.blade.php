@@ -36,7 +36,6 @@
         <script src="{{ asset('js/app.js') }}" defer></script>
         <script src="{{ asset('js/custom.js') }}" defer></script>
 
-        @livewireStyles
     </head>
 
     <body class="font-sans antialiased p-1">
@@ -57,6 +56,5 @@
             </main>
         </div>
 
-        @livewireScripts
     </body>
 </html>
