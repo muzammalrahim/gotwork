@@ -88,15 +88,54 @@
 	        				<h1 class="lg:text-3xl md:text-xl sm:text-xl font-bold"> Personal Information </h1>    			
 		        		</div>
 
-		        		<div class="lg:px-16 md:px-8 sm:px-2 px-2  lg:py-10 md:py-5 sm:p-2 py-2 border-b border-gray-300 text-base">
-		        			<h1 class="lg:text-xl md:text-base sm:text-sm text-sm font-bold"> Username </h1>    			
-		                    <input type="text" autofocus id="username" value="{{$user->name}}" class="rounded-sm mt-3 focus:outline-none lg:text-sm md:text-sm text-xs bg-gray-100 w-full" placeholder="Username" />
-		                </div>
+		        		@if ($errors->any())
+					      	<div class="mt-2 ml-16 mr-16 bg-red-100 border border-red-400 text-red-700 lg:px-16 md:px-8 sm:px-2 px-2  lg:py-10 md:py-5 sm:p-2 py-2 rounded relative" role="alert">
+							  	<strong class="font-bold">Whoops!</strong>
+							  	<span class="block sm:inline">Something went wrong.</span>
+							  	<ul>
+						            @foreach ($errors->all() as $error)
+						              <li >{{ $error }}</li>
+						            @endforeach
+						       	</ul>
+							  	<span class="absolute top-0 bottom-0 right-0 px-4 py-3">
+							    	<svg class="fill-current h-6 w-6 text-red-500" role="button" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20"><title>Close</title><path d="M14.348 14.849a1.2 1.2 0 0 1-1.697 0L10 11.819l-2.651 3.029a1.2 1.2 0 1 1-1.697-1.697l2.758-3.15-2.759-3.152a1.2 1.2 0 1 1 1.697-1.697L10 8.183l2.651-3.031a1.2 1.2 0 1 1 1.697 1.697l-2.758 3.152 2.758 3.15a1.2 1.2 0 0 1 0 1.698z"/></svg>
+							  	</span>
+							</div>
+					    @endif
 
-		                <div class="lg:px-16 md:px-8 sm:px-2 px-2  lg:py-10 md:py-5 sm:p-2 py-2 border-b border-gray-300 text-base">
-		        			<h1 class="lg:text-xl md:text-base sm:text-sm text-sm font-bold"> Email </h1>    			
-		                    <input type="text" autofocus id="username" value="{{$user->email}}" class="rounded-sm mt-3 focus:outline-none lg:text-sm md:text-sm text-xs bg-gray-100 w-full" placeholder="Username" />
-		                </div>
+
+
+		        		<form action="{{route('personal-info.update')}}" method="POST" enctype="multipart/form-data">
+                        @csrf
+                        	<input type="hidden" name="user_id" value="Auth::user()->id" />
+
+			        		<div class="lg:px-16 md:px-8 sm:px-2 px-2  lg:py-10 md:py-5 sm:p-2 py-2 border-b border-gray-300 text-base">
+			        			<h1 class="lg:text-xl md:text-base sm:text-sm text-sm font-bold"> Profile Image </h1>    			
+			                    <input type="file" autofocus id="profile-img" class="rounded-sm mt-3 focus:outline-none lg:text-sm md:text-sm text-xs bg-gray-100 w-full" placeholder="Profile Image" accept="image/x-png,image/gif,image/jpeg"/>
+
+			                    <img src="" id="profile-img-tag" width="150px" class="mt-2" />
+			                </div>
+
+			        		<div class="lg:px-16 md:px-8 sm:px-2 px-2  lg:py-10 md:py-5 sm:p-2 py-2 border-b border-gray-300 text-base">
+			        			<h1 class="lg:text-xl md:text-base sm:text-sm text-sm font-bold"> Name </h1>    			
+			                    <input type="text" autofocus id="name" name="name" value="{{$user->name}}" class="rounded-sm mt-3 focus:outline-none lg:text-sm md:text-sm text-xs bg-gray-100 w-full" placeholder="Name" maxlength="191" />
+			                </div>
+
+			                <div class="lg:px-16 md:px-8 sm:px-2 px-2  lg:py-10 md:py-5 sm:p-2 py-2 border-b border-gray-300 text-base">
+			        			<h1 class="lg:text-xl md:text-base sm:text-sm text-sm font-bold"> Email </h1>    			
+			                    <input type="text" autofocus id="email" name="email" value="{{$user->email}}" class="rounded-sm mt-3 focus:outline-none lg:text-sm md:text-sm text-xs bg-gray-100 w-full" placeholder="Username" maxlength="191" />
+			                </div>
+
+			                <div class="lg:px-16 md:px-8 sm:px-2 px-2  lg:py-10 md:py-5 sm:p-2 py-2 border-b border-gray-300 text-base">
+			        			<h1 class="lg:text-xl md:text-base sm:text-sm text-sm font-bold"> Description </h1>    			
+			                    <textarea autofocus id="description" name="description" class="rounded-sm mt-3 focus:outline-none lg:text-sm md:text-sm text-xs bg-gray-100 w-full" placeholder="Description" rows="5" maxlength="1000" > {!! $user->description !!} </textarea>
+			                </div>
+
+
+
+			        		<button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-4 px-8 md:px-12 lg:px-12 text-xs md:text-base lg:text-base float-right mr-2 lg:mr-16 mt-2 mb-4 rounded">Update Profile</button>
+			                
+			        	</form>
 
 					</div>
 
@@ -200,5 +239,25 @@ $(document).ready(function(){
 
 });
 
+
+</script>
+
+
+<script type="text/javascript">
+	// Start: Preview Profile Image
+	function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            
+            reader.onload = function (e) {
+                $('#profile-img-tag').attr('src', e.target.result);
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+    $("#profile-img").change(function(){
+        readURL(this);
+    });
+    // End: Preview Profile Image
 
 </script>

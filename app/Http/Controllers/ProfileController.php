@@ -83,7 +83,7 @@ class ProfileController extends Controller
             ->get();
     }
 
-
+    /* Start: Settings Page Functions */
     public function goToSetting(Request $Request)
     {   
 
@@ -115,6 +115,16 @@ class ProfileController extends Controller
 
         
     }
+
+    public function updatePersonalInfo(Request $request)
+    {
+        $validatedData = self::validatePersonalInfoForm($request);
+
+        if ($validatedData) {
+            self::storeProfileImage($request);
+        }
+    } 
+    /* End: Settings Page Functions */
 
 
 
@@ -179,8 +189,27 @@ class ProfileController extends Controller
         } 
         else {
             return 0;
-        }
-        
+        }   
     }
 
+    // Personal Info Validate Function
+    public function validatePersonalInfoForm($request)
+    {
+        $validatedData = $request->validate([
+            'image' => 'nullable|mimes:jpeg,png,jpg|max:250',
+            'name'  => 'required|string|max:191',
+            'email' => 'required|string|email|max:191|unique:users,email,'.Auth::user()->id,
+            'name'  => 'required|string|max:191',
+            'description' => 'required|string|max:1000',
+        ]);
+
+        return $validatedData;
+    }
+
+    // Personal Image Store Function
+    public function storeProfileImage($request)
+    {
+        $user = auth()->user();
+        dd($user);
+    }
 }
