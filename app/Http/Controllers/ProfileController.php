@@ -12,6 +12,7 @@ use App\Models\Review;
 use Auth;
 
 use DB;
+use File;
 
 class ProfileController extends Controller
 {
@@ -92,6 +93,8 @@ class ProfileController extends Controller
         $data['user'] = $user;
         $data['experience'] = Experience::where('user_id' , $user->id)->get();
         $data['countries'] = DB::table('countries')->get();
+        $data['skills'] = DB::table('skills')->orderBy('name','ASC')->get();
+
         return view('setting',$data);
     }   
 
@@ -118,12 +121,34 @@ class ProfileController extends Controller
 
     public function updatePersonalInfo(Request $request)
     {
+        $user = auth()->user();
+
         $validatedData = self::validatePersonalInfoForm($request);
 
         if ($validatedData) {
-            self::storeProfileImage($request);
+
+
+            if (!is_null($request->profile_photo)) {
+                self::storeProfileImage($request);
+            }
+            
+            $data = $request->input();
+
+            $update_user = self::updateUserPersonalInfo($user, $data);
+
+            if ($update_user) {
+                return redirect()->back()->with('success', 'Personal Profile Info Successfully Updated.');
+            } 
+            else {
+                return redirect()->back()->with('error', 'Something Wrong! Data Not Updated. Updated.');
+            }
         }
     } 
+
+    public function updatePersonalSkills(Request $request)
+    {
+        dd($request);
+    }
     /* End: Settings Page Functions */
 
 
@@ -210,6 +235,67 @@ class ProfileController extends Controller
     public function storeProfileImage($request)
     {
         $user = auth()->user();
-        dd($user);
+        
+        $currentPhoto = $user->profile_photo;
+
+        $imageReceived = $request->profile_photo;
+
+
+        // Check if name of previous photo is not equal to current photo then upload;
+        if ($request->profile_photo != $currentPhoto) {
+            
+
+          // making unique name of image so it can't be repeated;
+            $name = time().'.'.$imageReceived->getClientOriginalExtension();
+
+          // Now using image intervention to save our image;
+            \Image::make($request->profile_photo)->save(public_path('images/profile/').$name);
+
+          // storing new name value using merge function;
+            $request->merge(['profile_photo'=>$name]);
+
+            if ($name) {
+                $request->merge(['profile_photo_url'=>null]);
+            }
+
+
+          // Deleting current photo while uploading new one;
+          //Step-1:- get current photo directory path:
+            $userPhoto = public_path('images/profile/').$currentPhoto;
+          //Step-2:- Check if already file exits and then delete photo using unlink;
+            if (file_exists($userPhoto)) {
+                @unlink($userPhoto);
+            }
+        }
+
+        return $request;
+    }
+
+    // Update User Person Info Function
+    public function updateUserPersonalInfo($user, $data)
+    {
+        $profile_photo = null;
+        $profile_photo_url = null;
+
+        if ( isset($data['profile_photo']) && !is_null($data['profile_photo']) ) {
+
+            $profile_photo = $data['profile_photo'];
+        } 
+
+        if ( isset($data['profile_photo_url']) && !is_null($data['profile_photo_url']) ) {
+
+            $profile_photo_url = $data['profile_photo_url'];
+        }
+        else if ($user->profile_photo_url) {
+            $profile_photo_url = $user->profile_photo_url;
+        }
+
+        return $user->update([
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'description' => $data['description'],
+            'profile_photo' => $profile_photo,
+            'profile_photo_url' => $profile_photo_url,
+        ]);
     }
 }
