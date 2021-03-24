@@ -13,6 +13,7 @@ use Auth;
 
 use DB;
 use File;
+use Validator;
 
 class ProfileController extends Controller
 {
@@ -90,6 +91,7 @@ class ProfileController extends Controller
 
         $user = Auth::user();
         // dd($user);
+        $data['alive_div'] = null;
         $data['user'] = $user;
         $data['experience'] = Experience::where('user_id' , $user->id)->get();
         $data['countries'] = DB::table('countries')->get();
@@ -101,17 +103,17 @@ class ProfileController extends Controller
 
     // Ajax for getting universities 
 
-    public function universities(Request $request)
+    public function universities($country_id)
     {   
 
-        $university = DB::table('linkedin_universities')->where('country_id' , $request->country_id)->get();
+        $university = DB::table('linkedin_universities')->where('country_id' , $country_id)->get();
         $data['university'] = $university;
         if ($university->count() > 0) {
             return view('layouts.setting.universities',$data);
         }
         else{
 
-            $university = DB::table('webometric_universities')->where('country_id' , $request->country_id)->get();
+            $university = DB::table('webometric_universities')->where('country_id' , $country_id)->get();
             $data['university'] = $university;
             return view('layouts.setting.universities',$data);
         }
@@ -140,15 +142,64 @@ class ProfileController extends Controller
                 return redirect()->back()->with('success', 'Personal Profile Info Successfully Updated.');
             } 
             else {
-                return redirect()->back()->with('error', 'Something Wrong! Data Not Updated. Updated.');
+                return redirect()->back()->with('error', 'Something Wrong! Data Not Updated.');
             }
         }
     } 
 
     public function updatePersonalSkills(Request $request)
     {
-        dd($request);
+        // Intialization
+            $user_skill = new UserSkill;
+        // End Intialization
+
+
+        $validator = $this->validatePersonalSkills($request->all());
+
+        if ($validator->fails()) {
+            return redirect('/setting#tabs-5')
+            ->withErrors($validator)
+            ->withInput();
+        }
+
+        $skills_id = $request->values;
+        
+        $skill_array = explode(',', $skills_id);
+        foreach ($skill_array as $skill_id) {
+            if ($skill_id) {
+                $add_data = $user_skill->create([
+                    'user_id' => Auth::user()->id,
+                    'skill_id' => $skill_id,
+                ]);
+
+                if ($add_data) {
+                    return redirect('/setting#tabs-5')->with('success', 'User Skill Has Been Successfully Added.');
+                }
+                else {
+                    return redirect('/setting#tabs-5')->with('error', 'Something Wrong! Data Not Added.');
+                }
+            }
+        }
     }
+
+    public function deletePersonalSkills($id)
+    {
+        $user_id = Auth::user()->id;
+
+        $delete_user_skill = UserSkill::find($id)->delete();
+
+        if ($delete_user_skill) {
+            return redirect('/setting#tabs-5')->with('success', 'User Skill Has Been Successfully Deleted.');
+        } 
+        else {
+            return redirect('/setting#tabs-5')->with('error', 'Something Wrong! Data Not Deleted.');
+        }
+
+    }
+
+
+    
+
     /* End: Settings Page Functions */
 
 
@@ -229,6 +280,14 @@ class ProfileController extends Controller
         ]);
 
         return $validatedData;
+    }
+    
+    // Personal Info Skills Validation Function
+    public function validatePersonalSkills(array $data)
+    {
+        return Validator::make($data, [
+            'values'  => 'required',
+        ]);
     }
 
     // Personal Image Store Function

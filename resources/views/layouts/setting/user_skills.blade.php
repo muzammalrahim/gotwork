@@ -1,12 +1,49 @@
-<div class="px-16 py-10 border-b border-gray-300 text-base">
-	<h1 class="lg:text-xl md:text-base sm:text-sm text-sm font-bold mb-3"> My Skills </h1>  
-	@foreach ($user->userSkills as $skill)
-        <span class=" bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 text-xs mr-4">{{$skill->skillName->name}} <span class="ml-4 cursor-pointer"> x </span> </span>
-	@endforeach
-</div>
+<?php 
+	// Getting Those Skills In Drop down Which Don't Exits
+	$skills_not_selected = [];
+	$not_assigned_skills = null;
+	$exist_skills = DB::table('user_skills')->where('user_id',Auth::user()->id)->get('skill_id');
+	$all_skills = DB::table('skills')->get('id');
+	$dropdown_skills = [];
+	foreach ($all_skills as $all_skill) {
+		if ($all_skill) {
+			if ( !is_null($exist_skills) && $exist_skills ) {
+				foreach ($exist_skills as $exist_skill) {
+					if ($exist_skill) {
+						if ($all_skill->id == $exist_skill->skill_id) {
+							continue;
+						}
+						else {
+							$skills_not_selected[] =  $all_skill->id;
+						}
+					} 
+				}
+			}
+		}
+	}
+	
+	if ( $skills_not_selected ) {
+
+		foreach ($skills_not_selected as $dropdown) {
+			$dropdown_skills[] = DB::table('skills')->where('id',$dropdown)->get();
+		}
+	}
+	else {
+		$dropdown_skills[] = DB::table('skills')->get();
+	}
+?>
+
+
+@if( $user->userSkills->count() > 0 )
+	<div class="px-16 py-10 border-b border-gray-300 text-base">
+		<h1 class="lg:text-xl md:text-base sm:text-sm text-sm font-bold mb-3"> My Skills </h1>  
+		@foreach ($user->userSkills as $skill)
+		    <span class=" bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 text-xs mr-4">{{$skill->skillName->name}} <a href="{{ route('personal-skills.remove', ['id' => $skill->id]) }}" class="ml-4 cursor-pointer"> x </a> </span>
+		@endforeach
+	</div>
+@endif
 
 <div>
-	
 
 	<style>
 	  [x-cloak] {
@@ -14,14 +51,17 @@
 	  }
 	</style>
 
-	<h1 class="w-full ml-16 mx-auto lg:text-xl md:text-base sm:text-sm text-sm font-bold mb-2 mt-2"> Edit Skills </h1>
-	<select x-cloak id="select" name="skills[]">
-		@foreach ($skills as $skill)		
-		  <option value="{{$skill->id}}">{{$skill->name}}</option>
+	<h1 class="w-full ml-16 mx-auto lg:text-xl md:text-base sm:text-sm text-sm font-bold mb-2 mt-6"> Add Skills </h1>
+
+	<select x-cloak id="select" name="skills[]" required="required">
+		@foreach ($dropdown_skills as $skill)
+			@foreach ($skill as $data)
+				<option value="{{$data->id}}">{{$data->name}}</option>
+			@endforeach
 		@endforeach
 	</select>
 
-	<div x-data="dropdown()" x-init="loadOptions()" class="w-full ml-16 flex flex-col mx-auto">
+	<div x-data="dropdown()" x-init="loadOptions()" class="w-full ml-16 h-48 flex flex-col mx-auto">
 		<form action="{{route('personal-skills.update')}}" method="POST">
 			@csrf
 			
@@ -62,18 +102,14 @@
 			                    <button type="button" x-show="isOpen() === true" x-on:click="open"
 			                        class="cursor-pointer w-6 h-6 text-gray-600 outline-none focus:outline-none">
 			                        <svg version="1.1" class="fill-current h-4 w-4" viewBox="0 0 20 20">
-			                            <path d="M17.418,6.109c0.272-0.268,0.709-0.268,0.979,0s0.271,0.701,0,0.969l-7.908,7.83
-			c-0.27,0.268-0.707,0.268-0.979,0l-7.908-7.83c-0.27-0.268-0.27-0.701,0-0.969c0.271-0.268,0.709-0.268,0.979,0L10,13.25
-			L17.418,6.109z" />
+			                            <path d="M17.418,6.109c0.272-0.268,0.709-0.268,0.979,0s0.271,0.701,0,0.969l-7.908,7.83 c-0.27,0.268-0.707,0.268-0.979,0l-7.908-7.83c-0.27-0.268-0.27-0.701,0-0.969c0.271-0.268,0.709-0.268,0.979,0L10,13.25 L17.418,6.109z" />
 			                        </svg>
 
 			                    </button>
 			                    <button type="button" x-show="isOpen() === false" @click="close"
 			                        class="cursor-pointer w-6 h-6 text-gray-600 outline-none focus:outline-none">
 			                        <svg class="fill-current h-4 w-4" viewBox="0 0 20 20">
-			                            <path d="M2.582,13.891c-0.272,0.268-0.709,0.268-0.979,0s-0.271-0.701,0-0.969l7.908-7.83
-			c0.27-0.268,0.707-0.268,0.979,0l7.908,7.83c0.27,0.268,0.27,0.701,0,0.969c-0.271,0.268-0.709,0.268-0.978,0L10,6.75L2.582,13.891z
-			" />
+			                            <path d="M2.582,13.891c-0.272,0.268-0.709,0.268-0.979,0s-0.271-0.701,0-0.969l7.908-7.83 c0.27-0.268,0.707-0.268,0.979,0l7.908,7.83c0.27,0.268,0.27,0.701,0,0.969c-0.271,0.268-0.709,0.268-0.978,0L10,6.75L2.582,13.891z" />
 			                        </svg>
 
 			                    </button>
@@ -103,11 +139,17 @@
 			        </div>
 			    </div>
 			<!-- on tailwind components page will no work  -->
-		    {{-- <button disabled class="flex-shrink-0 bg-teal-500 hover:bg-teal-700 border-teal-500 hover:border-teal-700 text-sm border-4 text-white py-1 px-2 rounded" type="submit">Test</button> --}}
-
-		    <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-8 md:px-12 lg:px-8 text-xs md:text-base lg:text-base float-right mt-2 mb-4 rounded">Update Skills</button>
+		    	{{-- <button disabled class="flex-shrink-0 bg-teal-500 hover:bg-teal-700 border-teal-500 hover:border-teal-700 text-sm border-4 text-white py-1 px-2 rounded" type="submit">Test</button> --}}
+			</div>
+		    
+		    <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-8 md:px-12 text-xs md:text-base lg:text-base mt-2 mb-4 rounded">Add Skills</button>
 
 		</form>
+
+		@error('values')
+		    <div class="red-text" style=" color: red; ">Please select skills.</div>
+		@enderror
+		
 
 
 	</div>
@@ -161,5 +203,10 @@
 	            }
 	        }
 	    }
+	</script>
+
+
+	<script type="text/javascript">
+		
 	</script>
 </div>
