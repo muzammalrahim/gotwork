@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\GoogleController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\EducationController;
+use App\Http\Controllers\QualificationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,6 +41,22 @@ Route::post('/personal-info-update', [ProfileController::class, 'updatePersonalI
 
 Route::post('/personal-skills-update', [ProfileController::class, 'updatePersonalSkills'])->name('personal-skills.update');
 
+Route::get('/personal-skills-remove/{id}', [ProfileController::class, 'deletePersonalSkills'])->name('personal-skills.remove');
+
+// Education Tab Routes
+Route::post('/personal-education-store', [EducationController::class, 'storePersonalEducation'])->name('personal-education.store');
+
+Route::post('/personal-education-update', [EducationController::class, 'updatePersonalEducation'])->name('personal-education.update');
+
+Route::get('/personal-education-remove/{id}', [EducationController::class, 'deletePersonalEducation'])->name('personal-education.remove');
+
+// Qualification Tab Routes
+Route::post('/personal-qualification-store', [QualificationController::class, 'storePersonalQualification'])->name('personal-qualification.store');
+
+Route::post('/personal-qualification-update', [QualificationController::class, 'updatePersonalQualification'])->name('personal-qualification.update');
+
+Route::get('/personal-qualification-remove/{id}', [QualificationController::class, 'deletePersonalQualification'])->name('personal-qualification.remove');
+
 /* End: Settings Page Routes */
 
-Route::get('/ajax/universities', [ProfileController::class, 'universities'])->middleware(['auth'])->name('universities');
+Route::get('/ajax/universities/{id}', [ProfileController::class, 'universities'])->middleware(['auth'])->name('universities');
