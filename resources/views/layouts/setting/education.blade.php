@@ -39,7 +39,7 @@
 				<h1 class="col-span-11 text-base mt-10 font-bold"> Education {{$loop->index+1}} </h1>
 				{{-- <button href="{{ route('personal-education.remove', ['id' => $education->id]) }}" type="submit" class="btn btn-danger text-red-600 bg-red-100 mt-2">X</button> --}}
                 <!-- Delete Button -->
-                <a href="{{ route('personal-education.remove', ['id' => $education->id]) }}" class="mt-2 pt-3 cursor-pointer text-red-600 bg-red-100"> <span class="text-red-600 text-lg m-9">X</span> </a>
+                <a href="{{ route('personal-education.remove', ['id' => $education->id]) }}" class="mt-2 pt-3 cursor-pointer text-red-600 bg-red-100" onclick="return confirm('Are you sure you want to delete this item?');"> <span class="text-red-600 text-lg m-9">X</span> </a>
 			</div>
             
             
@@ -167,6 +167,8 @@
     	       </div>
 
             </form>
+
+        
 
     @endforeach
 </div>

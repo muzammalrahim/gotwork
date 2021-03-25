@@ -1,44 +1,8 @@
-<?php 
-	// Getting Those Skills In Drop down Which Don't Exits
-	$skills_not_selected = [];
-	$not_assigned_skills = null;
-	$exist_skills = DB::table('user_skills')->where('user_id',Auth::user()->id)->get('skill_id');
-	$all_skills = DB::table('skills')->get('id');
-	$dropdown_skills = [];
-	foreach ($all_skills as $all_skill) {
-		if ($all_skill) {
-			if ( !is_null($exist_skills) && $exist_skills ) {
-				foreach ($exist_skills as $exist_skill) {
-					if ($exist_skill) {
-						if ($all_skill->id == $exist_skill->skill_id) {
-							continue;
-						}
-						else {
-							$skills_not_selected[] =  $all_skill->id;
-						}
-					} 
-				}
-			}
-		}
-	}
-	
-	if ( $skills_not_selected ) {
-
-		foreach ($skills_not_selected as $dropdown) {
-			$dropdown_skills[] = DB::table('skills')->where('id',$dropdown)->get();
-		}
-	}
-	else {
-		$dropdown_skills[] = DB::table('skills')->get();
-	}
-?>
-
-
 @if( $user->userSkills->count() > 0 )
 	<div class="px-16 py-10 border-b border-gray-300 text-base">
 		<h1 class="lg:text-xl md:text-base sm:text-sm text-sm font-bold mb-3"> My Skills </h1>  
 		@foreach ($user->userSkills as $skill)
-		    <span class=" bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 text-xs mr-4">{{$skill->skillName->name}} <a href="{{ route('personal-skills.remove', ['id' => $skill->id]) }}" class="ml-4 cursor-pointer"> x </a> </span>
+		    <span class=" bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 text-xs mr-4">{{$skill->skillName->name}} <a href="{{ route('personal-skills.remove', ['id' => $skill->id]) }}" class="ml-4 cursor-pointer" onclick="return confirm('Are you sure you want to delete this item?');"> x </a> </span>
 		@endforeach
 	</div>
 @endif
@@ -54,10 +18,9 @@
 	<h1 class="w-full ml-16 mx-auto lg:text-xl md:text-base sm:text-sm text-sm font-bold mb-2 mt-6"> Add Skills </h1>
 
 	<select x-cloak id="select" name="skills[]" required="required">
-		@foreach ($dropdown_skills as $skill)
-			@foreach ($skill as $data)
-				<option value="{{$data->id}}">{{$data->name}}</option>
-			@endforeach
+		
+		@foreach ($skills as $skill)
+			<option value="{{$skill->id}}">{{$skill->name}}</option>
 		@endforeach
 	</select>
 

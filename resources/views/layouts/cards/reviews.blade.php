@@ -19,10 +19,14 @@
             Filter reviews by: 
           </p>
 
-          <select class="ml-32 md:ml-0 lg:ml-0 lg:order-3 lg:text-right lg:self-center mb-1">
-            <option>View All</option>
-            <option>No</option>
-            <option>Maybe</option>
+          <select id="filter_review_by_skill" name="filter_review_by_skill" onchange="filterReviewsTrigger()" class="ml-32 md:ml-0 lg:ml-0 lg:order-3 lg:text-right lg:self-center mb-1">
+            @isset($user_skills)
+              <option value=" ">Select Skill</option>
+              <option value=" ">View All</option>
+              @foreach($user_skills as $skill)
+                 <option value="{{$skill->name}}">{{ $skill->name }}</option>
+              @endforeach
+            @endisset
           </select>
         </div>
       </div>         
@@ -53,4 +57,14 @@
 
 <script type="text/javascript">
   document.getElementById("results").innerHTML = "reviews";
+</script>
+
+<script type="text/javascript">
+  function filterReviewsTrigger () {
+    let queryString = window.location.search;  // get url parameters
+    let params = new URLSearchParams(queryString);  // create url search params object
+    params.delete('reviews');  // delete reviews parameter if it exists, in case you change the dropdown more then once
+    params.append('reviews', document.getElementById("filter_review_by_skill").value); // add selected reviews
+    document.location.href = "?" + params.toString(); // refresh the page with new url
+  }
 </script>

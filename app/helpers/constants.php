@@ -16,4 +16,4 @@ define('BASE_PATH', $base_path.'/');
 define('ASSETS_BACKEND', BASE_PATH.'assets/backend/');
 
 // Uploaded Images
-define('UPLOADS', BASE_PATH.'uploads/images/');
+define('UPLOADS', BASE_PATH.'images/profile/');
