@@ -32,6 +32,9 @@
         <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
+        <!-- Sweet Alert -->
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
         <!-- Scripts -->
         <script src="{{ asset('js/app.js') }}" defer></script>
         <script src="{{ asset('js/custom.js') }}" defer></script>
@@ -57,4 +60,9 @@
         </div>
 
     </body>
+
+    <!-- Start: Sweet Alert For Delete -->
+        
+    <!-- End: Sweet Alert For Delete -->
+    
 </html>

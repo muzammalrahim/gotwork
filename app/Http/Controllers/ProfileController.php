@@ -18,7 +18,7 @@ use Validator;
 class ProfileController extends Controller
 {
     // Function: GoTo Profile 
-	public function goToProfile()
+	public function goToProfile(Request $request)
     {
         // Intialization
             $user = new User;
@@ -42,10 +42,20 @@ class ProfileController extends Controller
             // Fetching Current User Skills 
             $user_skill = self::getUserSkills($id);
 
-            // Fetching Current User Reviews
-            $user_reviews = $user->find($id)->reviews()->paginate(1);
 
-            // Fetching Review Tags
+            if ($request->get('reviews')) {
+                // Filered Reviews
+
+                $user_skill_id = self::getSkillIdByName($request->get('reviews'));
+
+                $user_reviews = $user->find($id)->reviews()->where('skill_id','=', $user_skill_id->id)->paginate(2);
+            }
+            else {
+                // All Reviews
+                $user_reviews = $user->find($id)->reviews()->paginate(2);
+            }
+
+            
             if ($user_reviews) {
                 foreach ($user_reviews as $reviews) {
                     $data['project_tags'] = self::getProjectTags($reviews);
@@ -83,6 +93,11 @@ class ProfileController extends Controller
             ->join('user_skills', 'user_skills.skill_id','=','skills.id')
             ->where('user_skills.user_id','=',$id)
             ->get();
+    }
+
+    public function getSkillIdByName($skill_name)
+    {
+        return DB::table('skills')->where('name','=',$skill_name)->first('id');
     }
 
     /* Start: Settings Page Functions */
@@ -165,8 +180,28 @@ class ProfileController extends Controller
         $skills_id = $request->values;
         
         $skill_array = explode(',', $skills_id);
+
+        $count_skills = 0;
+
         foreach ($skill_array as $skill_id) {
             if ($skill_id) {
+                
+                $db_check_skill_count = $this->getUserSkillFromDB($skill_id);
+
+                
+                if (count($skill_array) > 1) {
+                    if ( $db_check_skill_count > 0 ) {
+                        $count_skills++;
+                        continue;
+                    }
+                } 
+                else {
+                    if ( $db_check_skill_count > 0 ) {
+                        return redirect('/setting#tabs-5')->with('error', 'Skill Already Added.');
+                    }
+                }
+                
+
                 $add_data = $user_skill->create([
                     'user_id' => Auth::user()->id,
                     'skill_id' => $skill_id,
@@ -179,6 +214,10 @@ class ProfileController extends Controller
                     return redirect('/setting#tabs-5')->with('error', 'Something Wrong! Data Not Added.');
                 }
             }
+        }
+
+        if ( count($skill_array) == $count_skills ) {
+            return redirect('/setting#tabs-5')->with('error', 'Following Skills Already Added.');
         }
     }
 
@@ -242,7 +281,7 @@ class ProfileController extends Controller
     public function getUserRatingCount($user_id) {
         $reviews = Review::where('user_id', $user_id)->get();
         
-        if ($reviews) {
+        if ( count($reviews) > 0 ) {
             $sum_rating = $reviews->sum('rating');
             $count_rating = $reviews->count('rating');
             
@@ -356,5 +395,11 @@ class ProfileController extends Controller
             'profile_photo' => $profile_photo,
             'profile_photo_url' => $profile_photo_url,
         ]);
+    }
+
+
+    public function getUserSkillFromDB($skill_id)
+    {
+        return DB::table('user_skills')->where('user_id', '=', Auth::user()->id)->where('skill_id','=', $skill_id)->count();
     }
 }

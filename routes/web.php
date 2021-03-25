@@ -7,6 +7,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\EducationController;
 use App\Http\Controllers\QualificationController;
+use App\Http\Controllers\ExperienceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -49,6 +50,13 @@ Route::post('/personal-education-store', [EducationController::class, 'storePers
 Route::post('/personal-education-update', [EducationController::class, 'updatePersonalEducation'])->name('personal-education.update');
 
 Route::get('/personal-education-remove/{id}', [EducationController::class, 'deletePersonalEducation'])->name('personal-education.remove');
+
+// Experience Tab Routes
+Route::post('/personal-experience-store', [ExperienceController::class, 'storePersonalExperience'])->name('personal-experience.store');
+
+Route::post('/personal-experience-update', [ExperienceController::class, 'updatePersonalExperience'])->name('personal-experience.update');
+
+Route::get('/personal-experience-remove/{id}', [ExperienceController::class, 'deletePersonalExperience'])->name('personal-experience.remove');
 
 // Qualification Tab Routes
 Route::post('/personal-qualification-store', [QualificationController::class, 'storePersonalQualification'])->name('personal-qualification.store');

@@ -18,8 +18,9 @@ class QualificationController extends Controller
     
 
     /* Start: Store Functionality*/
-        public function storePersonalEducation(Request $request)
+        public function storePersonalQualification(Request $request)
         {
+
         	// Initialization
             	$data = $request->input();
             // End Initialization
@@ -45,18 +46,17 @@ class QualificationController extends Controller
         {
             return Qualification::create([
                 'user_id' => Auth::user()->id,
-                'professional_certificate' => $data['country_id'],
-                'conferring_organization' => $data['university_id'],
-                'summary' => $data['degree'],
+                'professional_certificate' => $data['professional_certificate'],
+                'conferring_organization' => $data['conferring_organization'],
+                'summary' => $data['summary'],
                 'start_year' => $data['start_year'],
             ]);
         }
 
         /* Start: Validation Functions */
-            public function validateStorePersonalEducation(array $data)
+            public function validateStorePersonalQualification(array $data)
             {
                 return Validator::make($data, [
-	                'qualification_id'  => 'required|exists:qualifications,id',
 		            'professional_certificate'  => 'required|string|max:255',
 		            'conferring_organization'  => 'required|string|max:355',
 		            'summary'  => 'required|string|max:1000',

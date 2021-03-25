@@ -17,6 +17,7 @@ class CreateReviewsTable extends Migration
             $table->id();
             $table->unsignedInteger('user_id')->nullable();
             $table->unsignedInteger('project_id')->nullable();
+            $table->unsignedInteger('skill_id')->nullable();
             $table->longText('comment')->nullable();
             $table->double('rating', 3, 1);
             $table->timestamps();
