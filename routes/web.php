@@ -8,6 +8,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\EducationController;
 use App\Http\Controllers\QualificationController;
 use App\Http\Controllers\ExperienceController;
+use App\Http\Controllers\ProjectController;
 
 /*
 |--------------------------------------------------------------------------
@@ -31,7 +32,7 @@ Route::get('/auth/google/callback', [GoogleController::class, 'handleGoogleCallb
 
 require __DIR__.'/auth.php';
 
-Route::get('/dashboard', [DashboardController::class, 'goToDashboard'])->middleware(['auth'])->name('dashboard');
+
 
 Route::get('/profile', [ProfileController::class, 'goToProfile'])->middleware(['auth'])->name('profile');
 
@@ -68,3 +69,16 @@ Route::get('/personal-qualification-remove/{id}', [QualificationController::clas
 /* End: Settings Page Routes */
 
 Route::get('/ajax/universities/{id}', [ProfileController::class, 'universities'])->middleware(['auth'])->name('universities');
+
+
+/* Start: Dashboard Page Routes */
+
+// Dashboard Page Routes
+
+Route::any('/dashboard', [DashboardController::class, 'goToDashboard'])->middleware(['auth'])->name('dashboard');
+
+/*
+Route::post('/dashboard/search', [ProjectController::class, 'filterProjects'])->middleware(['auth'])->name('projects.filters');
+*/
+
+/* End: Dashboard Page Routes */

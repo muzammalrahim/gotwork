@@ -15,12 +15,7 @@ class CreateProjectTypesTable extends Migration
     {
         Schema::create('project_types', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('project_id')->nullable();
-            $table->unsignedInteger('type_id')->nullable();
-            $table->double('min_amount', 8, 2);
-            $table->double('max_amount', 8, 2);
-            $table->double('per_hour_amount', 8, 2);
-            $table->enum('is_hourly',['Yes','No'])->default('No');
+            $table->string('name');
             $table->timestamps();
         });
     }

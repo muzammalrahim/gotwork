@@ -9,6 +9,11 @@ class Project extends Model
 {
     use HasFactory;
 
+    
+
+    /* Start: Fetch Data Fuctions */
+    
+    /* End: Fetch Data Fuctions */
 
 
 
@@ -16,6 +21,31 @@ class Project extends Model
     public function milestones()
     {
         return $this->hasMany(Milestone::class,'project_id')->orderBy('id', 'ASC');
+    }
+
+    public function projectSkills()
+    {
+        return $this->hasMany(ProjectSkill::class,'project_id');
+    }
+
+    public function projectListingTypes()
+    {
+        return $this->hasMany(ProjectListingType::class,'project_id');
+    }
+
+    public function projectType()
+    {
+        return $this->belongsTo(ProjectType::class,'project_type_id');
+    }
+
+    /*public function projectTypeAsc()
+    {
+        return $this->hasOne(ProjectType::class,'project_id')->orderBy('min_amount', 'ASC');
+    }*/
+
+    public function bids()
+    {
+        return $this->hasMany(bids::class,'project_id');
     }
     /* End: Foreign Key Relationships */
 }
