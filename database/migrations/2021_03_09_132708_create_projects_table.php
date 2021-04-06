@@ -17,11 +17,15 @@ class CreateProjectsTable extends Migration
             $table->id();
             $table->string('title')->nullable();
             $table->longText('description')->nullable();
+            $table->unsignedInteger('project_type_id')->nullable();
+            /*
             $table->unsignedInteger('project_tag_id')->nullable();
             $table->unsignedInteger('project_file_id')->nullable();
-            $table->unsignedInteger('project_type_id')->nullable();
+            */
+            $table->double('min_amount', 8, 2)->nullable();
+            $table->double('max_amount', 8, 2)->nullable();
             $table->enum('status',['Active','Deleted'])->default('Active');
-            $table->date('expires_at')->nullable();
+            $table->dateTime('expires_at')->nullable();
             $table->timestamps();
         });
     }

@@ -126,6 +126,15 @@ span.upper.value {
     font-size: 12px;
 }
 
+span.symbol {
+  position: absolute;
+  top: 38px;
+  left: 132px;
+  display: block;
+  font-size: 12px;
+  font-weight: bold;
+}
+
 
 /* =========================================== Rating on dashboard page =========================================== */
 

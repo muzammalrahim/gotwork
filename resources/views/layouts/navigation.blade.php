@@ -6,7 +6,8 @@
                 <!-- Logo -->
                 <div class="flex-shrink-0 flex items-center">
                     <a href="{{ route('dashboard') }}">
-                        <x-application-logo class="block h-10 w-auto fill-current text-gray-600" />
+                        {{-- <x-application-logo class="block h-10 w-auto fill-current text-gray-600" /> --}}
+                        <img width="100" height="50" src="{{asset('images/cropped-gotWorkLogoGreyOrange-1.png')}}" class="custom-logo" alt="Got Work" sizes="(max-width: 1948px) 100vw, 1948px">
                     </a>
                 </div>
 
