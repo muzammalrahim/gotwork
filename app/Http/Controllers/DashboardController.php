@@ -30,7 +30,7 @@ class DashboardController extends Controller
     }
 
 	// Function: GoTo Dashboard 
-	public function goToDashboard(Request $request)
+	public function projects(Request $request)
     {
     	if ( isset(Auth::User()->id) &&  isset(Auth::User()->email_verified_at) ) {
 
@@ -194,10 +194,40 @@ class DashboardController extends Controller
 
 
 
-    		return view('backend.dashboard.dashboard', $data);
+    		return view('backend.projects.projects', $data);   // backend/projects/projects
     	} else {
     		return view('auth.verify-email');
     	}
     	
-    }    
+    }
+
+
+
+    public function goToDashboard(Request $request){
+        $user = Auth::user();
+        $data['user'] = $user;
+        return view('backend.dashboard.dashboard', $data);   // backend/dashboard/dashboard
+
+    }
+
+    public function myProjects(Request $request){
+        $user = Auth::user();
+        // dd($user);
+        $data['user'] = $user;
+        $data['title'] = 'My Projects';
+        return view('backend.myprojects.myprojects', $data);   // backend/myprojects/myprojects
+    }
+
+    // Project Detail 
+
+    public function projectDetail(Request $request){
+        $user = Auth::user();
+        // dd($user);
+        $data['user'] = $user;
+        $data['title'] = 'Project Detail';
+        return view('backend.projects.projectDetail', $data);   // backend/myprojects/myprojects
+    }
+
+
+
 }
