@@ -44,7 +44,7 @@
     <body class="font-sans antialiased p-1">
         <div class="min-h-screen bg-gray-100">
 
-            @include('layouts.navigation')
+            @include('layouts.navigation')  {{-- layouts/navigation --}}
 
             <!-- Page Heading -->
            {{-- <header class="bg-white shadow">

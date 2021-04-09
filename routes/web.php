@@ -75,7 +75,15 @@ Route::get('/ajax/universities/{id}', [ProfileController::class, 'universities']
 
 // Dashboard Page Routes
 
+
 Route::any('/dashboard', [DashboardController::class, 'goToDashboard'])->middleware(['auth'])->name('dashboard');
+
+Route::any('/projects', [DashboardController::class, 'projects'])->middleware(['auth'])->name('projects');
+
+Route::any('/my-projects', [DashboardController::class, 'myProjects'])->middleware(['auth'])->name('myProjects');
+
+Route::any('/project/detail/{id}', [DashboardController::class, 'projectDetail'])->middleware(['auth'])->name('projectDetail');
+
 
 /*
 Route::post('/dashboard/search', [ProjectController::class, 'filterProjects'])->middleware(['auth'])->name('projects.filters');

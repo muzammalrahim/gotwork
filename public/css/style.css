@@ -1,4 +1,5 @@
 .homeNav{background:#ff5d00;}
+.infoBg{background: #f68d49;}
 
 .header-above i {width: 30px;height: 30px;background: #ffffff;border-radius: 50%;
     color: #111111;text-align: center;padding-top: 5px;margin: 5px;}
@@ -71,9 +72,15 @@ input[type=range]::-webkit-slider-thumb {
   /* @apply w-6 h-6 appearance-none pointer-events-auto; */
   }
 
+
+.contests,.projects{
+  border-left:5px solid white;
+}
+
 .contests:hover, .project:hover ,.projects:hover{
   border-left:5px solid #2563eb;
 }
+
 
   /* =================================================================== Second ranger Slider ================================================================*/
 
@@ -195,13 +202,6 @@ span.symbol {
 .ui-tabs-tab , .ui-widget-header {border:none !important;}
 .fontSize{font-size: 12px !important;}
 
-
-.py_0 {
-  padding-top: 0px !important;
-  padding-bottom: 0px !important;
-}
-
-.px_0 {
-  padding-left: 0px !important;
-  padding-right: 0px !important;
-}
+.py_0 {padding-top: 0px !important;padding-bottom: 0px !important;}
+.px_0 {padding-left: 0px !important;padding-right: 0px !important;}
+.upgradeDiv{background-image: url(https://cdn6.f-cdn.com/files/download/139736386/easter-ban.jpg); background-size: cover;border-radius: 0;}
