@@ -35,6 +35,8 @@
 
   <div class="w-4/5 m-2"> 
       <div class="font-bold text-base h-0 mt-2"> Fixed Price </div>
+
+      <?php /* ?>
       <div class="min-max-slider" data-legendnum="2">
           <label for="min">Minimum price</label>
           <input id="min" class="min" name="fixed_min" type="range" step="1" min="0" max="3000" / >
@@ -58,6 +60,8 @@
           <p class="font-semibold text-xs">Search</p>
         </button> --}}
       </div>
+      <?php */ ?>
+      @include('backend.includes.projects_range_slider')
       
   </div>
 
