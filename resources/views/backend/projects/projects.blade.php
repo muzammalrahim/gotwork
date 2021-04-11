@@ -223,8 +223,9 @@
 
 
             @foreach($projects_list as $project)
-              <a href="{{route('projectDetail' , ["id" => $project->id])}}">
-                @include('backend.includes.projects_list')  {{-- backend/includes/projects_list --}}
+              <a class="block hover:bg-gray-200" href="{{route('projectDetail' , ["slug" => $project->slug ])}}">
+                @include('backend.includes.projects_list')  
+                {{-- backend/includes/projects_list --}}
               </a>
             @endforeach
 

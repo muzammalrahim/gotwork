@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use App\Models\Project;
+
+use Auth;
+
 class ProjectController extends Controller
 {
     public function filterProjects(Request $request)
@@ -15,5 +19,26 @@ class ProjectController extends Controller
     	
 
     	$data['filter_project_types'] = $filter_project_types;
+    }
+
+
+    // Project Detail 
+
+    public function projectDetails($slug){
+
+    	// Start: Model Initialization
+    		$project = new Project;
+    	// End: Model Initialization
+
+        $user = Auth::user();
+        // dd($user);
+        $data['user'] = $user;
+        $data['title'] = 'Project Detail';
+
+        // Get Project Details By Slug
+        $data['project_details'] = $project->getProjectDetailsBySlug($slug);
+
+
+        return view('backend.projects.project_details', $data);   // backend/myprojects/myprojects
     }
 }

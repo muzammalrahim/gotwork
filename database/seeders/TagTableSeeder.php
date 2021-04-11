@@ -15,6 +15,11 @@ class TagTableSeeder extends Seeder
      */
     public function run()
     {
+
+        if (DB::table('tags')->count() > 0) {
+            return;
+        }
+        
         $data = array();
 
     	$data[0] = ['name' => 'HTML','status' => 'Active', 'created_at' => now(),'updated_at' => now()];

@@ -34,7 +34,7 @@ class DashboardController extends Controller
     {
     	if ( isset(Auth::User()->id) &&  isset(Auth::User()->email_verified_at) ) {
 
-
+//dd("coming");
             // Intialization
                 $data = [];
                 $search = false;
@@ -218,15 +218,7 @@ class DashboardController extends Controller
         return view('backend.myprojects.myprojects', $data);   // backend/myprojects/myprojects
     }
 
-    // Project Detail 
-
-    public function projectDetail(Request $request){
-        $user = Auth::user();
-        // dd($user);
-        $data['user'] = $user;
-        $data['title'] = 'Project Detail';
-        return view('backend.projects.projectDetail', $data);   // backend/myprojects/myprojects
-    }
+    
 
 
 
