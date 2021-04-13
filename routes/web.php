@@ -82,7 +82,7 @@ Route::any('/projects', [DashboardController::class, 'projects'])->middleware(['
 
 Route::any('/my-projects', [DashboardController::class, 'myProjects'])->middleware(['auth'])->name('myProjects');
 
-Route::any('/project/detail/{id}', [DashboardController::class, 'projectDetail'])->middleware(['auth'])->name('projectDetail');
+Route::get('/projects/{slug}/details', [ProjectController::class, 'projectDetails'])->middleware(['auth'])->name('projectDetail');
 
 
 /*

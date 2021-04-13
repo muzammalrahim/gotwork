@@ -43,7 +43,7 @@
 
     <body class="font-sans antialiased p-1">
         <div class="min-h-screen bg-gray-100">
-
+            @include('backend.includes.loader')
             @include('layouts.navigation')  {{-- layouts/navigation --}}
 
             <!-- Page Heading -->

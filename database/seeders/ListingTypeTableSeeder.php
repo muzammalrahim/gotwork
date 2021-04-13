@@ -15,6 +15,11 @@ class ListingTypeTableSeeder extends Seeder
      */
     public function run()
     {
+
+        if (DB::table('listing_types')->count() > 0) {
+            return;
+        }
+        
         $data = array();
 
     	$data[0] = ['title' => 'Featured','status' => 'Active', 'created_at' => now(),'updated_at' => now()];

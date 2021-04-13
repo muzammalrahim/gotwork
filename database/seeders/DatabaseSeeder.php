@@ -17,5 +17,6 @@ class DatabaseSeeder extends Seeder
 
         $this->call(ListingTypeTableSeeder::class);
         $this->call(TagTableSeeder::class);
+        $this->call(CurrencyTableSeeder::class);
     }
 }

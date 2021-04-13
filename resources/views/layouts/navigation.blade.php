@@ -18,17 +18,25 @@
                     </x-nav-link>
                 </div>
 
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('projects')" :active="request()->routeIs('projects')">
-                        {{ __('Projects') }}
-                    </x-nav-link>
-                </div>
+                @if(request()->routeIs('projectDetail'))
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                        <x-nav-link :href="route('projects')" :active="request()->routeIs('projectDetail')">
+                            {{ __('Details') }}
+                        </x-nav-link>
+                    </div>
+                @else
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                        <x-nav-link :href="route('projects')" :active="request()->routeIs('projects')">
+                            {{ __('Projects') }}
+                        </x-nav-link>
+                    </div>
 
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('myProjects')" :active="request()->routeIs('myProjects')">
-                        {{ __('My Projects') }}
-                    </x-nav-link>
-                </div>
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                        <x-nav-link :href="route('myProjects')" :active="request()->routeIs('myProjects')">
+                            {{ __('My Projects') }}
+                        </x-nav-link>
+                    </div>
+                @endif
 
             </div>
 

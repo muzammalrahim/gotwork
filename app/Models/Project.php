@@ -12,7 +12,10 @@ class Project extends Model
     
 
     /* Start: Fetch Data Fuctions */
-    
+
+        public function getProjectDetailsBySlug($slug) {
+            return Project::where('slug', '=' , $slug)->first();
+        }
     /* End: Fetch Data Fuctions */
 
 
@@ -33,10 +36,7 @@ class Project extends Model
         return $this->hasMany(ProjectListingType::class,'project_id');
     }
 
-    public function projectType()
-    {
-        return $this->belongsTo(ProjectType::class,'project_type_id');
-    }
+    
 
     /*public function projectTypeAsc()
     {
@@ -46,6 +46,17 @@ class Project extends Model
     public function bids()
     {
         return $this->hasMany(bids::class,'project_id');
+    }
+
+
+    public function projectType()
+    {
+        return $this->belongsTo(ProjectType::class,'project_type_id');
+    }
+
+    public function currency()
+    {
+        return $this->belongsTo(Currency::class,'currency_id');
     }
     /* End: Foreign Key Relationships */
 }
