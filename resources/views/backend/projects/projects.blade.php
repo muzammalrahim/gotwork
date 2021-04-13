@@ -1,3 +1,4 @@
+
 <x-app-layout>
     <x-slot name="title">
         Got Work | Projects
@@ -11,173 +12,10 @@
     </x-slot>
 
 
-    {{-- <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 bg-white border-b border-gray-200">
-                    You're logged in!
-                </div>
-            </div>
-        </div>
-    </div> --}}
-
-
     <button class="bg-blue-600 hover:bg-blue-700 px-3 py-1 rounded text-white m-5 show-modal lg:hidden block">Filtering</button>
 
-    <div class="modal h-screen w-full fixed left-0 top-0 flex justify-center items-start bg-black bg-opacity-50 hidden z-10 block lg:hidden">
-        <!-- modal -->
-        <div class="bg-white rounded shadow-lg sm:w-full md:w-4/5 w-full">
-          <div class="border-b px-4 py-2 flex justify-between items-center">
-            <h3 class="font-semibold text-lg font-bold">Filter</h3>
-            <button class="text-black close-modal">&cross;</button>
-          </div>
-          <div class="p-3">
-            <div class="flex-shrink overflow-hidden shadow-sm sm:rounded-lg bg-white mr-4 lg:col-span-1">
-            <div class="block px-4 py-2 text-sm">
-              <span class="font-bold">Project Type</span>
-              <div class="mt-2">
-                <div>
-                  <label class="inline-flex items-center">
-                    <input type="checkbox" class="form-checkbox" checked>
-                    <span class="ml-2">Fixed Projects</span>
-                  </label>
-                </div>
-                <div>
-                  <label class="inline-flex items-center">
-                    <input type="checkbox" class="form-checkbox">
-                    <span class="ml-2">Hourly Projects</span>
-                  </label>
-                </div>
-              </div>
-            </div>
-
-            <hr class="w-4/5 m-auto">
-
-            <div class="skills px-4 py-2 text-sm">
-                <div class="font-bold text-base mb-2"> Skills </div>
-                <div class="skillsBox h-24">
-                    <textarea rows="3" cols="16"></textarea>
-                </div>
-
-                <button class="bg-blue-500 btn-xs hover:bg-blue-700 text-white font-bold py-2 px-4">
-                  Clear Skills
-                </button>
-
-                <div class="mt-2"><a href="" class="hover:underline"> Edit Profile Skills</a></div>
-
-            </div>
-
-            <hr class="w-4/5 m-auto">
-
-            <div class="listingType px-4 py-2 text-sm">
-
-                <div class="font-bold text-base"> Listing Types </div>
-                <div class="block text-sm">
-                  <div class="mt-2">
-                    <div>
-                      <label class="inline-flex items-center">
-                        <input type="checkbox" class="form-checkbox" checked>
-                        <span class="ml-2">Featured</span>
-                      </label>
-                    </div>
-                    <div>
-                      <label class="inline-flex items-center">
-                        <input type="checkbox" class="form-checkbox" checked>
-                        <span class="ml-2">Sealed</span>
-                      </label>
-                    </div>
-                    <div>
-                      <label class="inline-flex items-center">
-                        <input type="checkbox" class="form-checkbox">
-                        <span class="ml-2">NDA</span>
-                      </label>
-                    </div>
-                    <div>
-                      <label class="inline-flex items-center">
-                        <input type="checkbox" class="form-checkbox">
-                        <span class="ml-2">Urgent</span>
-                      </label>
-                    </div>
-                    <div>
-                      <label class="inline-flex items-center">
-                        <input type="checkbox" class="form-checkbox">
-                        <span class="ml-2">Fulltime</span>
-                      </label>
-                    </div>
-                    <div>
-                      <label class="inline-flex items-center">
-                        <input type="checkbox" class="form-checkbox">
-                        <span class="ml-2">Recruiter</span>
-                      </label>
-                    </div>
-                  </div>
-                </div>
-
-            </div>
 
 
-            <hr class="w-4/5 m-auto">
-
-            <div class="w-4/5 m-2"> 
-                <div class="font-bold text-base h-0 mt-2"> Fixed Price </div>
-                <div class="min-max-slider" data-legendnum="2">
-                    <label for="min">Minimum price</label>
-                    <input id="min" class="min" name="min" type="range" step="1" min="0" max="3000" / >
-                    <label for="max">Maximum price</label>
-                    <input id="max" class="max" name="max" type="range" step="1" min="0" max="3000" />
-                </div>
-            </div>
-
-
-            <hr class="w-4/5 m-auto">
-
-
-            <div class="w-4/5 m-2"> 
-                <div class="font-bold text-base h-0 mt-2"> Hourly Price </div>
-                <div class="min-max-slider" data-legendnum="2">
-                    <label for="min">Minimum price</label>
-                    <input id="min" class="min" name="min" type="range" step="1" min="0" max="120" / >
-                    <label for="max">Maximum price</label>
-                    <input id="max" class="max" name="max" type="range" step="1" min="0" max="120" />
-                </div>
-            </div>
-
-            <hr class="w-4/5 m-auto">
-
-            <div class="px-4 py-2"> 
-                <div class="font-bold text-base my-2"> Specific Location </div>
-                <div class="flex">
-                    <input type="text" name="" class="w-4/5 border-2 border-gray-200">
-                    <button class=" w-1/5 bg-white text-black font-bold py-2 px-4 border-2 border-gray-200">
-                      <i class="fa fa-map-marker"></i>
-                    </button>
-                </div>
-                <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 text-xs mt-2">Clear Location</button>
-            </div>
-
-            <hr class="w-4/5 m-auto">
-
-            <div class="skills px-4 py-2 text-sm">
-                <div class="font-bold text-base mb-2"> Languages </div>
-                <div class="skillsBox h-24">
-                    <textarea rows="3" cols="16"></textarea>
-                </div>
-
-                <button class="bg-blue-500 btn-xs hover:bg-blue-700 text-white font-bold py-2 px-4">
-                  Clear Languages
-                </button>
-
-            </div>
-
-        </div>
-
-          </div>
-          <div class="flex justify-end items-center w-100 border-t p-3">
-            <button class="bg-red-600 hover:bg-red-700 px-3 py-1 rounded text-white mr-1 close-modal">Cancel</button>
-            <button class="bg-blue-600 hover:bg-blue-700 px-3 py-1 rounded text-white">Oke</button>
-          </div>
-        </div>
-    </div>
 
     <div class="grid grid-cols-5 gap-3 mx-auto sm:px-6 lg:px-16 mb-3 lg:mt-8 mt-8">
         
@@ -222,17 +60,11 @@
             </div>
 
 
-            @foreach($projects_list as $project)
-              <a class="block hover:bg-gray-200" href="{{route('projectDetail' , ["slug" => $project->slug ])}}">
+            <div id="updateDiv">
+                <div class="overlay"></div>
+
                 @include('backend.includes.projects_list')  
                 {{-- backend/includes/projects_list --}}
-              </a>
-            @endforeach
-
-            <div class="mt-4">
-                <!-- Start: Pagination -->
-                    {!! $projects_list->links() !!}
-                <!-- End: Pagination -->
             </div>
             
         </div>
@@ -245,7 +77,6 @@
 </x-app-layout>
 
 
-{{-- modal --}}
 
 <style>
 span.symbol {
@@ -257,3 +88,17 @@ span.symbol {
   font-weight: bold;
 }
 </style>
+
+{{-- Start: Page Modals --}}
+    <!-- Start: Filter Modal For Mobile -->
+            @include('backend.includes.modals.projects_filters_for_mobile')
+    <!-- End: Filter Modal For Mobile -->
+{{-- End: Page Modals --}}
+
+{{-- Start: Page Scripts --}}
+@include('scripts.projects')
+{{-- End: Page Scripts --}}
+
+
+
+    

@@ -18,7 +18,7 @@ use DB;
 class DashboardController extends Controller
 {
     // Global Variables
-        private $pagination = '2';
+        private $pagination = '20';
         private $fixed_name;
         private $hourly_name;
     // End Global Variables
@@ -39,6 +39,7 @@ class DashboardController extends Controller
                 $data = [];
                 $search = false;
                 $project_ids = [];
+                $project_types = [];
 
                 // Models Initialization
                 $skill = new Skill;
@@ -59,6 +60,8 @@ class DashboardController extends Controller
                 $fixed_id = null;
                 $hourly_id = null;
             // End Initialization
+
+            
 
         
             // Search Functionality
@@ -90,6 +93,81 @@ class DashboardController extends Controller
                     $query->where('title','like', "%{$request->input('search')}%");
                 })->orderBy('id','DESC')
                 ->paginate($this->pagination);
+
+
+            /* Start: Ajax Method */
+                if ( $request->ajax() ) {
+                    
+                    
+                    // Filter With Projects Type ( Fixed Or Hourly )
+                    if ($request->input('selected_project_type')) {
+
+                        $project_type = explode(',', $request->input('selected_project_type'));
+
+                        $data['projects_list'] = $project
+                        ->where(function ($query) use ($project_type) {
+                            $query->whereIn('project_type_id', $project_type);
+                        })
+                        ->orderBy('id','DESC')
+                        ->paginate($this->pagination);
+                    }
+
+
+                    // Filter For Fixed Price Projects(Min And Max)
+                    if ( $request->fixed_min_amount && $request->fixed_max_amount ) {
+                        $data['projects_list'] = $project
+                        ->where('min_amount', '>=', $request->fixed_min_amount)
+                        ->where('max_amount', '<=', $request->fixed_max_amount)
+                        ->where('project_type_id','=',$fixed_id)
+                        ->orderBy('id','DESC')
+                        ->paginate($this->pagination);
+                    }
+
+                    // Filter For Hourly Price Projects(Min And Max)
+                    if ( $request->hourly_min_amount && $request->hourly_max_amount ) {
+                        $data['projects_list'] = $project
+                        ->where('min_amount', '>=', $request->hourly_min_amount)
+                        ->where('max_amount', '<=', $request->hourly_max_amount)
+                        ->where('project_type_id','=',$hourly_id)
+                        ->orderBy('id','DESC')
+                        ->paginate($this->pagination);
+                    }
+
+
+                    // Filter With Listing Types ( E.g. Featured etc )
+                    if ($request->input('search_project_by_listing_types')) {
+
+                        $search_project_by_listing_types = explode(',', $request->input('search_project_by_listing_types'));
+
+                        $data['projects_list'] = $project
+                        ->join('project_listing_types', 'project_listing_types.project_id','=','projects.id')
+                        ->where(function ($query) use ($search_project_by_listing_types) {
+                            $query->whereIn('project_listing_types.listing_type_id', $search_project_by_listing_types);
+                        })
+                        ->paginate($this->pagination);
+                    }
+
+
+                    // Filter With Project Skills ( E.g. PHP etc )
+                    if ($request->input('search_project_by_skills')) {                    
+
+                        $search_project_by_skills = explode(',', $request->input('search_project_by_skills'));
+
+                        $data['projects_list'] = $project
+                        ->join('project_skills', 'project_skills.project_id','=','projects.id')
+                        ->where(function ($query) use ($search_project_by_skills) {
+                            $query->whereIn('project_skills.skill_id', $search_project_by_skills);
+                        })
+                        ->paginate($this->pagination);
+                    }
+                    
+
+                    
+
+                    return view('backend.includes.projects_list', $data);
+                }
+            /* End: Ajax Method */
+
 
             /* Start: Sort Functionality */
             if ($request->has('sort') && $request->input('sort') != '') {
@@ -123,75 +201,6 @@ class DashboardController extends Controller
                 }
             }
             /* End: Sort Functionality */
-
-
-
-            /* Start: Filters Functionality */
-                // Filter With Projects Type ( Fixed Or Hourly )
-                if ($request->input('search_project_types')) {
-
-                    $data['projects_list'] = $project
-                    ->where(function ($query) use ($filter_project_types) {
-                        $query->whereIn('project_type_id', $filter_project_types);
-                    })
-                    ->orderBy('id','DESC')
-                    ->paginate($this->pagination);
-                }
-
-                // Filter With Listing Types ( E.g. Featured etc )
-                if ($request->input('search_listing_types')) {                    
-
-                    $data['projects_list'] = $project
-                    ->join('project_listing_types', 'project_listing_types.project_id','=','projects.id')
-                    ->where(function ($query) use ($filter_listing_types) {
-                        $query->whereIn('project_listing_types.listing_type_id', $filter_listing_types);
-                    })
-                    ->paginate($this->pagination);
-                }
-
-                // Filter With Project Skills ( E.g. PHP etc )
-                if ($request->input('search_project_skills')) {                    
-
-                    $data['projects_list'] = $project
-                    ->join('project_skills', 'project_skills.project_id','=','projects.id')
-                    ->where(function ($query) use ($filter_listing_skills) {
-                        $query->whereIn('project_skills.skill_id', $filter_listing_skills);
-                    })
-                    ->paginate($this->pagination);
-                }
-
-
-                // Filter For Fixed Price Projects(Min And Max)
-                if ( $request->fixed_min > 0 && $request->hourly_max < 3000 ) {
-                    
-                    $data['projects_list'] = $project
-                        ->where('min_amount', '>=', $request->fixed_min)
-                        ->where('max_amount', '<=', $request->fixed_max)
-                        ->where('project_type_id','=',$fixed_id)
-                        ->paginate($this->pagination);
-                }
-                else if ( $request->hourly_min > 0 && $request->fixed_max < 120 ) {
-                     
-                    $data['projects_list'] = $project
-                        ->where('min_amount', '>=', $request->hourly_min)
-                        ->where('max_amount', '<=', $request->hourly_max)
-                        ->where('project_type_id','=',$hourly_id)
-                        ->paginate($this->pagination);
-                        //dd($data['projects_list']);
-                }
-                else if ( $request->fixed_min != 0 && $request->fixed_max != 3000 && $request->hourly_min != 0 && $request->hourly_max !=120 ) {
-                    
-                    $data['projects_list'] = $project
-                        ->where('min_amount', '>=', $request->fixed_min)
-                        ->orWhere('max_amount', '<=', $request->fixed_max)
-                        ->where('project_type_id','=',$fixed_id)
-                        ->where('min_amount', '>=', $request->hourly_min)
-                        ->orWhere('max_amount', '<=', $request->hourly_max)
-                        ->where('project_type_id','=',$hourly_id)
-                        ->paginate($this->pagination);
-                }
-            /* End: Filters Functionality */
-
 
 
     		return view('backend.projects.projects', $data);   // backend/projects/projects

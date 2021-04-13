@@ -1,3 +1,9 @@
+
+
+@foreach($projects_list as $project)
+            
+<a class="block hover:bg-gray-200" href="{{route('projectDetail' , ["slug" => $project->slug ])}}">
+
 <div class="projects cursor-pointer border-b border-gray-400 p-4">
     <div class="grid grid-cols-12 gap-3">
         <div class="font-bold mr-4 mt-2 text-xl col-span-1 hidden lg:block ">
@@ -92,8 +98,14 @@
         </div>
         
     </div>
+</div>
 
+</a>
 
+@endforeach
 
-
+<div class="mt-4">
+    <!-- Start: Pagination -->
+        {!! $projects_list->links() !!}
+    <!-- End: Pagination -->
 </div>
