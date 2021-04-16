@@ -84,6 +84,9 @@ Route::any('/my-projects', [DashboardController::class, 'myProjects'])->middlewa
 
 Route::get('/projects/{slug}/details', [ProjectController::class, 'projectDetails'])->middleware(['auth'])->name('projectDetail');
 
+Route::any('/projects/place_bid', [ProjectController::class, 'place_bid'])->middleware(['auth'])->name('place_bid');
+
+
 
 /*
 Route::post('/dashboard/search', [ProjectController::class, 'filterProjects'])->middleware(['auth'])->name('projects.filters');
