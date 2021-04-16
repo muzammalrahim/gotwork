@@ -26,7 +26,7 @@ $default_bid_amount = (int) (round( ($project_details->max_amount)/3 + ($project
 
                 {{-- Recent Pojects  --}}
 
-                <div class="browseProjectDiv bg-white h-96 border border-gray-200">
+                <div class="browseProjectDiv bg-white h-80 border border-gray-200">
                         {{-- <h3> hi how are you</h3> --}}
                     <div class="recent text-xl p-8 border-b border-gray-200">
                         <p class="font-bold">Project Details 
@@ -35,9 +35,6 @@ $default_bid_amount = (int) (round( ($project_details->max_amount)/3 + ($project
                                 <span>$</span>
                                 <span> {{ $project_details->min_amount }} - {{ $project_details->max_amount }} </span>
                                 <span>USD <span class="text-base">{{ $project_details->projectType->name }}</span> </span>
-
-
-                                
                             </span>
                         </p>
 
@@ -49,16 +46,11 @@ $default_bid_amount = (int) (round( ($project_details->max_amount)/3 + ($project
                                     <?php 
                                         $expires_at = $project_details->expires_at ;
                                         $hours_expires_at = Carbon\Carbon::parse($expires_at)->format('H');
-                                        
                                         $datework = \Carbon\Carbon::createFromDate($expires_at);
                                         $now = \Carbon\Carbon::now();
-                                        
-
                                         $today_hours = Carbon\Carbon::parse($now)->format('H');
-
                                         $expires_days_remaining = $datework->diffInDays($now);
                                         $expires_hours_remaining = abs( (int) $hours_expires_at - $today_hours);
-
                                     ?> 
 
                                     BIDDING ENDS IN
@@ -93,22 +85,21 @@ $default_bid_amount = (int) (round( ($project_details->max_amount)/3 + ($project
                     <div class="newsFeed text-xl pl-8 border-b border-gray-200 p-4">
                         <p class="font-bold">Place a Bid on this Project</p>
                     </div>
-
                     <div>
 
                         <div class="p-8">
-                        
-                        
                             <p class="md:text-base lg:text-base text-xs ">You will be able to edit your bid until the project is awarded to someone. </p>
-
-
                             <p class="font-bold pt-5">Bid Details</p>
-                            
-                              
-                            <form class="pt-5">
-                                
+
+                            {{-- Form place bid --}}
+
+                            <form class="pt-5" action="{{ route('place_bid') }}" name="placebid" class="placebid" method="POST">
+                                @csrf
                                 {{-- Start: Bid Amount Details --}}
                                 <div class="font-bold text-md relative flex w-full flex-wrap items-stretch mb-3">
+
+                                    <input type="hidden" class="project_id" name="project_id" value="{{ $project_details->id }}">
+
                                     <div class="grid grid-cols-2 gap-4"> 
                                         <div class="lg:col-span-1 md:col-span-1 sm:col-span-1 col-span-10">
                                             <p class="font-bold text-sm">Bid Amount</p>
@@ -116,13 +107,12 @@ $default_bid_amount = (int) (round( ($project_details->max_amount)/3 + ($project
                                             <span class="px-2 bg-gray-200 z-10 leading-snug font-normal absolute w-8 py-3 m-0.5" name="currency_symbol">
                                                 {{ $project_details->currency->symbol }}
                                             </span>
-                                            <input type="text" class="px-3 py-3 relative pl-10" value="{{$default_bid_amount}}"/>
+                                            <input type="text" class="bid_amount px-3 py-3 relative pl-10" value="" name="bid_amount" />
 
                                             <span class="z-10 leading-snug font-normal absolute text-center absolute bg-gray-200 rounded text-base items-center justify-center w-16 py-3 p-4 mt-0.5" name="currency_symbol" style="margin-left: -4.1rem;">
                                                 {{ $project_details->currency->code }}
                                             </span>
                                         </div>
-                                      
 
                                         <div class="lg:col-span-1 md:col-span-1 sm:col-span-1 col-span-10">
                                             <p class="font-bold text-sm">This project will be delivered in</p>
@@ -130,35 +120,58 @@ $default_bid_amount = (int) (round( ($project_details->max_amount)/3 + ($project
                                                 Days
                                             </span>
                                            
-                                            <input type="number" class="px-3 py-3 relative  pl-16" value="{{$default_bid_amount}}"/>
+                                            <input type="number" name="project_delivery" class="px-3 py-3 relative  pl-16" value="{{$default_bid_amount}}"/>
                                         </div>
                                       
                                     </div>
                                 </div>
                                 {{-- End: Bid Amount Details --}}
 
+                                {{-- Proposal --}}
+
+                                <p class="font-bold pt-5 text-sm">Describe your proposal</p>
+
+                                <div class="relative flex w-full flex-wrap items-stretch">
+                                    <textarea class="resize-y border rounded-md w-full" rows="8" name="proposal"></textarea>
+                                </div>
+
+                                {{-- Proposal end --}}
 
                                 <p class="font-bold pt-5 ">Suggest milestone payments</p>
                                 <p class="md:text-base lg:text-base text-xs ">Help the client by providing a breakdown of tasks to be done in this project.</p>
                                 <div class="relative flex w-full flex-wrap items-stretch mb-3 mt-5">
                                     <div class="w-full grid grid-cols-2 gap-4"> 
                                         <div class="lg:col-span-1 md:col-span-1 sm:col-span-1 col-span-10">
-                                            <input type="text" class="w-full py-3 relative" placeholder="Describe your task" />
+                                            <input type="text" class="w-full py-3 relative" name="mile_stone[1][task]" placeholder="Describe your task" />
                                         </div>
                                       
-
                                         <div class="lg:col-span-1 md:col-span-1 sm:col-span-1 col-span-10">
-                                            
-                                            <span class="px-2 bg-gray-200 z-10 leading-snug font-normal absolute w-8 py-3 m-0.5" name="currency_symbol">
+                                            <span class="px-2 bg-gray-200 z-10 leading-snug font-normal absolute w-8 py-3 m-0.5">
                                                 {{ $project_details->currency->symbol }}
                                             </span>
-                                           
-                                            <input type="number" class="px-3 py-3 relative  pl-16" value="{{$default_bid_amount}}"/>
+                                            <input type="number" class="mileStonePrice px-3 py-3 relative pl-16" name="mile_stone[1][currency_symbol]" onchange="addmileStone()" value="{{$default_bid_amount}}"/>
                                         </div>
                                       
                                     </div>
                                 </div>
-                                
+
+                                <div class="added_milestones">
+                                    
+                                </div>
+                                <div class="buttonDiv">
+                                    <a class="adddMileStone_button bg-blue-600 hover:bg-blue-700 px-3 py-1 text-white mt-9 m-auto cursor-pointer hidden">Add milestone</a>
+                                </div>
+                                <div class="error_in_amount bg-red-200 py-4 px-8 border border-2 border-red-600 hidden">
+                                    <p class = "errorDiv text-red text-sm"> <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
+                                        Total suggested milestone payment amount must not exceed the bid amount 
+                                        Please ensure it is between <span> ${{ $project_details->min_amount }} - ${{ $project_details->max_amount }} </span>
+                                    </p>
+                                </div>
+
+
+
+                                <button class="bg-blue-600 hover:bg-blue-700 px-3 py-1 text-white mt-9 m-auto cursor-pointer place_bid_button">Place Bid</button>
+
                             </form>
                         </div>
 
@@ -236,6 +249,10 @@ $default_bid_amount = (int) (round( ($project_details->max_amount)/3 + ($project
     <div class="bg-gray-700 h-16"></div>
 
 </x-app-layout>
+
+
+@include('scripts.project_detail')
+
 
 
 

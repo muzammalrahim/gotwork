@@ -165,7 +165,7 @@
 	               		<button id="add-eduction-button" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 text-xs fontSize float-right">Add Education</button>
 	        		</h1>
 
-	        		@include('layouts.setting.education')
+	        		@include('layouts.setting.education') {{-- layouts/setting/education --}}
 
 					</div>
 
