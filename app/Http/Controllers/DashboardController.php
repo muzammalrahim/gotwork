@@ -11,6 +11,8 @@ use App\Models\Project;
 use App\Models\User;
 use App\Models\bids;
 use App\Models\Skill;
+use App\Models\Membership;
+use App\Models\UserMembership;
 
 use Auth;
 use DB;
@@ -213,22 +215,28 @@ class DashboardController extends Controller
 
 
     public function goToDashboard(Request $request){
+
+        // Start: Model Initialization
+            $project = new Project;
+            $membership = new Membership;
+            $user_membership = new UserMembership;
+        // End: Model Initialization
+
+
         $user = Auth::user();
         $data['user'] = $user;
+
+        // Get UserMemberShip Details
+        $data['user_membership_details'] = $user_membership->getUserMembershipDetails(); 
+
+        // Get Membership Details By Type
+        $data['membership_details'] = $membership->getMembershipDetailsByType($data['user_membership_details']->membership_type); 
+         
+        $data['remaining_bids'] = (int) ($data['membership_details']->total_bids) - ($data['user_membership_details']->bids_used);
+
         return view('backend.dashboard.dashboard', $data);   // backend/dashboard/dashboard
 
     }
-
-    public function myProjects(Request $request){
-        $user = Auth::user();
-        // dd($user);
-        $data['user'] = $user;
-        $data['title'] = 'My Projects';
-        return view('backend.myprojects.myprojects', $data);   // backend/myprojects/myprojects
-    }
-
     
-
-
 
 }

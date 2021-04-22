@@ -21,42 +21,48 @@ class Project extends Model
 
 
     /* Start: Foreign Key Relationships */
-    public function milestones()
-    {
-        return $this->hasMany(Milestone::class,'project_id')->orderBy('id', 'ASC');
-    }
+        public function milestones()
+        {
+            return $this->hasMany(Milestone::class,'project_id')->orderBy('id', 'ASC');
+        }
 
-    public function projectSkills()
-    {
-        return $this->hasMany(ProjectSkill::class,'project_id');
-    }
+        public function projectSkills()
+        {
+            return $this->hasMany(ProjectSkill::class,'project_id');
+        }
 
-    public function projectListingTypes()
-    {
-        return $this->hasMany(ProjectListingType::class,'project_id');
-    }
+        public function projectListingTypes()
+        {
+            return $this->hasMany(ProjectListingType::class,'project_id');
+        }
 
-    
+        
 
-    /*public function projectTypeAsc()
-    {
-        return $this->hasOne(ProjectType::class,'project_id')->orderBy('min_amount', 'ASC');
-    }*/
+        /*public function projectTypeAsc()
+        {
+            return $this->hasOne(ProjectType::class,'project_id')->orderBy('min_amount', 'ASC');
+        }*/
 
-    public function bids()
-    {
-        return $this->hasMany(bids::class,'project_id');
-    }
+        public function bids()
+        {
+            return $this->hasMany(bids::class,'project_id');
+        }
 
 
-    public function projectType()
-    {
-        return $this->belongsTo(ProjectType::class,'project_type_id');
-    }
+        // belongsTo
+        public function projectType()
+        {
+            return $this->belongsTo(ProjectType::class,'project_type_id');
+        }
 
-    public function currency()
-    {
-        return $this->belongsTo(Currency::class,'currency_id');
-    }
+        public function currency()
+        {
+            return $this->belongsTo(Currency::class,'currency_id');
+        }
+
+        public function user()
+        {
+            return $this->belongsTo(User::class,'user_id');
+        }
     /* End: Foreign Key Relationships */
 }

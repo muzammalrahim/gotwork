@@ -1,3 +1,6 @@
+@php
+ $profile_completed_percentage = getProfileCompletedPercentage();
+@endphp
 <x-app-layout>
     <x-slot name="title">
         Got Work | Projects
@@ -126,7 +129,7 @@
 
             <div class="accountInfo bg-white">
                 <div class="userInfo h-auto p-4 text-white infoBg">
-                    <p class="text-base"> Welcome Back </p>
+                    <p class="text-base"> Welcome Back, </p>
                     <p class="text-2xl font-bold mt-2"> {{$user->name}} </p>
                 </div>
 
@@ -135,10 +138,11 @@
                         <p class="text-base p-4 text-white infoBg"> Reward yourself for 14 days with a FREE Plus Membership 
                             <i class="fa fa-arrow-right" style="font-size: 12px;"></i> </p>
                     </div>
-                    <p class="text-base mt-4 font-bold"> Set up your account   <span class="text-black-400 float-right"> 60% </span> </p>
+                    <p class="text-base mt-4 font-bold"> Set up your account   <span class="text-black-400 float-right"> {{ $profile_completed_percentage }} </span> </p>
                     <div class="relative pt-1">
                       <div class="overflow-hidden h-2 mb-4 text-xs flex  bg-blue-200">
-                        <div style="width:30%" class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-blue-500"></div>
+
+                        <div style="width: {{ $profile_completed_percentage }}" class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-blue-500"></div>
                       </div>
                     </div>
 
@@ -164,17 +168,9 @@
 
             </div>
 
-            <div class="yourBids mt-4 bg-white">
-                <div class="bidDiv p-4 border-b-2 border-gray-200">
-                    <span class="bids tex-xl font-bold"> Your Bids </span><span class="float-right text-xs"> FREEE MEMBER </span>
-                </div>
-                <p class="text-base mt-2 p-4"><b> 6 bids</b> left out of 6  </p>
-
-                <div class="bidInsights text-center p-4">
-                    <a href="" class="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 shadow w-full">View Bid Insights</a>
-                </div>
-            </div>
-            {{-- <h2>dashboard page</h2> --}}
+            {{-- Start: Card User Bids --}}    
+                @include('layouts.cards.user_bids')
+            {{-- End: Card User Bids --}}  
 
 
 

@@ -15,6 +15,8 @@ class CreateProjectsTable extends Migration
     {
         Schema::create('projects', function (Blueprint $table) {
             $table->id();
+            $table->unsignedInteger('user_id')->nullable();
+            $table->unsignedInteger('assignee_id')->nullable();
             $table->string('title')->nullable();
             $table->string('slug')->nullable();
             $table->longText('description')->nullable();
@@ -27,7 +29,7 @@ class CreateProjectsTable extends Migration
             */
             $table->double('min_amount', 8, 2)->nullable();
             $table->double('max_amount', 8, 2)->nullable();
-            $table->enum('status',['Active','Deleted'])->default('Active');
+            $table->enum('status',['Active','Deleted','Completed','Assigned'])->default('Active');
             $table->dateTime('expires_at')->nullable();
             $table->timestamps();
         });

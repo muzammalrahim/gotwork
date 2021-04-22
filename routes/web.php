@@ -80,11 +80,16 @@ Route::any('/dashboard', [DashboardController::class, 'goToDashboard'])->middlew
 
 Route::any('/projects', [DashboardController::class, 'projects'])->middleware(['auth'])->name('projects');
 
-Route::any('/my-projects', [DashboardController::class, 'myProjects'])->middleware(['auth'])->name('myProjects');
+Route::any('/my-projects', [ProjectController::class, 'myProjects'])->middleware(['auth'])->name('myProjects');
+
+Route::any('/client-projects', [ProjectController::class, 'clientProjects'])->middleware(['auth'])->name('client.projects');
 
 Route::get('/projects/{slug}/details', [ProjectController::class, 'projectDetails'])->middleware(['auth'])->name('projectDetail');
 
-Route::any('/projects/place_bid', [ProjectController::class, 'place_bid'])->middleware(['auth'])->name('place_bid');
+// Porposals
+Route::get('/projects/{slug}/proposals', [ProjectController::class, 'getProjectProposals'])->middleware(['auth'])->name('proposals');
+
+Route::any('/projects/place-bid', [ProjectController::class, 'place_bid'])->middleware(['auth'])->name('place_bid');
 
 
 

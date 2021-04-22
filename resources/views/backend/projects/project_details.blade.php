@@ -1,12 +1,26 @@
 <?php 
 $default_bid_amount = null;
 $average_bid_amount = null;
+$bid_done = false;
+
+$check_bid_exists = App\Models\bids::where('user_id','=', Auth::user()->id)->where('project_id','=', $project_details->id)->count();
+
+if ($check_bid_exists > 0) {
+    $bid_done = true;
+}
 
 $default_bid_amount = (int) (round( ($project_details->max_amount)/3 + ($project_details->max_amount)/2 )); 
 
 
 ?>
-
+<style>
+    .disabled {
+        pointer-events: none;
+        --tw-bg-opacity: 1;
+        background-color: rgba(229, 231, 235, var(--tw-bg-opacity)) !important;
+        color: black !important;
+    }
+</style>
 <x-app-layout>
     <x-slot name="title">
         Got Work | Project Detail
@@ -25,6 +39,8 @@ $default_bid_amount = (int) (round( ($project_details->max_amount)/3 + ($project
             <div class="recentProjects h-auto bg-gray-200">
 
                 {{-- Recent Pojects  --}}
+
+                @include('layouts.alerts')
 
                 <div class="browseProjectDiv bg-white h-80 border border-gray-200">
                         {{-- <h3> hi how are you</h3> --}}
@@ -93,12 +109,16 @@ $default_bid_amount = (int) (round( ($project_details->max_amount)/3 + ($project
 
                             {{-- Form place bid --}}
 
-                            <form class="pt-5" action="{{ route('place_bid') }}" name="placebid" class="placebid" method="POST">
+                            <form id="bid_form" class="pt-5" action="{{ route('place_bid') }}" name="placebid" class="placebid" method="POST">
                                 @csrf
+                                
                                 {{-- Start: Bid Amount Details --}}
                                 <div class="font-bold text-md relative flex w-full flex-wrap items-stretch mb-3">
 
+                                    {{-- Start: Form Hidden Fields --}}
                                     <input type="hidden" class="project_id" name="project_id" value="{{ $project_details->id }}">
+                                    <input type="hidden" name="project_currency_symbol" value="{{ $project_details->currency->symbol }}">
+                                    {{-- End: Form Hidden Fields --}}
 
                                     <div class="grid grid-cols-2 gap-4"> 
                                         <div class="lg:col-span-1 md:col-span-1 sm:col-span-1 col-span-10">
@@ -107,7 +127,7 @@ $default_bid_amount = (int) (round( ($project_details->max_amount)/3 + ($project
                                             <span class="px-2 bg-gray-200 z-10 leading-snug font-normal absolute w-8 py-3 m-0.5" name="currency_symbol">
                                                 {{ $project_details->currency->symbol }}
                                             </span>
-                                            <input type="text" class="bid_amount px-3 py-3 relative pl-10" value="" name="bid_amount" />
+                                            <input type="text" class="bid_amount px-3 py-3 relative pl-10" value="{{ $default_bid_amount }}" name="bid_amount" />
 
                                             <span class="z-10 leading-snug font-normal absolute text-center absolute bg-gray-200 rounded text-base items-center justify-center w-16 py-3 p-4 mt-0.5" name="currency_symbol" style="margin-left: -4.1rem;">
                                                 {{ $project_details->currency->code }}
@@ -120,57 +140,83 @@ $default_bid_amount = (int) (round( ($project_details->max_amount)/3 + ($project
                                                 Days
                                             </span>
                                            
-                                            <input type="number" name="project_delivery" class="px-3 py-3 relative  pl-16" value="{{$default_bid_amount}}"/>
+                                            <input type="number" name="project_delivery" class="px-3 py-3 relative  pl-16" value="7"/>
                                         </div>
                                       
                                     </div>
                                 </div>
                                 {{-- End: Bid Amount Details --}}
 
-                                {{-- Proposal --}}
 
-                                <p class="font-bold pt-5 text-sm">Describe your proposal</p>
-
-                                <div class="relative flex w-full flex-wrap items-stretch">
-                                    <textarea class="resize-y border rounded-md w-full" rows="8" name="proposal"></textarea>
-                                </div>
-
-                                {{-- Proposal end --}}
-
+                                {{-- Start: Project Milestones --}}
                                 <p class="font-bold pt-5 ">Suggest milestone payments</p>
                                 <p class="md:text-base lg:text-base text-xs ">Help the client by providing a breakdown of tasks to be done in this project.</p>
                                 <div class="relative flex w-full flex-wrap items-stretch mb-3 mt-5">
                                     <div class="w-full grid grid-cols-2 gap-4"> 
                                         <div class="lg:col-span-1 md:col-span-1 sm:col-span-1 col-span-10">
                                             <input type="text" class="w-full py-3 relative" name="mile_stone[1][task]" placeholder="Describe your task" />
+                                            <p class="error_milestone_desc text-red-500 hidden">Milestone description is required</p>
                                         </div>
                                       
                                         <div class="lg:col-span-1 md:col-span-1 sm:col-span-1 col-span-10">
                                             <span class="px-2 bg-gray-200 z-10 leading-snug font-normal absolute w-8 py-3 m-0.5">
                                                 {{ $project_details->currency->symbol }}
                                             </span>
-                                            <input type="number" class="mileStonePrice px-3 py-3 relative pl-16" name="mile_stone[1][currency_symbol]" onchange="addmileStone()" value="{{$default_bid_amount}}"/>
+                                            <input type="number" class="mileStonePrice px-3 py-3 relative pl-16" name="mile_stone[1][amount]" onchange="addmileStone()" value="{{$default_bid_amount}}"/>
+                                            <p class="error_milestone_amount text-red-500 hidden">Milestone amount is required</p>
                                         </div>
                                       
                                     </div>
                                 </div>
 
                                 <div class="added_milestones">
-                                    
+
                                 </div>
+                                
+                                {{-- 
                                 <div class="buttonDiv">
                                     <a class="adddMileStone_button bg-blue-600 hover:bg-blue-700 px-3 py-1 text-white mt-9 m-auto cursor-pointer hidden">Add milestone</a>
-                                </div>
+                                </div> 
+                                --}}
+
+                                <div class="buttonDiv">
+                                    <a class="adddMileStone_button md:w-72 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-8 md:px-12 text-xs md:text-base lg:text-base mb-4 rounded cursor-pointer disabled">Add another milestone</a>
+                                </div> 
+
                                 <div class="error_in_amount bg-red-200 py-4 px-8 border border-2 border-red-600 hidden">
                                     <p class = "errorDiv text-red text-sm"> <i class="fa fa-exclamation-circle" aria-hidden="true"></i>
                                         Total suggested milestone payment amount must not exceed the bid amount 
                                         Please ensure it is between <span> ${{ $project_details->min_amount }} - ${{ $project_details->max_amount }} </span>
                                     </p>
                                 </div>
+                                {{-- End: Project Milestones --}}
 
 
+                                {{-- Start: Proposal --}}
 
-                                <button class="bg-blue-600 hover:bg-blue-700 px-3 py-1 text-white mt-9 m-auto cursor-pointer place_bid_button">Place Bid</button>
+                                <p class="font-bold pt-5 text-sm">Describe your proposal</p>
+
+                                <div class="relative flex w-full flex-wrap items-stretch">
+                                    <textarea class="resize-y border rounded-md w-full" rows="8" name="proposal"></textarea>
+                                    <p class="error_proposal text-red-500 hidden">Proposal is required</p>
+
+                                    @error('proposal')
+                                        <p class="text-red-500" >{{$message}}</p>
+                                    @enderror
+                                </div>
+
+                                {{-- End: Proposal --}}
+                                @if($remaining_bids < 1)
+                                    <button class="bg-blue-600 hover:bg-blue-700 px-3 py-1 text-white mt-9 m-auto cursor-pointer place_bid_button disabled">Place Bid</button>
+                                    <span class="text-red-500">Your bids limit is ended, Please upgrade membership!</span>
+                                @else
+                                    @if($bid_done)
+                                        <button class="bg-blue-600 hover:bg-blue-700 px-3 py-1 text-white mt-9 m-auto cursor-pointer place_bid_button disabled">Place Bid</button>
+                                        <span class="text-green-600">You have already placed bid on this project.</span>
+                                    @else
+                                        <button id="btn_place_bid" class="bg-blue-600 hover:bg-blue-700 px-3 py-1 text-white mt-9 m-auto cursor-pointer place_bid_button">Place Bid</button>
+                                    @endif
+                                @endif
 
                             </form>
                         </div>
@@ -179,65 +225,18 @@ $default_bid_amount = (int) (round( ($project_details->max_amount)/3 + ($project
                 </div>
 
             </div>
-
-
-
         </div>
 
 
         <div class="lg:col-span-1 sm:col-span-3 md:col-span-3 col-span-3 overflow-hidden lg:h-auto">
 
-            <div class="accountInfo bg-white">
-                <div class="userInfo h-auto p-4 text-white infoBg">
-                    <p class="text-base"> Welcome Back </p>
-                    <p class="text-2xl font-bold mt-2"> {{$user->name}} </p>
-                </div>
-
-                <div class="setupAccount p-4 h-auto bg-white border-b-2 border-black-200">
-                    <div class="rewardYourself bg-blue-200">
-                        <p class="text-base p-4 text-white infoBg"> Reward yourself for 14 days with a FREE Plus Membership 
-                            <i class="fa fa-arrow-right" style="font-size: 12px;"></i> </p>
-                    </div>
-                    <p class="text-base mt-4 font-bold"> Set up your account   <span class="text-black-400 float-right"> 60% </span> </p>
-                    <div class="relative pt-1">
-                      <div class="overflow-hidden h-2 mb-4 text-xs flex  bg-blue-200">
-                        <div style="width:30%" class="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-blue-500"></div>
-                      </div>
-                    </div>
-
-                    <div class="passTheUS bg-gray-200 h-auto flex p-4 text-blue-600">
-                        <div class="w-1/6">
-                            <i class="fa fa-user"></i>
-                        </div>
-                        <div class="w-4/6">
-                            Pass the US English Exam - Level 1
-                        </div>
-                        <div class="w-1/6 text-black">
-                            +20%
-                        </div>
-                    </div>
-                    
-                </div>
-
-                <div class="accountBalance p-4">
-                       <span class="font-bold"> Account Balance </span> <span class="float-right text-blue-600"> Deposit Fund <i class="fa fa-arrow-right"></i> </span>
-                        <p class="m-4"> $0.00 USD </p>
-                </div>
-
-
-            </div>
-
-            <div class="yourBids mt-4 bg-white">
-                <div class="bidDiv p-4 border-b-2 border-gray-200">
-                    <span class="bids tex-xl font-bold"> Your Bids </span><span class="float-right text-xs"> FREEE MEMBER </span>
-                </div>
-                <p class="text-base mt-2 p-4"><b> 6 bids</b> left out of 6  </p>
-
-                <div class="bidInsights text-center p-4">
-                    <a href="" class="bg-white hover:bg-gray-100 text-gray-800 font-semibold py-2 px-4 border border-gray-400 shadow w-full">View Bid Insights</a>
-                </div>
-            </div>
-            {{-- <h2>dashboard page</h2> --}}
+            {{-- Start: Card Employer Details --}}
+                @include('layouts.cards.about_employer')
+            {{-- End: Card Employer Details --}}
+            
+            {{-- Start: Card User Bids --}}    
+                @include('layouts.cards.user_bids')
+            {{-- End: Card User Bids --}}  
 
 
 

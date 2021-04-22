@@ -22,9 +22,8 @@
     <script src="{{ asset('js/app.js') }}" defer></script>
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.8.0/dist/alpine.min.js" defer></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-
 </head>
-<body class="font-sans antialiased">
+<body class="font-sans antialiased" style="padding: 0px !important">
 <!-- Header Start -->
 <header class="bg-white shadow" x-data="{show: false}">
     <nav class="homeNav">
