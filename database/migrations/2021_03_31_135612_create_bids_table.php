@@ -15,11 +15,14 @@ class CreateBidsTable extends Migration
     {
         Schema::create('bids', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('project_id')->nullable();
             $table->unsignedInteger('user_id')->nullable();
-            $table->longText('description')->nullable();
-            $table->double('amount',8)->nullable();
-            $table->double('days',2)->nullable();
+            $table->unsignedInteger('project_id')->nullable();
+            $table->string('project_currency_symbol')->default('$');
+            $table->double('bid_amount',8)->nullable();
+            $table->double('project_delivery',2)->nullable();
+            $table->longText('proposal')->nullable();
+            $table->enum('awarded',['Yes','No'])->default('No');
+            $table->datetime('awarded_at')->nullable();
             $table->timestamps();
         });
     }

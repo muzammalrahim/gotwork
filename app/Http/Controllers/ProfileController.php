@@ -28,6 +28,7 @@ class ProfileController extends Controller
             $user_universities = [];
         // End Intialization
 
+            
 
     	if ( isset(Auth::User()->id) &&  isset(Auth::User()->email_verified_at) ) {
 

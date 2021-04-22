@@ -7,6 +7,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
+use Auth;
+
+
 class User extends Authenticatable implements MustVerifyEmail
 {
     use HasFactory, Notifiable;
@@ -48,9 +51,20 @@ class User extends Authenticatable implements MustVerifyEmail
 
 
 
+    
+
 
 
     /* Start: Foreign Key Relationships */
+
+
+    // HasOne Relations
+    public function userMembership()
+    {
+        return $this->hasOne(UserMemberShip::class,'user_id');
+    }
+
+    // HasMany Relations
     public function reviews()
     {
         return $this->hasMany(Review::class,'user_id')->orderBy('id','DESC');
@@ -77,14 +91,11 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(UserSkill::class,'user_id')->orderBy('id', 'ASC');
     }
 
+
+    // BelongsTo Relations
     public function skills()
     {
         return $this->belongsToMany(Skill::class);
-    }
-
-    public function country()
-    {
-        return $this->belongsToMany(Country::class);
     }
 
     

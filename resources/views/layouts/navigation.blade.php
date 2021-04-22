@@ -24,19 +24,26 @@
                             {{ __('Details') }}
                         </x-nav-link>
                     </div>
+
+                    
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                        <x-nav-link :href="route('proposals',['slug'=>Route::current()->slug])" :active="request()->routeIs('proposals')">
+                            {{ __('Proposals') }}
+                        </x-nav-link>
+                    </div>
                 @else
                     <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                         <x-nav-link :href="route('projects')" :active="request()->routeIs('projects')">
                             {{ __('Projects') }}
                         </x-nav-link>
                     </div>
-
-                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                        <x-nav-link :href="route('myProjects')" :active="request()->routeIs('myProjects')">
-                            {{ __('My Projects') }}
-                        </x-nav-link>
-                    </div>
                 @endif
+
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link :href="route('myProjects')" :active="request()->routeIs('myProjects') || request()->routeIs('client.projects')">
+                        {{ __('My Projects') }}
+                    </x-nav-link>
+                </div>
 
             </div>
 

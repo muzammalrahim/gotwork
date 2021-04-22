@@ -2,7 +2,7 @@
 
 
     <x-slot name="title">
-        Got Work | My Projects
+        Got Work | {{$title}}
     </x-slot>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
@@ -16,29 +16,36 @@
     <div class="abcdef px-24 mt-8">
 
         <div class="projectAnd text-3xl font-bold">
-            Projects and Contests
+            {{$title}}
+
+            <a href="{{ route('client.projects') }}" class="{{(request()->routeIs('client.projects'))?'bg-blue-500 hover:bg-blue-700 text-white':'bg-gray-300 text-black'}} bg-gray-300 text-black font-bold py-2 px-8 md:px-12 lg:px-12 text-xs md:text-base lg:text-base rounded ml-20 md:ml-80 lg:ml-80">As client</a>
+            <a href="{{ route('myProjects') }}" class="{{(request()->routeIs('myProjects'))?'bg-blue-500 hover:bg-blue-700 text-white':'bg-gray-300 text-black'}} font-bold py-2 px-8 md:px-12 lg:px-12 text-xs md:text-base lg:text-base rounded ml-20  md:-ml-3 lg:-ml-3">As freelancer</a>
         </div> 
+
+
 
 
         <div class="flex flex-wrap" id="tabs-id">
             <div class="w-full">
             <ul class="flex mb-0 list-none flex-wrap pt-3 pb-4 flex-row">
                 <li class="-mb-px mr-2 last:mr-0 flex-auto text-center">
-                <a class="text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal text-white bg-pink-600 cursor-pointer" onclick="changeAtiveTab(event,'tab-profile')">
+                <a class="text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal text-white bg-blue-600 cursor-pointer" onclick="changeAtiveTab(event,'tab-profile')">
                     <i class="fa fa-space-shuttle text-base mr-1"></i>  Open Projects
                 </a>
                 </li>
                 <li class="-mb-px mr-2 last:mr-0 flex-auto text-center">
-                <a class="text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal text-pink-600 bg-white cursor-pointer" onclick="changeAtiveTab(event,'tab-settings')">
+                <a class="text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal text-blue-600 bg-white cursor-pointer" onclick="changeAtiveTab(event,'tab-settings')">
                     <i class="fa fa-cog text-base mr-1"></i>  Work in Progress
                 </a>
                 </li>
                 <li class="-mb-px mr-2 last:mr-0 flex-auto text-center">
-                <a class="text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal text-pink-600 bg-white cursor-pointer" onclick="changeAtiveTab(event,'tab-options')">
+                <a class="text-xs font-bold uppercase px-5 py-3 shadow-lg rounded block leading-normal text-blue-600 bg-white cursor-pointer" onclick="changeAtiveTab(event,'tab-options')">
                     <i class="fa fa-briefcase text-base mr-1"></i>  Past Projects
                 </a>
                 </li>
             </ul>
+            
+            {{-- 
                 <div class="flex my-3">
                     <div class="w-8/12">
                         <input class="w-full rounded" name="search" type="text" placeholder="Search for Projects" value="">
@@ -46,8 +53,7 @@
                     <div class="w-2/12">
                         
                        <span class="mx-3"> Show: </span>
-                    {{-- </div> --}}
-                    {{-- <div class="w-1/12"> --}}
+                   
                         <select name="sort" class="cursor-pointer">
                             <option>10</option>
                             <option>20</option>
@@ -56,33 +62,34 @@
                         </select>
                     </div>
                     <div class="w-2/12">View:
-                    {{-- </div> --}}
-                    {{-- <div class="w-1/12"> --}}
+                    
                         <select name="sort" class="cursor-pointer  ml-3">
                             <option>All</option>
                             <option>Recruiter</option>
                         </select>
                     </div>
                 </div>
+            --}}
+                
 
             <div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded">
                 <div class="px-4 flex-auto">
                     <div class="tab-content tab-space">
                         {{-- Open Project --}}
                         <div class="block h-72 py-16 text-center" id="tab-profile">
-                            @include('backend.myprojects.openProject')
+                            @include('backend.my-projects.client.open_projects')
                         </div>
 
                         {{-- Work in progress --}}
 
                         <div class="hidden h-72 py-16 text-center" id="tab-settings">
-                            @include('backend.myprojects.closeProject')
+                            @include('backend.my-projects.client.work_in_progress')
                         </div>
 
                         {{-- Past Projects --}}
 
                         <div class="hidden h-72 py-16 text-center" id="tab-options">
-                            @include('backend.myprojects.pastProjects')
+                            @include('backend.my-projects.client.past_projects')
                         </div>
                     </div>
                 </div>
@@ -92,7 +99,7 @@
 
     </div>
     
-    <div class="bg-gray-700 h-16"></div>
+    <div class="bg-gray-700 h-16 mt-56"></div>
 
 
 </x-app-layout>
@@ -109,16 +116,16 @@
       tabContents = document.getElementById("tabs-id").querySelectorAll(".tab-content > div");
       for(let i = 0 ; i < aElements.length; i++){
         aElements[i].classList.remove("text-white");
-        aElements[i].classList.remove("bg-pink-600");
-        aElements[i].classList.add("text-pink-600");
+        aElements[i].classList.remove("bg-blue-600");
+        aElements[i].classList.add("text-blue-600");
         aElements[i].classList.add("bg-white");
         tabContents[i].classList.add("hidden");
         tabContents[i].classList.remove("block");
       }
-      element.classList.remove("text-pink-600");
+      element.classList.remove("text-blue-600");
       element.classList.remove("bg-white");
       element.classList.add("text-white");
-      element.classList.add("bg-pink-600");
+      element.classList.add("bg-blue-600");
       document.getElementById(tabID).classList.remove("hidden");
       document.getElementById(tabID).classList.add("block");
     }

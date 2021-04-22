@@ -22,7 +22,9 @@ class CreateUsersTable extends Migration
             $table->string('profile_photo_url')->nullable();
             $table->string('profile_photo')->nullable();
             $table->string('city')->nullable();
-            $table->string('country')->nullable();
+            $table->unsignedInteger('country_id')->nullable();
+            $table->string('phone_number')->nullable();
+            $table->boolean('is_phone_number_verified')->default(false);
             $table->longText('description')->nullable();
             $table->enum('status',['Active','Deleted'])->default('Active');
             $table->rememberToken();

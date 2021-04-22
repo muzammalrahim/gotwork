@@ -1,3 +1,7 @@
+<?php 
+$project_amount = App\Models\bids::where('project_id','=',$review->project->id)->where('awarded','=','Yes')->first();
+?>
+
 <div class="border-b border-gray-300">
   <div class="mb-2">
 
@@ -46,7 +50,8 @@
       
       <!-- Start: Project Amount -->
       <span>
-        {{ $review->project->milestones->sum('amount') }}
+        {{-- $review->project->milestones->sum('amount') --}}
+        {{ $project_amount->bid_amount }}
       </span>
       <!-- End: Project Amount --> 
       
