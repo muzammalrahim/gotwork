@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use Spatie\Activitylog\Models\Activity;
+
 use App\Models\ProjectListingType;
 use App\Models\ProjectType;
 use App\Models\ListingType;
@@ -31,12 +33,40 @@ class DashboardController extends Controller
         $this->hourly_name = env('PROJECT_TYPE_HOURLY');
     }
 
-	// Function: GoTo Dashboard 
+
+    // Function: Go to Projects List 
+    public function goToDashboard(Request $request){
+
+        // Start: Model Initialization
+            $project = new Project;
+            $membership = new Membership;
+            $user_membership = new UserMembership;
+        // End: Model Initialization
+
+
+        $user = Auth::user();
+        $data['user'] = $user;
+
+        // Get UserMemberShip Details
+        $data['user_membership_details'] = $user_membership->getUserMembershipDetails(); 
+
+        // Get Membership Details By Type
+        $data['membership_details'] = $membership->getMembershipDetailsByType($data['user_membership_details']->membership_type); 
+         
+        $data['remaining_bids'] = (int) ($data['membership_details']->total_bids) - ($data['user_membership_details']->bids_used);
+
+        $data['news_feeds'] = Activity::orderBy('id','DESC')->get();
+        //dd($data['news_feeds']);
+        return view('backend.dashboard.dashboard', $data);   // backend/dashboard/dashboard
+
+    }
+
+	
+    // Function: Go to Projects List  
 	public function projects(Request $request)
     {
     	if ( isset(Auth::User()->id) &&  isset(Auth::User()->email_verified_at) ) {
 
-//dd("coming");
             // Intialization
                 $data = [];
                 $search = false;
@@ -212,31 +242,5 @@ class DashboardController extends Controller
     	
     }
 
-
-
-    public function goToDashboard(Request $request){
-
-        // Start: Model Initialization
-            $project = new Project;
-            $membership = new Membership;
-            $user_membership = new UserMembership;
-        // End: Model Initialization
-
-
-        $user = Auth::user();
-        $data['user'] = $user;
-
-        // Get UserMemberShip Details
-        $data['user_membership_details'] = $user_membership->getUserMembershipDetails(); 
-
-        // Get Membership Details By Type
-        $data['membership_details'] = $membership->getMembershipDetailsByType($data['user_membership_details']->membership_type); 
-         
-        $data['remaining_bids'] = (int) ($data['membership_details']->total_bids) - ($data['user_membership_details']->bids_used);
-
-        return view('backend.dashboard.dashboard', $data);   // backend/dashboard/dashboard
-
-    }
-    
 
 }

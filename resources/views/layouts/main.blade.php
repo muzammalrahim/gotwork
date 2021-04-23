@@ -22,6 +22,15 @@
     <script src="{{ asset('js/app.js') }}" defer></script>
     <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.8.0/dist/alpine.min.js" defer></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    {{-- Start: Page Styles --}}
+    <style>
+        .header-above i {
+            margin: 0px 5px 5px 4px !important;
+            padding-top: 8px !important;
+        }
+    </style>
+    {{-- End: Page Styles --}}
 </head>
 <body class="font-sans antialiased" style="padding: 0px !important">
 <!-- Header Start -->
@@ -62,16 +71,16 @@
                         <div class="hidden sm:block sm:ml-6">
                             <div class="flex space-x-4">
 
-                                <a class="h-8 w-8 rounded-full bg-gray-300 infoButton" href="">
-                                    <i class="fa fa-envelope-o m-2"></i>
+                                <a class="h-8 w-8 rounded-full bg-gray-300 mt-2" href="">
+                                    <i class="fa fa-envelope-o" style="margin: 0.6rem;"></i>
                                 </a>
-                                <span class="mt-1 text-white">info@gotwork.com</span>
-                                <span class="mt-1 text-white">|</span>
+                                <span class="mt-3 text-white">info@gotwork.com</span>
+                                <span class="mt-3 text-white">|</span>
 
                                 <a class="h-8 w-8 rounded-full bg-gray-300" href="">
                                     <i class="fa fa-wechat m-2"></i>
                                 </a>
-                                <span class="mt-1 text-white">Ask Your Question</span>
+                                <span class="mt-3 text-white">Ask Your Question</span>
 
                             </div>
                         </div>
@@ -136,7 +145,10 @@
             </div>
             <div class="flex-1 flex sm:items-stretch justify-end">
                 <div class="h-12 text-sm text-grey-dark flex float-right">
-                    <p>About us</p>
+                    <div>
+                        <a href="#" class="hidden top-0 right-0 px-6 sm:block">About us</a>
+                    </div>
+                    
                     @if (Route::has('login'))
                         <div class="hidden top-0 right-0 px-6 sm:block">
                             @auth
