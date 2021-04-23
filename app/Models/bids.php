@@ -4,14 +4,34 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\Traits\LogsActivity;
+
 
 use Auth;
 use DB;
 
-class bids extends Model
+class bids extends Model 
 {
-    use HasFactory;
+    use HasFactory, LogsActivity;
 
+    /* Start: Logging */
+        protected static $logName = 'bid';
+
+        protected static $logAttributes = ['proposal', 'bid_amount', 'project_delivery', 'awarded', 'awarded_at'];
+
+        //only the `created` and `updated` events will get logged automatically
+        protected static $recordEvents = ['created','updated'];
+
+        // protected static $ignoreChangedAttributes = ['password','updated_at'];
+
+        // To log changes only
+        protected static $logOnlyDirty = true;
+
+        public function getDescriptionForEvent(string $eventName): string
+        {
+            return "Bid has been {$eventName}";
+        }
+    /* End: Logging */
 
     
     public function storeBidData($data)

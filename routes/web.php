@@ -10,6 +10,8 @@ use App\Http\Controllers\QualificationController;
 use App\Http\Controllers\ExperienceController;
 use App\Http\Controllers\ProjectController;
 
+use Spatie\Activitylog\Models\Activity;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -32,7 +34,9 @@ Route::get('/auth/google/callback', [GoogleController::class, 'handleGoogleCallb
 
 require __DIR__.'/auth.php';
 
-
+Route::get('/activities', function () {
+    return Activity::orderBy('id','DESC')->get();
+})->name('activities');
 
 Route::get('/profile', [ProfileController::class, 'goToProfile'])->middleware(['auth'])->name('profile');
 

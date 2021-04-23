@@ -45,7 +45,7 @@ class ProjectController extends Controller
 
             
         $user = Auth::user();
-        // dd($user);
+        
         $data['user'] = $user;
         $data['title'] = 'Project Detail';
         
@@ -89,7 +89,7 @@ class ProjectController extends Controller
         if ($bid->id) {
             $increment_bids_used = $user_membership->incrementBidUsed();
             
-            return redirect()->back()->with('success', 'Bid has been placed successfully.');
+            return redirect()->route('myProjects')->with('success', 'Bid has been placed successfully.');
         }
         else {
             return redirect()->back()->with('error', 'Something Wrong! Bid not placed.');
