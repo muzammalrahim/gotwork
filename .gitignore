@@ -5,7 +5,7 @@
 /vendor
 /storage
 /.idea
-/.php-intel
+/.phpintel
 .env
 .env.backup
 .phpunit.result.cache

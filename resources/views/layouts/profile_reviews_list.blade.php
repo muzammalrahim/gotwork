@@ -44,14 +44,14 @@ $project_amount = App\Models\bids::where('project_id','=',$review->project->id)-
     >
       <!-- Start: Currency Symbol -->
       <span>
-        $
+        {{ ($project_amount)?$review->project->currency->symbol:'' }} 
       </span>
       <!-- End: Currency Symbol -->
       
       <!-- Start: Project Amount -->
       <span>
         {{-- $review->project->milestones->sum('amount') --}}
-        {{ $project_amount->bid_amount }}
+        {{ ($project_amount)?$project_amount->bid_amount:'' }}
       </span>
       <!-- End: Project Amount --> 
       
