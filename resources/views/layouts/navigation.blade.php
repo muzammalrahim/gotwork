@@ -63,6 +63,13 @@
                     </x-slot>
 
                     <x-slot name="content">
+
+                        @if(!request()->routeIs('profile'))
+                            <x-dropdown-link :href="route('profile')">
+                                {{ __('My Account') }}
+                            </x-dropdown-link>
+                        @endif
+
                         <!-- Authentication -->
                         <form method="POST" action="{{ route('logout') }}">
                             @csrf

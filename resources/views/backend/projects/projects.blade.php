@@ -41,8 +41,8 @@
                     </button>
                 </form>
                 
-                <div class="ml-4 lg:ml-0 md:ml-4 mr-4 mt-1 lg:col-span-1 md:col-span-2 sm:col-span-2 col-span-2 mt-4  lg:text-base md:text-base text-xs"> {{-- Results: 426582  --}} </div>
-                <form action="{{ route('projects') }}" method="get" class="flex lg:col-span-1 md:col-span-2 sm:col-span-2 col-span-2 md:w-60">  
+                <div class="ml-4 lg:ml-0 md:ml-4 mr-4 mt-1 lg:col-span-1 md:col-span-2 sm:col-span-2 col-span-2 mt-4  lg:text-base md:text-base text-xs md:w-20"> {{-- Results: 426582  --}} </div>
+                <form action="{{ route('projects') }}" method="get" class="flex lg:col-span-1 md:col-span-2 sm:col-span-2 col-span-2 md:w-60 md:-ml-10">  
                     <span class="mt-4">Sort by: </span> 
                     <div class="block lg:m-2">
                          <select name="sort" class="cursor-pointer lg:text-base md:text-base text-xs p-0 md:p-1 lg:p-1 ml-2 md:my-2 mt-4 mb-2 lg:mb-0 w-40" onchange="this.form.submit();">
