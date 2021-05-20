@@ -1,7 +1,21 @@
-======================== Zeeshan ================================================================
--> 4-20-2021: run composer dump-autoload -o bcz changed name of helper file from constants.php 
-			  to helpers.php.
-=================================================================================================
+======================== Zeeshan ==========================================================
+-> 4-20-2021: run composer dump-autoload -o bcz changed name of helper file from constants.php to helpers.php.
+-> work on view milestoes.......
+
+===========================================================================================
+ $schedule->call(function () {
+            foreach (User::all() as $user) {
+                if (Carbon::now() > $user->expire_date) {
+                     // Do what you have to do
+                }
+            }
+        })->everyMinute();
+To test it run php artisan schedule:run
+
+if it work add on your cron:
+
+* * * * * php /path/to/artisan schedule:run >> /dev/null 2>&1
+===========================================================================================
 
 ======================== Akmal ==============================
 

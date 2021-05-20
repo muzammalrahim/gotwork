@@ -42,3 +42,16 @@ function getProfileCompletedPercentage()
     $percentage = round(($point/$maximumPoints)*100);
     return $percentage."%";
 }
+
+// Get Project Sort Types
+function getProjectSortTypes()
+{
+    return [
+        'latest',
+        'oldest',
+        'lowest_price',
+        'highest_price',
+        'most_bids',
+        'fewer_bids'
+    ];
+}

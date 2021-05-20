@@ -7,7 +7,7 @@
 			<div class="grid grid-cols-12 gap-4">
 				<h1 class="col-span-11 text-base mt-10 font-bold"> Experience {{$loop->index+1}} </h1>
 				
-                <a href="{{ route('personal-experience.remove', ['id' => $exp->id]) }}" class="mt-2 pt-3 cursor-pointer text-red-600 bg-red-100" onclick="return confirm('Are you sure you want to delete this item?');"> <span class="text-red-600 text-lg m-9">X</span> </a>
+                <a href="{{ route('personal-experience.remove', ['id' => $exp->id]) }}" class="mt-2 pt-3 cursor-pointer text-red-600 bg-red-100" onclick="return confirm('Are you sure you want to delete this item?');"> <span class="text-red-600 text-lg m-9 md:m-4">X</span> </a>
 			</div>
 
             <form action="{{ route('personal-experience.update') }}" method="POST">

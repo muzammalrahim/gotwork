@@ -21,7 +21,7 @@ class CreateBidsTable extends Migration
             $table->double('bid_amount',8)->nullable();
             $table->double('project_delivery',2)->nullable();
             $table->longText('proposal')->nullable();
-            $table->enum('awarded',['Yes','No'])->default('No');
+            $table->enum('status',['pending','awarded','denied','cancelled'])->default('pending');
             $table->datetime('awarded_at')->nullable();
             $table->timestamps();
         });

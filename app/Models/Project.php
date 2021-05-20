@@ -48,6 +48,11 @@ class Project extends Model
             return $this->hasMany(bids::class,'project_id');
         }
 
+        public function projectTags()
+        {
+            return $this->hasMany(ProjectTag::class,'project_id');
+        }
+
 
         // belongsTo
         public function projectType()
