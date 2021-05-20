@@ -13,8 +13,12 @@
 
 
 
-    <div class="abcdef px-24 mt-8">
+    <div class=" px-24 mt-8">
 
+        {{-- Start: Alerts --}}
+            @include('layouts.alerts')
+        {{-- End: Alerts --}}
+        
         <div class="projectAnd text-3xl font-bold">
             {{$title}}
 
@@ -44,41 +48,29 @@
                 </a>
                 </li>
             </ul>
-            
-            {{-- 
-                <div class="flex my-3">
-                    <div class="w-8/12">
-                        <input class="w-full rounded" name="search" type="text" placeholder="Search for Projects" value="">
-                    </div>
-                    <div class="w-2/12">
-                        
-                       <span class="mx-3"> Show: </span>
-                   
-                        <select name="sort" class="cursor-pointer">
-                            <option>10</option>
-                            <option>20</option>
-                            <option>50</option>
-                            <option>100</option>
-                        </select>
-                    </div>
-                    <div class="w-2/12">View:
-                    
-                        <select name="sort" class="cursor-pointer  ml-3">
-                            <option>All</option>
-                            <option>Recruiter</option>
-                        </select>
-                    </div>
-                </div>
-            --}}
                 
 
             <div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded">
                 <div class="px-4 flex-auto">
                     <div class="tab-content tab-space">
-                        {{-- Open Project --}}
-                        <div class="block h-72 py-16 text-center" id="tab-profile">
-                            @include('backend.my-projects.client.open_projects')
-                        </div>
+
+                        {{-- Start: Notice --}}
+                            <div class="alert  bg-yellow-400 border border-yellow-500 p-5 delay-500">
+                                <span class="closebtn ml-2 text-red-700 font-bold float-right text-2xl leading-5 cursor-pointer" onclick="this.parentElement.style.display='none';">&times;</span> 
+                              
+                                <strong>Note:</strong>
+                                <p>Bids that are <strong>awarded</strong> and waiting for acceptance by the freelancer would have "yellow" as background.</p>
+                                <p>Bids that are <strong>denied</strong> by the freelancer would have "red" as background.</p>
+                              
+                            </div>
+                        {{-- End: Notice --}}
+
+
+                        {{-- Start: Open Projects --}}
+                            <div class="block h-72 py-16 text-center" id="tab-profile">
+                                @include('backend.my-projects.client.open_projects')
+                            </div>
+                        {{-- End: Open Projects --}}
 
                         {{-- Work in progress --}}
 

@@ -18,7 +18,7 @@ class CreateMilestonesTable extends Migration
             $table->unsignedInteger('bid_id')->nullable();
             $table->string('task')->nullable();
             $table->string('amount')->nullable();
-            $table->enum('milestone_status',['Accepted','Pending','Released'])->default('Pending');
+            $table->enum('milestone_status',['Accepted','Pending','Released','Inprogress','Completed'])->default('Pending');
             $table->timestamps();
         });
     }

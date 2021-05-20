@@ -29,7 +29,7 @@ class CreateProjectsTable extends Migration
             */
             $table->double('min_amount', 8, 2)->nullable();
             $table->double('max_amount', 8, 2)->nullable();
-            $table->enum('status',['Active','Deleted','Completed','Assigned'])->default('Active');
+            $table->enum('status',['Active','Deleted','Completed','Assigned','Cancelled'])->default('Active');
             $table->dateTime('expires_at')->nullable();
             $table->timestamps();
         });

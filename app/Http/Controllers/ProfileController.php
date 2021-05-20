@@ -8,6 +8,7 @@ use App\Models\UserSkill;
 use App\Models\Skill;
 use App\Models\Experience;
 use App\Models\Review;
+use App\Models\Project;
 
 use Auth;
 
@@ -17,51 +18,77 @@ use Validator;
 
 class ProfileController extends Controller
 {
+    // Global Variables
+        private $default_selected_skill = 'Laravel';
+    // End Global Variables
+
+
     // Function: GoTo Profile 
 	public function goToProfile(Request $request)
     {
         // Intialization
             $user = new User;
+            $project = new Project;
+            $user_skills = new UserSkill;
             $data = []; 
             $project_tags = [];
             $user_countries = [];
             $user_universities = [];
+            $data['selected_reviews'] = $request->get('reviews');
         // End Intialization
 
+        /*    
+        $user_default_skills = $user_skills
+                            ->join('skills','user_skills.skill_id' ,'=', 'skills.id')
+                            ->where('user_skills.user_id', '=' , Auth::user()->id)
+                            ->get();
+        dd($user_default_skills);
+        */
+
+
+        // dd($request->get('reviews'));
+        if (!$request->get('reviews')) {
+            $url = $request->url();
             
+            // Appending to query string for default selected
+            return redirect()->to($url.'?reviews='.$this->default_selected_skill);
+        }    
 
     	if ( isset(Auth::User()->id) &&  isset(Auth::User()->email_verified_at) ) {
 
             $id = Auth::user()->id;
 
             // Get User Rating
-            $data['user_rating'] = self::getUserRatingCount($id); 
+            $data['user_rating'] = $this->getUserRatingCount($id); 
 
             // Get User Reviews Count
-            $data['user_reviews_count'] = self::getUserReviewsCount($id);
+            $data['user_reviews_count'] = $this->getUserReviewsCount($id);
 
             // Fetching Current User Skills 
-            $user_skill = self::getUserSkills($id);
+            $user_skill = $this->getUserSkills($id);
 
 
+            
             if ($request->get('reviews')) {
                 // Filered Reviews
+                if ($request->get('reviews')=='view_all') {
+                    $user_reviews = $this->getUserReviews();
+                    //dd($user_reviews);
+                }
+                else {
+                    $user_skill_id = $this->getSkillIdByName($request->get('reviews'));
+                    
+                    // Get User Reviews By Skill
+                    $user_reviews = $this->getUserReviewsBySkill($user_skill_id->id);
 
-                $user_skill_id = self::getSkillIdByName($request->get('reviews'));
-
-                $user_reviews = $user->find($id)->reviews()->where('skill_id','=', $user_skill_id->id)->paginate(2);
+                }
             }
             else {
                 // All Reviews
-                $user_reviews = $user->find($id)->reviews()->paginate(2);
+                $user_reviews = $this->getUserReviews();
             }
-
             
-            if ($user_reviews) {
-                foreach ($user_reviews as $reviews) {
-                    $data['project_tags'] = self::getProjectTags($reviews);
-                } 
-            }
+
 
             // Fetching Current User Experiences 
             $data['user_details'] = $user->with('experiences','educations','qualifications')->where(['id'=>$id])->orderBy('id','DESC')->get();
@@ -248,7 +275,7 @@ class ProfileController extends Controller
     {
         return DB::table('tags')
             ->join('project_tags', 'project_tags.tag_id','=','tags.id')
-            ->where('project_tags.project_id','=',$reviews->project_id)
+            ->where('project_tags.project_id','=',$reviews->review_project_id)
             ->get();
     }  
 
@@ -402,5 +429,41 @@ class ProfileController extends Controller
     public function getUserSkillFromDB($skill_id)
     {
         return DB::table('user_skills')->where('user_id', '=', Auth::user()->id)->where('skill_id','=', $skill_id)->count();
+    }
+
+    // Get user reviews
+    public function getUserReviews()
+    {
+        // Initialization
+            $project = new Project;
+        // End Initialization
+
+        return $project
+                ->join('reviews', 'projects.id', '=', 'reviews.project_id')
+                ->where('reviews.user_id','=',Auth::user()->id)
+                //->orWhere('projects.assignee_id','=',Auth::user()->id)
+                ->select('projects.*', 'reviews.id as review_id', 'reviews.user_id as review_user_id', 'reviews.project_id as review_project_id', 'reviews.comment as review_comment', 'reviews.rating as review_rating', 'reviews.created_at as review_created_at', 'reviews.updated_at as review_updated_at')
+                ->orderBy('projects.id','DESC')
+                ->get();
+    }
+
+
+    // Get User Reviews By Skill
+    public function getUserReviewsBySkill($user_skill_id)
+    {
+        // Initialization
+            $project = new Project;
+        // End Initialization
+
+        return $project
+                ->join('reviews', 'projects.id', '=', 'reviews.project_id')
+                ->join('project_skills', 'projects.id' , '=', 'project_skills.project_id')
+                ->join('project_tags', 'projects.id', '=', 'project_tags.project_id')
+                ->where('projects.user_id','=',Auth::user()->id)
+                ->where('project_skills.skill_id', '=', $user_skill_id)
+                ->select('projects.*', 'reviews.id as review_id', 'reviews.user_id as review_user_id', 'reviews.project_id as review_project_id', 'reviews.comment as review_comment', 'reviews.rating as review_rating', 'reviews.created_at as review_created_at', 'reviews.updated_at as review_updated_at')
+                ->groupBy('id')
+                ->orderBy('id','DESC')
+                ->get();
     }
 }

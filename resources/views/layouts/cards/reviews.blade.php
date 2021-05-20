@@ -10,21 +10,21 @@
       <div class="border-b border-gray-300"> 
         <div class=" flex flex-wrap content-start ">
           <h3
-            class=" text-2xl font-semibold leading-normal mb-2 text-gray-800 mb-2"
+            class=" text-2xl font-semibold leading-normal mb-2 text-gray-800 mb-2 mr-8"
           >
             Reviews
           </h3>
 
-          <p class="ml-12 pl-20 md:ml-10 md:pl-11 lg:ml-44 lg:pl-56 px-1 lg:order-3 lg:text-right lg:self-center md:text-lg lg:text-lg leading-relaxed">
-            Filter reviews by: 
+          <p class="md:ml-52 lg:text-right lg:self-center md:text-lg lg:text-lg leading-relaxed">
+            Filter reviews by:&nbsp; 
           </p>
 
           <select id="filter_review_by_skill" name="filter_review_by_skill" onchange="filterReviewsTrigger()" class="ml-32 md:ml-0 lg:ml-0 lg:order-3 lg:text-right lg:self-center mb-1">
             @isset($user_skills)
-              <option value=" ">Select Skill</option>
-              <option value=" ">View All</option>
+              <option value=" " disabled>Select Skill</option>
+              <option value="view_all" {{('view_all'==$data['selected_reviews'])?'selected':''}}>View All</option>
               @foreach($user_skills as $skill)
-                 <option value="{{$skill->name}}">{{ $skill->name }}</option>
+                 <option value="{{$skill->name}}" {{($skill->name==$data['selected_reviews'])?'selected':''}}>{{ $skill->name }}</option>
               @endforeach
             @endisset
           </select>
@@ -44,7 +44,7 @@
         </div>
 
         <!-- Start: Pagination -->
-        {!! $user_reviews->fragment('reviews')->links() !!}
+        {{-- {!! $user_reviews->fragment('reviews')->links() !!} --}}
         <!-- End: Pagination -->
       @endisset
       <!-- End: Reviews List -->

@@ -46,13 +46,17 @@
                     <span class="mt-4">Sort by: </span> 
                     <div class="block lg:m-2">
                          <select name="sort" class="cursor-pointer lg:text-base md:text-base text-xs p-0 md:p-1 lg:p-1 ml-2 md:my-2 mt-4 mb-2 lg:mb-0 w-40" onchange="this.form.submit();">
-                            <option value=" ">Selct Sort Type</option>
-                            <option>Latest</option>
-                            <option>Oldest</option>
-                            <option>Lowest Price</option>
-                            <option>Highest Price</option>
-                            <option>Most Bids</option>
-                            <option>Fewer Bids</option>
+                            <option value=" "
+                            >
+                                Selct Sort Type
+                            </option>
+                            {{-- Getting Project Sort Types From Helpers --}}
+                            @foreach( getProjectSortTypes() as $project_sort )
+                                <option value="{{$project_sort}}" {{($project_sort==$selected_sort)?'selected':''}}
+                                >
+                                    {{ucFirst(str_replace('_',' ',$project_sort))}}
+                                </option>
+                            @endforeach
                         </select>
                     </div>
                 </form>

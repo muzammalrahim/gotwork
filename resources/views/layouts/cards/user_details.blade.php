@@ -70,7 +70,8 @@
           <div class="text-gray-500 text-center flex items-center justify-center rounded-full">
             <svg width="20" height="20" viewBox="0 0 20 20" fill="currentColor" class="transform transition-transform duration-500 ease-in-out"><path fill-rule="evenodd" d="M5 3a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2V5a2 2 0 00-2-2H5zm0 2h10v7h-2l-1 2H8l-1-2H5V5z" clip-rule="evenodd"></path></svg>
             
-            <p class="text-xs md:text-md lg:text-xl leading-relaxed md:mt-0 lg:mt-0">
+            {{-- class="text-xs md:text-md lg:text-xl leading-relaxed md:mt-0 lg:mt-0" --}}
+            <p>
               Joined {{ Auth::user()->created_at->format('F j, Y') }}
             </p>
           </div>

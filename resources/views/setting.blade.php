@@ -118,7 +118,7 @@
 
 
 
-			        		<button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-4 px-8 md:px-12 lg:px-12 text-xs md:text-base lg:text-base float-right mr-2 lg:mr-16 mt-2 mb-4 rounded">Update Profile</button>
+			        		<button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-4 px-8 md:px-12 md:py-2 lg:px-12 text-xs md:text-base lg:text-base float-right mr-2 lg:mr-16 mt-2 mb-4 rounded">Update Profile</button>
 			                
 			        	</form>
 

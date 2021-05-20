@@ -25,6 +25,7 @@ class DashboardController extends Controller
         private $pagination = '20';
         private $fixed_name;
         private $hourly_name;
+        private $default_selected_project_sort = 'lowest_price';
     // End Global Variables
 
     public function __construct()
@@ -34,7 +35,7 @@ class DashboardController extends Controller
     }
 
 
-    // Function: Go to Projects List 
+    // Function: Go to Dashboard 
     public function goToDashboard(Request $request){
 
         // Start: Model Initialization
@@ -91,10 +92,18 @@ class DashboardController extends Controller
 
                 $fixed_id = null;
                 $hourly_id = null;
+
+                $data['selected_sort'] = $request->get('sort');
             // End Initialization
 
             
-
+            if (!$request->get('sort')) {
+                $url = $request->url();
+                
+                // Appending to query string for default selected
+                return redirect()->to($url.'?sort='.$this->default_selected_project_sort);
+            } 
+            
         
             // Search Functionality
             if ($request->has('search') && $request->input('search') != '') {
@@ -204,31 +213,27 @@ class DashboardController extends Controller
             /* Start: Sort Functionality */
             if ($request->has('sort') && $request->input('sort') != '') {
                 
-                if ($request->sort == "Latest") {
+                if ($request->sort == "latest") {
                     $data['projects_list'] = $project
                     ->orderBy('id','DESC')
                     ->paginate($this->pagination);
-                } else if ($request->sort == "Oldest") {
+                } else if ($request->sort == "oldest") {
                     $data['projects_list'] = $project
                     ->orderBy('id','ASC')
                     ->paginate($this->pagination);
-                } else if ($request->sort == "Oldest") {
-                    $data['projects_list'] = $project
-                    ->orderBy('id','ASC')
-                    ->paginate($this->pagination);
-                } else if ($request->sort == "Lowest Price") {
+                } else if ($request->sort == "lowest_price") {
                     $data['projects_list'] = $project
                     ->select('projects.*')
                     ->orderBy('projects.min_amount', 'ASC')
                     ->paginate($this->pagination);
-                } else if ($request->sort == "Highest Price") {
+                } else if ($request->sort == "highest_price") {
                     $data['projects_list'] = $project
                     ->select('projects.*')
                     ->orderBy('projects.min_amount', 'DESC')
                     ->paginate($this->pagination);
-                } else if ($request->sort == "Most Bids") {
+                } else if ($request->sort == "most_bids") {
                     $data['projects_list'] = $project->withCount('bids')->orderBy('bids_count', 'desc')->paginate($this->pagination); 
-                } else if ($request->sort == "Fewer Bids") {
+                } else if ($request->sort == "fewer_bids") {
                     $data['projects_list'] = $project->withCount('bids')->orderBy('bids_count', 'asc')->paginate($this->pagination);
                 }
             }

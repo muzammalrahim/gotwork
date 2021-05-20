@@ -17,7 +17,7 @@ class bids extends Model
     /* Start: Logging */
         protected static $logName = 'bid';
 
-        protected static $logAttributes = ['proposal', 'bid_amount', 'project_delivery', 'awarded', 'awarded_at'];
+        protected static $logAttributes = ['proposal', 'bid_amount', 'project_delivery', 'status', 'awarded_at'];
 
         //only the `created` and `updated` events will get logged automatically
         protected static $recordEvents = ['created','updated'];
@@ -29,7 +29,7 @@ class bids extends Model
 
         public function getDescriptionForEvent(string $eventName): string
         {
-            return "Bid has been {$eventName}";
+            return "Bid {$eventName}";
         }
     /* End: Logging */
 
@@ -60,6 +60,48 @@ class bids extends Model
         }
 
         return with($bid);
+    }
+
+
+    public function updateBidData($data)
+    {
+    
+        $bid = bids::where('id','=', $data['bid_id'])->first();
+        //$bid->where('bi')
+        
+        $bid->bid_amount =  $data['bid_amount'];
+        
+        $bid->project_delivery =  $data['project_delivery'];
+        
+        $bid->proposal =  $data['proposal'];
+
+        $bid->update();
+
+
+        if ($bid->id) {
+            
+            foreach ($data['mile_stone'] as $mile_stone_data) {
+                if (isset($mile_stone_data)) {
+                    // $mile_stone = $mile_stone->updateMilestonesData($bid->id, $mile_stone_data);
+                    $milestone = new Milestone;
+                    $milestone = $milestone->updateMilestonesData($bid->id, $mile_stone_data);
+                }
+                
+            }
+        }
+
+        return with($bid);
+    }
+    
+
+
+
+
+
+
+    public function milestones()
+    {
+        return $this->hasMany(Milestone::class,'bid_id');
     }
     
 }
