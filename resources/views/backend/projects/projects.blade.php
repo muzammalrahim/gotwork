@@ -14,10 +14,14 @@
 
     <button class="bg-blue-600 hover:bg-blue-700 px-3 py-1 rounded text-white m-5 show-modal lg:hidden block">Filtering</button>
 
-
+    <!-- Start: Alert Messages -->
+        @include('layouts.alerts')
+    <!-- End: Alert Messages -->
 
 
     <div class="grid grid-cols-5 gap-3 mx-auto sm:px-6 lg:px-16 mb-3 lg:mt-8 mt-8">
+
+        
         
         {{-- Start: Projects Left Side Filters --}}
             @include('backend.includes.projects_left_side_filters')

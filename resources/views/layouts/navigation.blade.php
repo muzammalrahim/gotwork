@@ -45,6 +45,13 @@
                     </x-nav-link>
                 </div>
 
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link :href="route('project.post')" :active="request()->routeIs('project.post')" class="bg-blue-600 hover:bg-blue-700 w-40 px-3 py-3  md:w-36 md:px-2 md:py-2 md:w-40 md:px-3 md:py-2 text-white block mt-4 m-auto" style="color: white; padding-left: 2rem;">
+                        {{ __('Post Project') }}
+                    </x-nav-link>
+                    
+                </div>
+
             </div>
 
             <!-- Settings Dropdown -->
@@ -103,6 +110,41 @@
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
         </div>
+
+
+        @if(request()->routeIs('projectDetail'))
+            <div class="pt-2 pb-3 space-y-1">
+                <x-responsive-nav-link :href="route('projects')" :active="request()->routeIs('projectDetail')">
+                    {{ __('Details') }}
+                </x-responsive-nav-link>
+            </div>
+
+            
+            <div class="pt-2 pb-3 space-y-1">
+                <x-responsive-nav-link :href="route('proposals',['slug'=>Route::current()->slug])" :active="request()->routeIs('proposals')">
+                    {{ __('Proposals') }}
+                </x-responsive-nav-link>
+            </div>
+        @else
+            <div class="pt-2 pb-3 space-y-1">
+                <x-responsive-nav-link :href="route('projects')" :active="request()->routeIs('projects')">
+                    {{ __('Projects') }}
+                </x-responsive-nav-link>
+            </div>
+        @endif
+
+        <div class="pt-2 pb-3 space-y-1">
+            <x-responsive-nav-link :href="route('myProjects')" :active="request()->routeIs('myProjects') || request()->routeIs('client.projects')">
+                {{ __('My Projects') }}
+            </x-responsive-nav-link>
+        </div>
+
+        <div class="pt-2 pb-3 space-y-1">
+            <x-responsive-nav-link :href="route('project.post')" :active="request()->routeIs('project.post')">
+                {{ __('Post Project') }}
+            </x-responsive-nav-link>
+        </div>
+
 
         <!-- Responsive Settings Options -->
         <div class="pt-4 pb-1 border-t border-gray-200">

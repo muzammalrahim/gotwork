@@ -83,7 +83,15 @@ Route::any('/dashboard', [DashboardController::class, 'goToDashboard'])->middlew
 
 // Projects Page Routes
 Route::any('/projects', [DashboardController::class, 'projects'])->middleware(['auth'])->name('projects');
+
 Route::get('/projects/{slug}/details', [ProjectController::class, 'projectDetails'])->middleware(['auth'])->name('projectDetail');
+
+Route::get('/post/project', [ProjectController::class, 'goToPostProject'])->middleware(['auth'])->name('project.post');
+
+Route::post('/store/project', [ProjectController::class, 'storePostedProject'])->middleware(['auth'])->name('project.store');
+
+Route::post('/slug-check', [ProjectController::class, 'checkSlugInDb'])->middleware(['auth'])->name('slug.check');
+
 
 
 // My Projects Page Routes

@@ -8,4 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Currency extends Model
 {
     use HasFactory;
+
+
+    /* Start: Fetch Data Fuctions */
+		public function getCurrenciesList()
+		{
+			return Currency::orderBy('name','ASC')->get();
+		}
+	/* End: Fetch Data Fuctions */
 }

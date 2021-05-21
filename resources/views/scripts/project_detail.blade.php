@@ -8,7 +8,7 @@
 
 		
 		/* Start: Validations For Bid Form */
-			$('#bid_form textarea[name="proposal"]').blur(function(){
+			$('#bid_form textarea[name="proposal"]').blur(function() {
 		        if(!$(this).val()){
 		            $(".error_proposal").removeClass('hidden');
 		            $("#btn_place_bid").addClass('disabled');
@@ -19,7 +19,7 @@
 		        } 
 		    });
 
-		    $('#bid_form input[name="mile_stone[1][task]"]').blur(function(){
+		    $('#bid_form input[name="mile_stone[1][task]"]').blur(function() {
 		        if(!$(this).val()){
 		            $(".error_milestone_desc").removeClass('hidden');
 		            $("#btn_place_bid").addClass('disabled');
@@ -30,7 +30,7 @@
 		        } 
 		    });
 
-		    $('#bid_form input[name="mile_stone[1][amount]"]').blur(function(){
+		    $('#bid_form input[name="mile_stone[1][amount]"]').blur(function() {
 		        if(!$(this).val()){
 		            $(".error_milestone_amount").removeClass('hidden');
 		            $("#btn_place_bid").addClass('disabled');
