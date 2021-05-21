@@ -12,10 +12,10 @@ class Education extends Model
     protected $fillable = [
         'user_id',
         'country_id',
-'university_id',
-'degree',
-'start_year',
-'end_year',
+		'university_id',
+		'degree',
+		'start_year',
+		'end_year',
     ];
 
 

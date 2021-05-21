@@ -33,7 +33,7 @@
 							
 							<div id="tabs-1">
 								<div class="heading lg:px-16 md:px-8 sm:px-2 px-2 lg:py-10 md:py-5 sm:py-2 py-2 border-b border-gray-300">
-			        				<h1 class="lg:text-3xl md:text-xl sm:text-xl font-bold"> Review Information </h1>    			
+			        				<h1 class="lg:text-2xl md:text-xl sm:text-xl font-bold -ml-1"> Review Information </h1>    			
 				        		</div>
 
 				        		<!-- Start: Alert Messages -->
@@ -74,7 +74,7 @@
 
 
 
-					        		<button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-4 px-8 md:px-12 md:py-2 lg:px-12 text-xs md:text-base lg:text-base float-right mr-2 lg:mr-16 mt-2 mb-4 rounded">Submit Review</button>
+					        		<button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-4 px-4 md:px-12 md:py-2 lg:px-12 text-xs md:text-base lg:text-base float-right mr-2 lg:mr-16 mt-2 mb-4 rounded">Submit Review</button>
 					        	</form>
 							</div>
 						</div>
@@ -84,7 +84,7 @@
 		</div>
 	</section>
 
-
+	<div class="bg-gray-700 h-16 mt-56"></div>
 </x-app-layout>
 
 @if(old('addDiv2') == 'addDiv2')

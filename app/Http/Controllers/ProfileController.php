@@ -131,14 +131,17 @@ class ProfileController extends Controller
     /* Start: Settings Page Functions */
     public function goToSetting(Request $Request)
     {   
+        // Intialization
+            $skill = new Skill;
+            $user = Auth::user();
+        // End Intialization
 
-        $user = Auth::user();
-        // dd($user);
+        
         $data['alive_div'] = null;
         $data['user'] = $user;
         $data['experience'] = Experience::where('user_id' , $user->id)->get();
         $data['countries'] = DB::table('countries')->get();
-        $data['skills'] = DB::table('skills')->orderBy('name','ASC')->get();
+        $data['skills'] = $skill->getSkillsList();
 
         return view('setting',$data);
     }   

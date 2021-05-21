@@ -9,6 +9,10 @@ use App\Models\UserMembership;
 use App\Models\Project;
 use App\Models\Milestone;
 use App\Models\bids;
+use App\Models\Skill;
+use App\Models\Category;
+use App\Models\ProjectType;
+use App\Models\Currency;
 
 use Auth;
 use Validator;
@@ -381,6 +385,78 @@ class ProjectController extends Controller
             return redirect()->back()->with('error', 'Something Wrong! Project not cancelled.');
         }
     }
+
+
+    // Go To Post Project Page
+    public function goToPostProject()
+    {
+        // Intialization
+            $skill = new Skill;
+            $category = new Category;
+            $project_type = new ProjectType;
+            $currency = new Currency;
+        // End Intialization
+
+        $data['skills'] = $skill->getSkillsList();
+        $data['categories'] = $category->getCategoriesList();
+        $data['project_types'] = $project_type->getProjectTypesList();
+        $data['currencies'] = $currency->getCurrenciesList();
+
+        return view('backend.projects.post_project', $data);
+    }
+
+    // Store Posted Project
+    public function storePostedProject(Request $request)
+    {
+        // Intialization
+            $project = new Project;
+            $data = $request->input();
+        // End Intialization
+
+        $validator = $this->validateStorePostedProject($request->all());
+
+        if ($validator->fails()) {
+            return redirect()
+            ->back()
+            ->withErrors($validator)
+            ->withInput();
+        }
+
+        $project = $project->storePostedProject($data);
+
+        if ( $project->id ) {
+            return redirect('projects')->with('success', 'Project Has Been Successfully Posted.');
+        }
+        else {
+            return redirect()->back()->with('error', 'Project Posting Error.');
+        }
+    } 
+
+    // Check Slug In Db
+    public function checkSlugInDb(Request $request)
+    {
+        try {
+            if ( $request->ajax() ) {
+                // Intialization
+                    $data = $request->input();
+                    $project = new Project;
+                // End Intialization
+                
+                $project = $project->getProjectDetailsBySlug($data['slug']);
+
+                if (!is_null($project)) {
+                    return response()->json(['error'=>'Slug already exists.']);
+                }
+            }
+        } catch (Exception $e) {
+            return response()->json(['error'=>'Slug error.']);
+        }
+    }
+
+
+
+
+
     
 
 
@@ -420,6 +496,21 @@ class ProjectController extends Controller
                 'mile_stone.*.task' => 'required|string|max:255',
                 'mile_stone.*.amount' => 'required|regex:/^\d+(\.\d{1,2})?$/',
                 'proposal'  => 'required|string|max:1000',
+            ]);
+        }
+
+        public function validateStorePostedProject(array $data)
+        {
+            return Validator::make($data, [
+                'category' => 'required|integer',
+                'title'  => 'required|string|max:300',
+                'slug'  => 'required|unique:projects',
+                'description'  => 'required|string|max:1000',
+                'skill' => 'required|integer',
+                'project_type' => 'required|integer',
+                'currency' => 'required|integer|bail|gt:0',
+                'min_amount' => 'required|integer|bail|gt:0',
+                'max_amount' => 'required|integer|bail|gt:0',
             ]);
         }
     /* End: Validations */
